@@ -1,0 +1,37 @@
+#view-event .perf-group-title {
+  background-color: var(--border-color);
+  color: black;
+  padding: 1rem 3rem;
+  text-align: center;
+}
+
+#view-event .perf-item {
+  border-bottom: 1px solid var(--border-color);
+  padding: 3rem;
+  height: 15rem;
+  line-height: 9rem;
+  font-size: 1.5em;
+}
+
+#view-event .perf-item:last-child {
+  border: none;
+}
+
+#view-event .perf-item-icon {
+  float: left;
+  color: var(--pagetitle-bg-color);
+  margin-right: 3rem;
+}
+
+#view-event .perf-item-timefrom {
+  float: left;
+}
+
+#view-event .perf-item .perf-item-avail {
+  display: none;
+  float: right;
+}
+
+#view-event .perf-item.seat-allocation .perf-item-avail {
+  display: block;
+}

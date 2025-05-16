@@ -1,0 +1,80 @@
+{
+  "SectionCode": "dbpool",
+  "SectionName": "DB Pooling",
+  "AlertBox": {
+    "Type": "warning",
+    "Text": [
+      "SnApp has a default of a 1000 connections per db-pool category.",
+      "",
+      "While this is totally fine on self-managed installations, it would need to be **tuned for SAS** databases (such as MS Azure) where the number of available connections is limited depending on the plan purchased.",
+      "",
+      "The overall constraint that has to be granted is:",
+      "**The total number of SnApp max db-pool connections (Adding up different db-pool categories multiplied by the number of tomcats) have to be lower or minor than the SQLServer limit.**"
+    ]
+  },
+  "ParamGroupList": [
+    {
+      "Caption": "Pool Min/Max",
+      "ParamList": [
+        {
+          "ParamName": "VGS-DB_poolMin",
+          "ParamValue": "123"
+        },
+        {
+          "ParamName": "VGS-DB_poolMax",
+          "ParamValue": "123"
+        }
+      ],
+      "AlertBox": {
+        "Type": "info",
+        "Text": [
+          "Overrides the overall SnApp defaults (5 as MIN, 1000 as MAX)"
+        ]
+      }
+    },
+    {
+      "Caption": "Pool Per Category",
+      "ParamList": [
+        {
+          "ParamName": "VGS-DB_poolMax[category]",
+          "ParamValue": "123"
+        }
+      ],
+      "AlertBox": {
+        "Type": "info",
+        "Text": [
+          "Set a limit for a specific category.\\", 
+          "Possible categories are:",
+          "- **default**: Used by browser interfaces, such as: Backoffice, B2B, CallCenter, Mobile",
+          "- **service**: Used by SnApp services (ie: Scheduler, Consolidation queues, etc...) and asynchronous queues (ie: post-processes, outbound-queue)",
+          "- **cmd**: Used by APIs. Every API call whose implementation needs DB connection (almost every API) will use 1 connection per call.",
+          "- **doc**: Used for statistical reports.",
+          "",
+          "This \"categorization\" concept applies also to the parameter \"VGS-DB_poolMin\"."
+        ]
+      }
+    },
+    {
+      "Caption": "",
+      "ParamList": [
+        {
+          "ParamName": "VGS-DB_poolWaitTimeout",
+          "ParamValue": "10000"
+        },
+        {
+          "ParamName": "VGS-DB_poolIdleTimeout",
+          "ParamValue": "600000"
+        }
+      ],
+      "AlertBox": {
+        "Type": "info",
+        "Text": [
+          "Overrides the overall SnApp defaults for connection WAIT and IDLE timeouts.\\",
+          "SnApp defaults are 10 seconds for WAIT and 10 minutes for IDLE",
+          "",
+          "The \"categorization\" concept explained above applies to these parameters as well."
+        ]
+      }
+    }
+  ]
+}

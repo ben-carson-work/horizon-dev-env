@@ -1,0 +1,39 @@
+<ion-view view-title="{{LABELS['AccessPoint.Ready']}}" data-page="adm_redemption">
+  <ion-nav-buttons side="left">
+    <form name="manualBarcodeForm" ng-submit="manualBarcodeForm.$valid && validate()" novalidate ng-show="keyboardIsActive">
+      <input class="manual-barcode" required ng-model="data.mediaCode" type="text" placeholder="{{LABELS['Common.InsertBarcode']}}" autocomplete="off" autocorrect="off" autocapitalize="none">
+    </form>
+    <button class="button btn-usagetype" ng-click="scanUsageType()">
+      <img ng-src="{{scan.usageTypes[scan.selected]}}"/>
+    </button>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+      <button toggle-focus keyboardactive="{{keyboardIsActive}}" targetid="manual-barcode" class="button btn-keyboard" ng-click="toggleKeyboard()">
+        <img ng-src="{{appIcons.keyboard}}" ng-if="!keyboardIsActive"/>
+        <img ng-src="{{appIcons.keyboard_active}}" ng-if="keyboardIsActive"/>
+      </button>
+  </ion-nav-buttons>
+  
+  <ion-content class="padding" ng-show="validateData.length">
+    <div class="list">
+      <a class="validate item" ng-class="{'item-thumbnail-left': item.Match.ProfilePictureId}" ng-click="(item.ResultCode !== mediaNotFoundCode) && lookupService(item.usedMediaCode, item.Ticket.TicketId)" data-status="{{(item.ResultCode < 100) ? 'good' : 'bad'}}" ng-repeat="item in validateData track by $index">
+        <img ng-src="{{formatImageUrl(item.Match.ProfilePictureId, 'repository')}}" ng-if="item.Match.ProfilePictureId"/>
+        <h2>{{item.OperatorMsg}}</h2>
+        <p>
+          <span ng-if="item.ResultCode === mediaNotFoundCode">{{item.usedMediaCode}}</span>
+          <span ng-if="item.ResultCode !== mediaNotFoundCode">
+            <span class="validate-account">
+              {{item.Match.AccountDisplayName}}
+            </span>
+            <span class="validate-ticket">
+              {{item.Ticket.ProductName}}
+            </span>
+            <span class="validate-message">
+              {{item.SpecialMsg}}
+            </span>
+          </span>
+        </p>
+      </a>
+    </div>
+  </ion-content>
+</ion-view>

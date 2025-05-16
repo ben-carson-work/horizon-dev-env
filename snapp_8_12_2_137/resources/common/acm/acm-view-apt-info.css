@@ -1,0 +1,51 @@
+.apt-info-usage .apt-usage-field {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.apt-info-usage {
+  position: relative;
+  height: 4rem;
+  border-bottom: 1px solid var(--apt-border-color);
+}
+
+.apt-info-usage .apt-usage-icon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4rem;
+  height: 4rem;
+}
+
+.apt-info-usage [data-bind='usage.UsageDateTime'] {
+  position: absolute;
+  left: 4rem;
+  top: 0;
+  width: 14rem;
+  height: 2rem;
+}
+
+.apt-info-usage [data-bind='usage.AptLocationName'] {
+  position: absolute;
+  left: 18rem;
+  top: 0;
+  width: 14rem;
+  height: 2rem;
+}
+
+.apt-info-usage [data-bind='usage.ValidateResultDesc'] {
+  position: absolute;
+  left: 4rem;
+  top: 2rem;
+  width: 14rem;
+  height: 2rem;
+}
+
+.apt-info-usage [data-bind='usage.EventName'] {
+  position: absolute;
+  left: 18rem;
+  top: 2rem;
+  width: 14rem;
+  height: 2rem;
+}

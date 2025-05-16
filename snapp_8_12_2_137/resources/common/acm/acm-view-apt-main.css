@@ -1,0 +1,26 @@
+
+.apt-view[data-view='main'] .apt-line-result[data-resultstatus='good'] {
+  background-color: var(--base-green-color);
+  color: white;
+}
+
+.apt-view[data-view='main'] .apt-line-result[data-resultstatus='bad'] {
+  background-color: var(--base-red-color);
+  color: white;
+}
+
+.apt-view[data-view='main'] .apt-line-result[data-resultstatus='reentry'] {
+  background-color: var(--base-orange-color);
+  color: white;
+}
+
+.apt-view[data-view='main'] .apt-line-result[data-resultstatus='more-info'] {
+  background-color: var(--base-blue-color);
+  color: white;
+}
+
+
+.apt-view[data-view='main'] .apt-line-action[data-resultstatus='more-info'] {
+  background-color: var(--base-blue-color);
+  color: white;
+}

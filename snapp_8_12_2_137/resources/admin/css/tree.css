@@ -1,0 +1,98 @@
+ul.vgs-tree {
+  padding: 0px;
+  margin: 0px;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+ul.vgs-tree ul {
+  padding-left: 12px;
+}
+
+ul.vgs-tree li {
+  list-style-type: none;
+  line-height: 22px;
+  white-space: nowrap;
+}
+
+ul.vgs-tree .node {
+  display: inline-block;
+  padding: 1px 6px;
+  cursor: pointer;
+  height: 24px;
+}
+
+ul.vgs-tree li:not(.haschild) > .node {
+  margin-left: 16px;
+}
+
+ul.vgs-tree .node.drop-hover {
+  cursor: crosshair;
+}
+
+ul.vgs-tree .treemark {
+  display: none;
+  padding: 1px;
+  width: 16px;
+  height: 24px;
+  cursor: pointer;
+  text-align: center;
+}
+
+ul.vgs-tree li.haschild > .treemark {
+  display: inline-block;
+}
+
+ul.vgs-tree .tm-collapsed:hover,
+ul.vgs-tree .tm-exploded:hover {
+  color: var(--highlight-color);
+}
+
+ul.vgs-tree li.collapsed>ul {
+  display: none;
+}
+
+ul.vgs-tree .tm-collapsed {
+  display: none; 
+  color: rgba(0,0,0,0.5);
+}
+
+ul.vgs-tree .tm-exploded {
+  display: none; 
+  color: rgba(0,0,0,0.25);
+}
+
+ul.vgs-tree li.haschild.collapsed > .treemark .tm-collapsed {
+  display: inline; 
+}
+
+ul.vgs-tree li.haschild:not(.collapsed) > .treemark .tm-exploded {
+  display: inline; 
+}
+
+ul.vgs-tree .node .icon {
+  position: relative;
+  top: 3px;
+  width: 16px;
+  height: 16px;
+  margin-right: 3px;
+  vertical-align: baseline;
+}
+
+ul.vgs-tree .node:hover,
+ul.vgs-tree .node.drop-hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+ul.vgs-tree li.selected>.node {
+  background-color: var(--highlight-color) !important;
+}
+
+ul.vgs-tree li.selected>.node:hover,
+ul.vgs-tree li.selected>.node.drop-hover {
+  padding: 0px 5px;
+  border: 1px rgba(0,0,0,0.2) solid;
+}

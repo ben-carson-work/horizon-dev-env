@@ -1,0 +1,30 @@
+#caprealloc-matrix td {
+  border: 1px solid var(--matrix-border-color);
+}  
+
+#caprealloc-matrix thead td {
+  background-color: var(--matrix-title-bg-color);
+  text-align: center;
+  padding: 6px 12px;
+}
+
+#caprealloc-matrix td input.cell-value {
+  border: 0;
+  padding: 6px 12px;
+  text-align: right;
+}
+
+#caprealloc-matrix td input:focus-visible {
+  outline: 0;
+  background: var(--matrix-highligh-bg-color);
+}
+
+#caprealloc-matrix .caprealloc-threshold {
+  border-left: none;
+}
+
+#caprealloc-matrix .row-del {
+  background: white;
+  border-right: none;
+  padding: 0 4px;
+}

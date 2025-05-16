@@ -1,0 +1,46 @@
+.v-crud-group-control {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.v-crud-group-control[disabled='disabled'] {
+  opacity: 0.5;
+}
+
+.v-crud-control {
+  display: inline-block;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  overflow: hidden; 
+}
+
+.v-crud-control-title {
+  background-color: var(--border-color);
+  text-align: center;
+  text-transform: lowercase;
+  font-weight: bold;
+  font-size: 0.9em;
+  line-height: normal;
+  color: black;
+}
+
+.v-crud-item {
+  display: inline-block;
+  width: 30px;
+  line-height: 30px;
+  text-align: center;
+}
+
+.v-crud-item[data-selected="true"] {
+  background-color: var(--base-green-color);
+  color: white;
+}
+
+.v-crud-group-control:not([disabled='disabled']) .v-crud-item {
+  cursor: pointer;  
+}
+
+.v-crud-group-control:not([disabled='disabled']) .v-crud-item:not([data-selected='true']):hover {
+  background: var(--border-color);
+}

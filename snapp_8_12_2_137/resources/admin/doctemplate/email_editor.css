@@ -1,0 +1,81 @@
+.email-editor .lang-tab-content[data-plainhtml='true'] .ckeditor-container,
+.email-editor .lang-tab-content[data-plainhtml='true'] .btn-plain-html {
+  display: none;
+}
+
+.email-editor .lang-tab-content[data-plainhtml='false'] .codemirror-container,
+.email-editor .lang-tab-content[data-plainhtml='false'] .btn-editor-html,
+.email-editor .lang-tab-content[data-plainhtml='false'] .btn-preview {
+  display: none;
+}
+
+.email-editor .lang-tab-content {
+  border: 1px solid var(--border-color);
+  border-top-width: 0;
+}
+
+.email-editor #lang-tabs-container {
+  margin-top: 10px;
+  background: initial;
+}
+
+.email-editor .btn-close-tab {
+  display: none;
+  margin-left: -10px;
+  margin-right: 10px;
+  width: 16px;
+  height: 16px;
+  color: rgba(0,0,0,0.25);
+  text-align: right;
+  cursor: pointer;
+}
+.email-editor .btn-close-tab:hover {
+  color: var(--highlight-color);
+}
+.email-editor .v-tabs-active .btn-close-tab {
+  display: inline-block;
+}
+
+.email-editor .cke {
+  border: none;
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+}
+
+.email-editor .lang-tab-content input.txt-subject:focus {
+  outline: none;
+}
+
+.email-editor .lang-tab-content .subject-container {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-color);
+  background-color: white;
+}
+
+.email-editor .lang-tab-content input.txt-subject {
+  flex-grow: 1;
+  flex-shrink: 1;
+  border: 0;
+  border-radius: 0;
+  line-height: 28px;
+  font-weight: bold;
+  padding: 4px;
+}
+
+.email-editor .lang-tab-content .lang-buttons {
+  flex-grow: 0;
+  flex-shrink: 0;
+  margin: 5px;
+}
+
+.email-editor .CodeMirror {
+  border-bottom-left-radius: var(--widget-border-radius);
+  border-bottom-right-radius: var(--widget-border-radius);
+  height: 700px;
+}
+
+.email-editor.readonly .CodeMirror {
+    background: var(--body-bg-color);
+}

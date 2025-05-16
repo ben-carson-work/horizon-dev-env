@@ -1,0 +1,12 @@
+.v-timepicker {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.v-timepicker-hh, .v-timepicker-mm {
+  width: 70px;
+}
+
+.v-timepicker-hh {
+  margin-right: 5px;
+}

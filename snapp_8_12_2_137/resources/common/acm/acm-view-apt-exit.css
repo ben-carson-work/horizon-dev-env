@@ -1,0 +1,9 @@
+.apt-view[data-view='exit'] .apt-left-container {
+  background: var(--base-green-color);
+  color: white;
+  font-size: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+}

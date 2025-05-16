@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DOEnt_DocTemplate>
+	<Header>
+		<EntityType>37</EntityType>
+		<EntityId>46BA5D8F-CB0E-3071-0046-015B8108BA35</EntityId>
+		<LastUpdate>2018-12-17T11:36:00.000+0100</LastUpdate>
+	</Header>
+	<DocTemplate>
+		<IconName>rpt-dataexport.png</IconName>
+		<EntityType>37</EntityType>
+		<DocTemplateId>46BA5D8F-CB0E-3071-0046-015B8108BA35</DocTemplateId>
+		<DocTemplateName>Reservations by customer</DocTemplateName>
+		<DocTemplateCode>DOC74</DocTemplateCode>
+		<CategoryId>56E73AC4-0538-494A-B661-345BBBDE739D</CategoryId>
+		<DocEnabled>true</DocEnabled>
+		<ExecRequireLogin>true</ExecRequireLogin>
+		<DocTemplateType>5</DocTemplateType>
+		<DocEditorType>6</DocEditorType>
+		<SystemCode>ResByCustomer</SystemCode>
+		<DocContexts/>
+		<SaleForApproval>false</SaleForApproval>
+		<SaleOpen>false</SaleOpen>
+		<SalePaid>false</SalePaid>
+		<SaleCompleted>false</SaleCompleted>
+		<LogCount>1</LogCount>
+		<DataSourceSelection>false</DataSourceSelection>
+		<DataSourceId/>
+		<MaxDateRangeDays/>
+		<MediaRfidOptionType/>
+		<ParamList>
+			<Param>
+				<DocParamId>CDFDE1E0-4381-C846-028E-01669AEF7F67</DocParamId>
+				<DocTemplateId>46BA5D8F-CB0E-3071-0046-015B8108BA35</DocTemplateId>
+				<DocParamType>4</DocParamType>
+				<DocParamName>DateFrom</DocParamName>
+				<DocParamCaption>DATE FROM</DocParamCaption>
+				<DocParamDefault>[@CurrentDate]</DocParamDefault>
+				<Mandatory>false</Mandatory>
+			</Param>
+			<Param>
+				<DocParamId>EE763D13-1719-8DD3-028F-01669AEF7F6D</DocParamId>
+				<DocTemplateId>46BA5D8F-CB0E-3071-0046-015B8108BA35</DocTemplateId>
+				<DocParamType>4</DocParamType>
+				<DocParamName>DateTo</DocParamName>
+				<DocParamCaption>DATE TO</DocParamCaption>
+				<DocParamDefault>[@CurrentDate]</DocParamDefault>
+				<Mandatory>false</Mandatory>
+			</Param>
+			<Param>
+				<DocParamId>34698DC4-2B0B-AFAC-0290-01669AEF7F6E</DocParamId>
+				<DocTemplateId>46BA5D8F-CB0E-3071-0046-015B8108BA35</DocTemplateId>
+				<DocParamType>1</DocParamType>
+				<DocParamName>Z_AccountCode</DocParamName>
+				<DocParamCaption>@Account.Account</DocParamCaption>
+				<DocParamDefault/>
+				<Mandatory>false</Mandatory>
+			</Param>
+		</ParamList>
+		<DataSourceList>
+			<DataSource>
+				<Name>Default</Name>
+				<Code>4RVPC11ABKTQQTP</Code>
+				<SQL>
+					<![CDATA[select §§n  Convert(varchar, Sal.SaleFiscalDate, 103) as [Booking Date],§§n  (§§n    select Convert(varchar, Min(T.TransactionDateTime), 103)§§n    from§§n      tbTransaction T inner join§§n      tbPayment P on P.TransactionId=T.TransactionId§§n    where§§n      T.SaleId=Sal.SaleId§§n  ) as [Payment Date],§§n  Sal.SaleCode as PNR,§§n  Cast(Sal.Approved as int) as [Approved],§§n  Cast(Sal.Paid as int) as [Paid],§§n  Cast(Sal.Encoded as int) as [Encoded],§§n  Cast(Sal.Printed as int) as [Printed],§§n  Cast(Sal.Validated as int) as [Validated],§§n  Cast(Sal.Completed as int) as [Completed],§§n  Wks.WorkstationName as [Workstation Name],§§n  (§§n    select top 1 Usr.DisplayName§§n    from§§n      tbTransaction Trn inner join§§n      tbAccount Usr on Usr.AccountId=Trn.UserAccountId§§n    where§§n      Trn.SaleId=Sal.SaleId§§n    order by§§n      Trn.TransactionDateTime desc§§n  ) as [User],§§n  Stuff((§§n    select ', ' + CAT.CategoryName§§n    from§§n      tbCategory2Entity C2E inner join§§n      tbCategory CAT on CAT.CategoryId=C2E.CategoryId§§n    where C2E.EntityId=Acc.AccountId§§n    order by CAT.CategoryName§§n    FOR XML PATH('')§§n  ), 1, 2, '') as [Account Category],§§n  Acc.DisplayName as [Account],§§n  Loc.DisplayName as [Location Name],§§n  Evn.EventName as [Event],§§n  Prod.ProductName as [Product],§§n  Stuff((§§n      select ', ' + AttributeItemName§§n      from§§n        tbSaleItem2AttributeItem SI2AI left outer join§§n        tbAttributeItem AI on AI.AttributeItemId=SI2AI.AttributeItemId left outer join§§n        tbAttribute A on A.AttributeId=AI.AttributeId§§n      where§§n        SI2AI.SaleItemId=SI.SaleItemId and§§n        SI2AI.Optional<>0§§n      order by§§n        A.AttributeWeight,§§n        AI.AttributeItemName§§n      FOR XML PATH('')§§n    ), 1, 1, '') as [Attributes],§§n  convert(varchar, Perf.DateTimeFrom, 103) as [Performance Date,§§n  SubString(convert(varchar, Perf.DateTimeFrom, 108), 1, 5) as [Performance Time],§§n  SI.Quantity as [Quantity],§§n  SI.UnitAmount as [Unit Price],§§n  SI.TotalAmount as [Total Amount],§§n  (§§n    select top 1 Coalesce(Plg.PluginName, Drv.DriverName)§§n    from§§n      tbTransaction Trn inner join§§n      tbPayment Pay on Pay.TransactionId=Trn.TransactionId inner join§§n      tbPlugin Plg on Plg.PluginId=Pay.PluginId inner join§§n      tbDriver Drv on Drv.DriverId=Plg.DriverId§§n    where§§n      Trn.SaleId=Sal.SaleId§§n  ) as [Payment],§§n  Stuff((§§n      select distinct§§n      	'|' + SS.SaleCode§§n      from §§n    	tbEntityLink EL left join§§n    	tbSale SS on SS.SaleId=EL.SrcEntityId§§n      where §§n    	EL.DstEntityId=Sal.SaleId§§n      FOR XML PATH('')§§n    ), 1, 1, '') as [Source PNR],§§n  Stuff((§§n      select distinct§§n      	'|' + SS.SaleCode§§n      from §§n    	tbEntityLink EL left join§§n    	tbSale SS on SS.SaleId=EL.DstEntityId§§n      where §§n    	EL.SrcEntityId=Sal.SaleId and§§n        DstEntityType=21 --Sale§§n      FOR XML PATH('')§§n    ), 1, 1, '') as [Destination PNRs]                                          §§n from§§n  tbSale Sal left outer join§§n  tbSale2Account S2A on S2A.SaleId=Sal.SaleId and S2A.SaleAccountType=1 left outer join§§n  tbWorkstation Wks on Wks.WorkstationId=Sal.WorkstationId left outer join§§n  tbAccount Acc on Acc.AccountId=S2A.AccountId left outer join§§n  tbSaleItem SI on SI.SaleId=Sal.SaleId left outer join§§n  tbProduct Prod on Prod.ProductId=SI.ProductId left outer join§§n  tbPerformance Perf on Perf.PerformanceId=SI.PerformanceId left outer join§§n  tbEvent Evn on Evn.EventId=Perf.EventId left outer join§§n  tbAccount Loc on Loc.AccountId=Perf.LocationAccountId§§nwhere§§n  Sal.SaleStatus=1 and§§n  Sal.SaleFiscalDate>=:@DateFrom and§§n  Sal.SaleFiscalDate<=:@DateTo and§§n  :@Z_AccountCode is null or :@Z_AccountCode = Acc.AccountCode §§norder by§§n  Sal.SaleDateTime,§§n  Perf.DateTimeFrom,§§n  Prod.ProductName]]>
+				</SQL>
+			</DataSource>
+		</DataSourceList>
+	</DocTemplate>
+</DOEnt_DocTemplate>

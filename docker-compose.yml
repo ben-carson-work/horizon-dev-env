@@ -1,0 +1,46 @@
+services:
+  sqlserver:
+    platform: linux/amd64
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqldemo
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "P@ssw0rd"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+    volumes:
+      - sqlvol:/var/opt/mssql
+    networks:
+      - vgsdemonet
+    restart: unless-stopped
+
+
+  tomcat:
+    platform: linux/amd64
+    image: tomcat:9.0-jdk8-temurin
+    container_name: tomcatdemo
+    environment:
+      CATALINA_OPTS: "-Xms4g -Xmx6g -Xloggc:gc.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC"
+      DBPASSWORD: "P@ssw0rd"
+    ports:
+      - "8080:8080"
+    volumes:
+      - tomcatvol:/usr/local/tomcat
+    depends_on:
+      - sqlserver
+    networks:
+      - vgsdemonet
+    restart: unless-stopped
+
+
+networks:
+  vgsdemonet:
+    driver: bridge
+
+
+volumes:
+  sqlvol:
+    name: sqlvol
+  tomcatvol:
+    name: tomcatvol

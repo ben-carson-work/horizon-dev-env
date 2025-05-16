@@ -1,0 +1,76 @@
+<ion-view view-title="{{LABELS['Common.Info']}}" data-page="{{dataPage}}" ng-controller="InfoCtrl">
+  <ion-content>
+    <div class="section" ng-if="info.userValue">
+      <div class="row" ng-click="logout(LABELS['Common.User'], info.userValue)">
+        <div class="col col-33">
+          {{LABELS['Common.User']}}
+        </div>
+        <div class="col col-67 arrow">
+          <img ng-src="{{appIcons.arrow_r}}"/>
+          {{info.userValue}}
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="row">
+        <div class="col col-33">
+          {{LABELS['Account.Location']}}
+        </div>
+        <div class="col col-67">
+          {{info.locationValue}}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col col-33">
+          {{LABELS['Account.OpArea']}}
+        </div>
+        <div class="col col-67">
+          {{info.operatingAreaValue}}
+        </div>
+      </div>
+
+      <div class="row" ng-click="resetLicense(info.workstationValue)" ng-if="info.workstationValue">
+        <div class="col col-33">
+          {{LABELS['Common.Workstation']}}
+        </div>
+        <div class="col col-67 arrow">
+          <img ng-src="{{appIcons.arrow_r}}"/>
+          {{info.workstationValue}}
+        </div>
+      </div>
+
+      <div class="row" data-id="{{info.operatingAreaId}}" ng-hide="hideGate" ng-click="goToGates()">
+        <div class="col col-33">
+          {{LABELS['AccessPoint.Gate']}}
+        </div>
+        <div class="col col-67 arrow">
+          <img ng-src="{{appIcons.arrow_r}}"/>
+          {{info.accessPointGateValue}}
+        </div>
+      </div>
+
+      <div class="row" ng-hide="hideAccessPoint">
+        <div class="col col-33">
+          {{LABELS['AccessPoint.AccessPoint']}}
+        </div>
+        <div class="col col-67">
+          {{info.accessPointValue}}
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="row" ng-click="goToMenu()">
+        <div class="col col-33">
+          {{LABELS['System.Apps']}}
+        </div>
+        <div class="col col-67 arrow">
+          <img ng-src="{{appIcons.arrow_r}}"/>
+          {{currentApplication}}
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

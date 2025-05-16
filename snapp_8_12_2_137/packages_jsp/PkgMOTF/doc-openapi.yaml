@@ -1,0 +1,126 @@
+openapi: 3.0.2
+info:
+  title: Accesso Horizon / MOTF RFID reader APIs
+  description: The api for submitting media codes read from RFID readers
+  license:
+    name: Proprietary License. All rights reserved.
+    url: https://www.accesso.com/solutions/ticketing/ticketing-visitor-management
+  contact:
+    name: accesso
+    url: https://www.accesso.com
+  termsOfService: https://accesso.com/solutions/ticketing/ticketing-visitor-management
+  version: '1.0'
+paths:
+  /mediaread:
+    post:
+      description: "Handle the event of a media read from the device"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MediaRead'
+        description: the entitlement or ticket to create
+        required: true
+      responses:
+        '200':
+          description: Media correctly received by the POS
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaReadResponse'
+        '400':
+          description: Invalid Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaReadResponse'
+        '401':
+          description: Unauthorized. Missing, Invalid or Expired Token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaReadResponse'
+        '403':
+          description: Forbidden Improper Scope
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaReadResponse'
+        '404':
+          description: Invalid end-point
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaReadResponse'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaReadResponse'
+      security:
+        - BearerAuth: []
+      tags:
+        - Horizon - MOTF
+        
+  /health-check:
+    get:
+      description: "Return health check status"
+      responses:
+        '200':
+          description: System ready to receive requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheckResponse'
+        '404':
+          description: Invalid end-point
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaReadResponse'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaReadResponse'
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheckResponse'
+      tags:
+        - Horizon - MOTF
+
+components:
+  schemas:
+    MediaRead:
+      properties:
+        type:
+          type: string
+          description: Only accepted values are the ones defined in driver's configuration
+          example: QUUPPA
+        mediaCode:
+          type: string
+          description: Alphanumeric string
+          minLength: 6
+          maxLength: 30
+          example: ABC123
+                
+    MediaReadResponse:
+      properties:
+        message:
+          type: string
+                
+    HealthCheckResponse:
+      properties:
+        message:
+          type: string
+
+  securitySchemes:
+    BearerAuth:
+      scheme: bearer
+      type: http
+      bearerFormat: JWT

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DOEnt_DocTemplate>
+	<Header>
+		<EntityType>37</EntityType>
+		<EntityId>ADF3057B-B6D3-DB8D-06CA-0163F3ACB97F</EntityId>
+		<LastUpdate>2019-04-15T15:22:00.000+0200</LastUpdate>
+	</Header>
+	<DocTemplate>
+		<IconName>receipt.png</IconName>
+		<EntityType>37</EntityType>
+		<DocTemplateId>ADF3057B-B6D3-DB8D-06CA-0163F3ACB97F</DocTemplateId>
+		<DocTemplateName>Standard 48 (Tax Exempt)</DocTemplateName>
+		<DocTemplateCode>B4HZKPVSQRQRXR2</DocTemplateCode>
+		<CategoryId>588BF595-7BC8-A2F1-02F1-0163F3ACA8FC</CategoryId>
+		<DocEnabled>true</DocEnabled>
+		<ExecRequireLogin>false</ExecRequireLogin>
+		<DocTemplateType>2</DocTemplateType>
+		<DocEditorType>3</DocEditorType>
+		<DocData><![CDATA[[@Transaction.Header]§§n§§n[@Transaction.LocationName {width:48; align:center}]§§n§§n[@Transaction.AlreadyPrinted {width:48; align:center}]§§n================================================§§n§§n[@ListStart {ds:SaleItemList}]§§n[@ListStart {ds:SaleItemList.PerformanceList}]§§n[@SaleItemList.PerformanceList.EventName {width:24; align:left}][@SaleItemList.PerformanceList.DateTimeFrom {format:ShortDateTime; width:23; align:right}]§§n[@ListEnd]§§n[@SaleItemList.ProductName]§§n[@ListStart {ds:SaleItemList.OptionList}]§§n ([@SaleItemList.OptionList.AttributeItemName {width:20; align:left}][@SaleItemList.OptionList.OptionalPrice {format:Currency; width:8; align:right}] [@ITL.Common.Included {transform:lowercase}])§§n[@ListEnd]§§n[@SaleItemList.Quantity {width:19; align:right}] x [@SaleItemList.UnitGrossFull {format:Currency; width:8; align:right}] = [@SaleItemList.TotalGrossFull {format:CurrencySymbol; width:15; align:right}][@ListEnd]§§n[@ListStart {ds:TotalModList}]§§n§§n[@TotalModList.Caption {width:32; align:right}] [@TotalModList.Amount {format:CurrencySymbol; width:15; align:right}]§§n[@ListEnd]§§n                                      __________§§n[@ITL.Common.Total {transform:uppercase; width:32; align:right}] [@Transaction.TotalAmount {format:CurrencySymbol; width:15; align:right}]§§n§§n================================================§§n[@ListStart {ds:PaymentList}]§§n[@PaymentList.PaymentDesc {width:32; align:right}] [@PaymentList.PaymentAmount {format:CurrencySymbol; width:15; align:right}]§§n[@ListEnd]§§n                                      __________§§n[@ITL.Payment.TotalTendered {transform:uppercase; width:32; align:right}] [@Transaction.PaymentTendered {format:CurrencySymbol; width:15; align:right}]§§n[@ITL.Payment.TotalBalance {transform:uppercase; width:32; align:right}] [@Transaction.PaymentBalance {format:CurrencySymbol; width:15; align:right}]§§n================================================§§n§§n[@ITL.Sale.PNR {transform:uppercase; width:24; align:right}]: [@Transaction.SaleCodeExt]§§n[@ITL.Common.Workstation {transform:uppercase; width:24; align:right}]: [@Transaction.WorkstationCode]§§n[@ITL.Common.DateTime {transform:uppercase; width:24; align:right}]: [@Transaction.TransactionDateTime {format:ShortDateTime}]§§n[@ITL.Common.Type {transform:uppercase; width:24; align:right}]: [@Transaction.TransactionTypeDesc]§§n§§n[@Transaction.TDSSN {width:50; align:center}]§§n<BARCODE [@Transaction.SaleCode]> §§n		]]></DocData>
+	</DocTemplate>
+</DOEnt_DocTemplate>

@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><DOEnt_DocTemplate><Header><EntityType>37</EntityType><EntityId>BEB2FAF5-CA04-4111-9B12-7B8AEBFBB432</EntityId><LastUpdate>2022-10-06T18:26:00.000+0200</LastUpdate></Header><DocTemplate><DocTemplateType>5</DocTemplateType><SystemCode>IncomeReport</SystemCode><DocContexts/><DocEnabled>true</DocEnabled><DataSourceSelection>false</DataSourceSelection><MediaEncoderPluginId/><MaxDateRangeDays/><IconName>rpt-pdf.png</IconName><ExecRequireLogin>true</ExecRequireLogin><IndividualPAH>false</IndividualPAH><DocTemplateName>@Stats.IncomeReport</DocTemplateName><DocData unescaped="true"><![CDATA[{
+  "PageWidth": 21,
+  "PageHeight": 29.7,
+  "MarginTop": 2,
+  "MarginBottom": 2,
+  "MarginLeft": 2,
+  "MarginRight": 2,
+  "UnitOfMeasure": "CM",
+  "Title": "[@ITL.Stats.IncomeReport]",
+  "DefaultFontSize": 10,
+  "BandList": [
+    {
+      "BandType": "title",
+      "Comp": {
+        "Height": 5.5
+      },
+      "CompList": [
+        {
+          "X": 0,
+          "Y": 0,
+          "Width": 7.5,
+          "Height": 4,
+          "Alignment": "right",
+          "FontStyle": "bold",
+          "Text": [
+            "[@ITL.Common.Date {transform:uppercase}]:",
+            "[@ITL.Account.Location {transform:uppercase}]:",
+            "[@ITL.Account.OpArea {transform:uppercase}]:",
+            "[@ITL.Common.Workstation {transform:uppercase}]:",
+            "[@ITL.Common.User {transform:uppercase}]:",
+            "[@ITL.Payment.PaymentMethod {transform:uppercase}]:",
+            "[@ITL.Common.Tag {transform:uppercase}]:"
+          ]
+        },
+        {
+          "X": 7.7,
+          "Y": 0,
+          "Width": 7.5,
+          "Height": 4,
+          "Text": [
+            "[@Param.DateFrom {format:ShortDate}] - [@Param.DateTo {format:ShortDate}]",
+            "[@Filters.LocationDesc]",
+            "[@Filters.OpAreaDesc]",
+            "[@Filters.WorkstationDesc]",
+            "[@Filters.UserDesc]",
+            "[@Filters.PaymentMethodDesc]",
+            "[@Filters.TagDesc]"
+          ]
+        },
+        {
+          "X": 0,
+          "Y": 4,
+          "Width": 17,
+          "Height": 0.8,
+          "Alignment": "center",
+          "FontStyle": "bold",
+          "FontSize": 16,
+          "Text": "[@ITL.Common.Recap {transform:uppercase}]"
+        }
+      ],
+      "BandList": []
+    },
+    {
+      "BandType": "detail",
+      "Comp": {
+        "Height": 0.5
+      },
+      "DataSourceName": "Payment",
+      "CompList": [
+        {
+          "X": 0,
+          "Y": 0.1,
+          "Width": 17,
+          "Height": 0.5,
+          "Text": "[@Payment.PaymentMethodName {translate:true}]"
+        },
+        {
+          "X": 0,
+          "Y": 0.1,
+          "Width": 17,
+          "Height": 0.5,
+          "Alignment": "right",
+          "Text": "[@Payment.Amount {format:CurrencySymbol}]"
+        }
+      ],
+      "BandList": [
+        {
+          "BandType": "GroupHeader",
+          "Comp": {
+            "Height": 0.5,
+            "BackgroundColor": "#ffffff",
+            "BorderBottomWidth": 0.5,
+            "BorderBottomColor": "#000000"
+          },
+          "CompList": [
+            {
+              "X": 0,
+              "Y": 0,
+              "Width": 5.8,
+              "Height": 0.5,
+              "FontStyle": "bold",
+              "Text": "[@ITL.Payment.PaymentMethod {transform:uppercase}]"
+            },
+            {
+              "X": 14,
+              "Y": 0,
+              "Width": 3,
+              "Height": 0.5,
+              "FontStyle": "bold",
+              "Alignment": "right",
+              "Text": "[@ITL.Common.Amount {transform:uppercase}]"
+            }
+          ],
+          "BandList": []
+        },
+        {
+          "BandType": "GroupFooter",
+          "Comp": {
+            "Height": 1.5
+          },
+          "IndexVars": "[@Payment.PaymentGroup]",
+          "CompList": [
+            {
+              "X": 4,
+              "Y": 0.1,
+              "Width": 13,
+              "Height": 0.6,
+              "BackgroundColor": "#ffffff",
+              "BorderTopColor": "#000000",
+              "BorderTopWidth": 0.5
+            },
+            {
+              "X": 4,
+              "Y": 0.2,
+              "Width": 13,
+              "Height": 1,
+              "FontStyle": "bold",
+              "Text": "[@Payment.PaymentGroup]"
+            },
+            {
+              "X": 13,
+              "Y": 0.2,
+              "Width": 4,
+              "Height": 1,
+              "Alignment": "right",
+              "Text": "[@Payment.Amount {aggregate:sum;format:CurrencySymbol}]"
+            }
+          ],
+          "BandList": []
+        },
+        {
+          "BandType": "GroupFooter",
+          "Comp": {
+            "Height": 3.5
+          },
+          "IndexVars": "[@Payment.GroupDummy]",
+          "CompList": [
+            {
+              "X": 0,
+              "Y": 2,
+              "Width": 17,
+              "Height": 0.8,
+              "Alignment": "center",
+              "FontStyle": "bold",
+              "FontSize": 16,
+              "Text": "[@ITL.Common.Details {transform:uppercase}]"
+            }
+          ],
+          "BandList": []
+        }
+      ]
+    },
+    {
+      "BandType": "detail",
+      "Comp": {
+        "Height": 0.5
+      },
+      "DataSourceName": "Item",
+      "CompList": [
+        {
+          "X": 0,
+          "Y": 0.1,
+          "Width": 5.8,
+          "Height": 0.5,
+          "Text": "[@Item.ProductName]"
+        },
+        {
+          "X": 7,
+          "Y": 0.1,
+          "Width": 2.5,
+          "Height": 0.5,
+          "Alignment": "right",
+          "Text": "[@Item.UnitAmount {format:CurrencySymbol}]"
+        },
+        {
+          "X": 8.7,
+          "Y": 0.1,
+          "Width": 2,
+          "Height": 0.5,
+          "Alignment": "right",
+          "Text": "[@Item.ActivityQty]"
+        },
+        {
+          "X": 10,
+          "Y": 0.1,
+          "Width": 2,
+          "Height": 0.5,
+          "Alignment": "right",
+          "Text": "[@Item.VoidQty]"
+        },
+        {
+          "X": 11.5,
+          "Y": 0.1,
+          "Width": 3,
+          "Height": 0.5,
+          "Alignment": "right",
+          "Text": "[@Item.ActivityTax {format:CurrencySymbol}]"
+        },
+        {
+          "X": 14,
+          "Y": 0.1,
+          "Width": 3,
+          "Height": 0.5,
+          "Alignment": "right",
+          "Text": "[@Item.ActivityAmount {format:CurrencySymbol}]"
+        }
+      ],
+      "BandList": [
+        {
+          "BandType": "GroupHeader",
+          "Comp": {
+            "Height": 0.5,
+            "BackgroundColor": "#ffffff",
+            "BorderBottomWidth": 0.5,
+            "BorderBottomColor": "#000000"
+          },
+          "CompList": [
+            {
+              "X": 0,
+              "Y": 0,
+              "Width": 5.8,
+              "Height": 0.5,
+              "FontStyle": "bold",
+              "Text": "[@ITL.Product.ProductType {transform:uppercase}]"
+            },
+            {
+              "X": 7,
+              "Y": 0,
+              "Width": 2.5,
+              "Height": 0.5,
+              "FontStyle": "bold",
+              "Alignment": "right",
+              "Text": "[@ITL.Stats.UnitPrice {transform:uppercase}]"
+            },
+            {
+              "X": 8.7,
+              "Y": 0,
+              "Width": 2,
+              "Height": 0.5,
+              "FontStyle": "bold",
+              "Alignment": "right",
+              "Text": "[@ITL.Common.Qty {transform:uppercase}]"
+            },
+            {
+              "X": 10,
+              "Y": 0,
+              "Width": 2,
+              "Height": 0.5,
+              "FontStyle": "bold",
+              "Alignment": "right",
+              "Text": "[@ITL.Stats.Void {transform:uppercase}]"
+            },
+            {
+              "X": 11.5,
+              "Y": 0,
+              "Width": 3,
+              "Height": 0.5,
+              "FontStyle": "bold",
+              "Alignment": "right",
+              "Text": "[@ITL.Common.Tax {transform:uppercase}]"
+            },
+            {
+              "X": 14,
+              "Y": 0,
+              "Width": 3,
+              "Height": 0.5,
+              "FontStyle": "bold",
+              "Alignment": "right",
+              "Text": "[@ITL.Common.Total {transform:uppercase}]"
+            }
+          ],
+          "BandList": []
+        },
+        {
+          "BandType": "GroupFooter",
+          "Comp": {
+            "Height": 1.5
+          },
+          "IndexVars": "[@Item.PrintGroup]",
+          "CompList": [
+            {
+              "X": 4,
+              "Y": 0.1,
+              "Width": 13,
+              "Height": 0.5,
+              "BackgroundColor": "#ffffff",
+              "BorderTopColor": "#000000",
+              "BorderTopWidth": 0.5
+            },
+            {
+              "X": 4,
+              "Y": 0.2,
+              "Width": 12,
+              "Height": 1,
+              "FontStyle": "bold",
+              "Text": "[@Item.PrintGroup]"
+            },
+            {
+              "X": 8.7,
+              "Y": 0.2,
+              "Width": 2,
+              "Height": 0.8,
+              "Alignment": "right",
+              "Text": "[@Item.ActivityQty {aggregate:sum}]"
+            },
+            {
+              "X": 10,
+              "Y": 0.2,
+              "Width": 2,
+              "Height": 0.8,
+              "Alignment": "right",
+              "Text": "[@Item.VoidQty {aggregate:sum}]"
+            },
+            {
+              "X": 11.5,
+              "Y": 0.2,
+              "Width": 3,
+              "Height": 0.8,
+              "Alignment": "right",
+              "Text": "[@Item.ActivityTax {aggregate:sum;format:CurrencySymbol}]"
+            },
+            {
+              "X": 14,
+              "Y": 0.2,
+              "Width": 3,
+              "Height": 0.8,
+              "Alignment": "right",
+              "Text": "[@Item.ActivityAmount {aggregate:sum;format:CurrencySymbol}]"
+            }
+          ],
+          "BandList": []
+        },
+        {
+          "BandType": "GroupFooter",
+          "Comp": {
+            "Height": 1.5
+          },
+          "IndexVars": "[@Item.GroupDummy]",
+          "CompList": [
+            {
+              "X": 0,
+              "Y": 0,
+              "Width": 17,
+              "Height": 0.5,
+              "BackgroundColor": "#ffffff",
+              "BorderTopColor": "#000000",
+              "BorderTopWidth": 0.5
+            },
+            {
+              "X": 0,
+              "Y": 0,
+              "Width": 12,
+              "Height": 1,
+              "FontStyle": "bold",
+              "Text": "[@ITL.Common.Total {transform:uppercase}]"
+            },
+            {
+              "X": 8.7,
+              "Y": 0,
+              "Width": 2,
+              "Height": 0.8,
+              "Alignment": "right",
+              "FontStyle": "bold",
+              "Text": "[@Item.ActivityQty {aggregate:sum}]"
+            },
+            {
+              "X": 10,
+              "Y": 0,
+              "Width": 2,
+              "Height": 0.8,
+              "Alignment": "right",
+              "FontStyle": "bold",
+              "Text": "[@Item.VoidQty {aggregate:sum}]"
+            },
+            {
+              "X": 11.5,
+              "Y": 0,
+              "Width": 3,
+              "Height": 0.8,
+              "Alignment": "right",
+              "FontStyle": "bold",
+              "Text": "[@Item.ActivityTax {aggregate:sum;format:CurrencySymbol}]"
+            },
+            {
+              "X": 14,
+              "Y": 0,
+              "Width": 3,
+              "Height": 0.8,
+              "Alignment": "right",
+              "FontStyle": "bold",
+              "Text": "[@Item.ActivityAmount {aggregate:sum;format:CurrencySymbol}]"
+            }
+          ],
+          "BandList": []
+        }
+      ]
+    }
+  ]
+}]]></DocData><DataSourceList><DataSource><Code>XZU2EJKGQV1RJZT</Code><Name>Filters</Name><SQL unescaped="true"><![CDATA[declare @DateFrom date; set @DateFrom=:@DateFrom;
+declare @DateTo date; set @DateTo=:@DateTo;
+declare @LocationId uniqueidentifier; set @LocationId=:@LocationId;
+declare @OpAreaId uniqueidentifier; set @OpAreaId=:@OpAreaId;
+declare @WorkstationId uniqueidentifier; set @WorkstationId=:@WorkstationId;
+declare @UserId uniqueidentifier; set @UserId=:@UserId;
+declare @PaymentMethodId uniqueidentifier; set @PaymentMethodId=:@Z_PaymentMethodId;
+declare @TagId uniqueidentifier; set @TagId=:@Z_TagId;
+
+select
+  /* LOCATION */
+  (case
+    when @OpAreaId is not null   then dbo.fnEntityDesc(6, (select ParentAccountId from tbAccount where AccountId=@OpAreaId))
+    when @LocationId is not null then dbo.fnEntityDesc(6, @LocationId)
+    else ''
+  end) as LocationDesc,
+
+  /* OPAREA */
+  (case
+    when :@OpAreaId is not null then dbo.fnEntityDesc(14, @OpAreaId)
+    else ''
+  end) as OpAreaDesc,
+  
+  /* WORKSTATION */
+  (case
+    when @WorkstationId is not null then dbo.fnEntityDesc(3, @WorkstationId)
+    else ''
+  end) as WorkstationDesc,
+  
+  /* USER */
+  (case
+    when @UserId is not null
+    then (
+      select ('[' + LA.UserName + '] ' + A.DisplayName) as UserDesc
+      from
+        tbAccount A left join 
+        tbLoginAlias LA on LA.AccountId=A.AccountId and LA.PrimaryAlias=1
+      where A.AccountId=@UserId
+    )
+    else ''
+  end) as UserDesc,
+  
+  /* PAYMENT METHOD */
+  (case
+    when @PaymentMethodId is not null then dbo.fnEntityDesc(1004, @PaymentMethodId)
+    else ''
+  end) as PaymentMethodDesc,
+  
+  /* TAG */
+  (case
+    when @TagId is not null
+    then (select (TagName) as UserDesc from tbTag where TagId=@TagId)
+    else ''
+  end) as TagDesc
+
+				
+				]]></SQL></DataSource><DataSource><Code>FV6FXP1C6MW3A0D</Code><Name>Item</Name><SQL unescaped="true"><![CDATA[declare @DateFrom date; set @DateFrom=:@DateFrom;
+declare @DateTo date; set @DateTo=:@DateTo;
+declare @LocationId uniqueidentifier; set @LocationId=:@LocationId;
+declare @OpAreaId uniqueidentifier; set @OpAreaId=:@OpAreaId;
+declare @WorkstationId uniqueidentifier; set @WorkstationId=:@WorkstationId;
+declare @UserId uniqueidentifier; set @UserId=:@UserId;
+declare @PaymentMethodId uniqueidentifier; set @PaymentMethodId=:@Z_PaymentMethodId;
+declare @TagId uniqueidentifier; set @TagId=:@Z_TagId;
+
+select
+  1 as GroupDummy,
+  Coalesce(PG.TagName, '-') as PrintGroup,
+  P.ProductCode,
+  P.ProductName,
+  (case when P.ProductType=2/*system*/ then null else SI.StatAmount end) as UnitAmount,
+  SI.UnitTax,
+  Sum(TI.QtyPaid) as ActivityQty,
+  Sum(TI.QtyPaid * SI.UnitTax) as ActivityTax,
+  Sum(TI.QtyPaid * SI.StatAmount) as ActivityAmount,
+  Sum(case when T.TransactionType in (14/*SaleVoid*/, 22/*TicketVoid*/, 46/*NegTrn*/, 47/*TicketCancellation*/, 48/*SaleCancellation*/) then -TI.QtyPaid else 0 end) as VoidQty
+from
+  tbTransaction T inner join
+  tbTransactionItem TI on TI.TransactionId=T.TransactionId inner join
+  tbSaleItem SI on SI.SaleItemId=TI.SaleItemId left join
+  tbProduct P on P.ProductId=SI.ProductId left join
+  tbTag PG on PG.TagId=P.PrintGroupTagId left join
+  tbAccount OPA on OPA.AccountId=T.OpAreaId
+where
+  T.SerialFiscalDate>=@DateFrom and
+  T.SerialFiscalDate<=@DateTo and
+  TI.QtyPaid<>0 and
+  (@WorkstationId is null or T.WorkstationId=@WorkstationId) and
+  (@OpAreaId is null or OPA.AccountId=@OpAreaId) and
+  (@LocationId is null or OPA.ParentAccountId=@LocationId) and
+  (@UserId is null or T.UserAccountId=@UserId) and
+  (
+    @PaymentMethodId is null or 
+    exists (
+      select * 
+      from tbPayment XP 
+      where 
+        XP.TransactionId=T.TransactionId and 
+        XP.PluginId=@PaymentMethodId and
+        XP.PaymentStatus=2/*approved*/
+    )
+  ) and
+  (@TagId is null or SI.ProductId in (select EntityId from tbTagLink where TagId=@TagId))
+group by
+  PG.TagName,
+  P.ProductCode,
+  P.ProductName,
+  (case when P.ProductType=2/*system*/ then null else SI.StatAmount end),
+  SI.UnitTax
+order by
+  PG.TagName,
+  P.ProductName
+				
+				]]></SQL></DataSource><DataSource><Code>JG95388J3W0TTRA</Code><Name>Payment</Name><SQL unescaped="true"><![CDATA[declare @DateFrom date; set @DateFrom=:@DateFrom;
+declare @DateTo date; set @DateTo=:@DateTo;
+declare @LocationId uniqueidentifier; set @LocationId=:@LocationId;
+declare @OpAreaId uniqueidentifier; set @OpAreaId=:@OpAreaId;
+declare @WorkstationId uniqueidentifier; set @WorkstationId=:@WorkstationId;
+declare @UserId uniqueidentifier; set @UserId=:@UserId;
+declare @PaymentMethodId uniqueidentifier; set @PaymentMethodId=:@Z_PaymentMethodId;
+declare @TagId uniqueidentifier; set @TagId=:@Z_TagId;
+
+select
+  1 as GroupDummy,
+  Coalesce(PG.TagName, '-') as PaymentGroup,
+  Coalesce(PM.PluginName, Drv.DriverName) as PaymentMethodName,
+  Sum(P.PaymentAmount) as Amount
+from
+  tbTransaction T inner join
+  tbPayment P on P.TransactionId=T.TransactionId and P.PaymentStatus=2 /* Approved */ inner join
+  tbPlugin PM on PM.PluginId=P.PluginId inner join
+  tbDriver Drv on Drv.DriverId=PM.DriverId left join
+  tbPluginPaymentMethod PPM on PPM.PluginId=P.PluginId left join
+  tbAccount OPA on OPA.AccountId=T.OpAreaId left join
+  tbTag PG on PG.TagId=PPM.PaymentGroupTagId
+where
+  T.SerialFiscalDate>=@DateFrom and
+  T.SerialFiscalDate<=@DateTo and
+  (@WorkstationId is null or T.WorkstationId=@WorkstationId) and
+  (@OpAreaId is null or OPA.AccountId=@OpAreaId) and
+  (@LocationId is null or OPA.ParentAccountId=@LocationId) and
+  (@UserId is null or T.UserAccountId=@UserId) and
+  (
+    @PaymentMethodId is null or 
+    exists (
+      select * 
+      from tbPayment XP 
+      where 
+        XP.TransactionId=T.TransactionId and 
+        XP.PluginId=@PaymentMethodId and
+        XP.PaymentStatus=2/*approved*/
+    )
+  ) and
+  (
+    @TagId is null or
+    exists (
+      select *
+      from
+        tbTransactionItem XTI inner join
+        tbSaleItem XSI on XSI.SaleItemId=XTI.SaleItemId inner join
+        tbTagLink XTGL on XTGL.EntityId=XSI.ProductId and XTGL.TagId=@TagId
+      where
+        XTI.TransactionId=T.TransactionId 
+    )
+  )
+
+group by
+  PG.TagName,
+  PM.PluginName,
+  Drv.DriverName
+having 
+  Sum(P.PaymentAmount)<>0
+order by
+  PG.TagName,
+  PM.PluginName
+
+				
+				]]></SQL></DataSource><DataSource><Code>9EJE6TX38GV1KRK</Code><Name>Recap</Name><SQL unescaped="true"><![CDATA[declare @DateFrom date; set @DateFrom=:@DateFrom;
+declare @DateTo date; set @DateTo=:@DateTo;
+declare @LocationId uniqueidentifier; set @LocationId=:@LocationId;
+declare @OpAreaId uniqueidentifier; set @OpAreaId=:@OpAreaId;
+declare @WorkstationId uniqueidentifier; set @WorkstationId=:@WorkstationId;
+declare @UserId uniqueidentifier; set @UserId=:@UserId;
+declare @PaymentMethodId uniqueidentifier; set @PaymentMethodId=:@Z_PaymentMethodId;
+declare @TagId uniqueidentifier; set @TagId=:@Z_TagId;
+
+select
+  Coalesce(Sum(T.TotalAmount), 0) as ActivityAmount,
+  Coalesce(Sum(T.ItemCount), 0) as ActivityQty,
+  Coalesce(Sum(case when T.TransactionType=22 /* TicketVoid */ then -T.ItemCount else 0 end), 0) as VoidQty,
+  Coalesce(Sum(case when T.TransactionType=22 /* TicketVoid */ then -T.PaidAmount else 0 end), 0) as VoidAmount,
+  Coalesce(Sum(T.PaidAmount), 0) as PaidAmount,
+  Coalesce(Sum(T.PaidTax), 0) as PaidTax,
+  Coalesce(Sum(T.PrintedCount), 0) as PrintedQty
+from
+  tbTransaction T left join
+  tbAccount OPA on OPA.AccountId=T.OpAreaId
+where
+  T.SerialFiscalDate>=@DateFrom and
+  T.SerialFiscalDate<=@DateTo and
+  (@WorkstationId is null or T.WorkstationId=@WorkstationId) and
+  (@OpAreaId is null or OPA.AccountId=@OpAreaId) and
+  (@LocationId is null or OPA.ParentAccountId=@LocationId) and
+  (@UserId is null or T.UserAccountId=@UserId) and
+  (
+    @PaymentMethodId is null or 
+    exists (
+      select * 
+      from tbPayment XP 
+      where 
+        XP.TransactionId=T.TransactionId and 
+        XP.PluginId=@PaymentMethodId and
+        XP.PaymentStatus=2/*approved*/
+    )
+  )and
+  (
+    exists (
+      select *
+      from
+        tbTransactionItem XTI inner join
+        tbSaleItem XSI on XSI.SaleItemId=XTI.SaleItemId inner join
+        tbTagLink XTGL on XTGL.EntityId=XSI.ProductId and XTGL.TagId=@TagId
+      where
+        XTI.TransactionId=T.TransactionId 
+    )
+  )
+
+				
+				]]></SQL></DataSource></DataSourceList><CategoryId>56E73AC4-0538-494A-B661-345BBBDE739D</CategoryId><SalePaid>false</SalePaid><SaleOpen>false</SaleOpen><SaleCompleted>false</SaleCompleted><ProductDocumentTagIDs/><MediaRfidOptionType/><SaleForApproval>false</SaleForApproval><ParamList><Param><DocParamId>B6532510-00C7-8C5B-0327-0183A737C799</DocParamId><DocParamType>4</DocParamType><DocParamName>DateFrom</DocParamName><DocParamCaption>@Common.FromDate</DocParamCaption><DocTemplateId>BEB2FAF5-CA04-4111-9B12-7B8AEBFBB432</DocTemplateId><DocParamDefault>[@CurrentDate]</DocParamDefault><Mandatory>false</Mandatory></Param><Param><DocParamId>C39693C0-31B5-0E30-032A-0183A737C79B</DocParamId><DocParamType>4</DocParamType><DocParamName>DateTo</DocParamName><DocParamCaption>@Common.ToDate</DocParamCaption><DocTemplateId>BEB2FAF5-CA04-4111-9B12-7B8AEBFBB432</DocTemplateId><DocParamDefault>[@CurrentDate]</DocParamDefault><Mandatory>false</Mandatory></Param><Param><DocParamId>075E395D-60C9-E84D-032B-0183A737C79C</DocParamId><DocParamType>1001</DocParamType><DocParamName>LocationId</DocParamName><DocParamCaption>@Account.Location</DocParamCaption><DocTemplateId>BEB2FAF5-CA04-4111-9B12-7B8AEBFBB432</DocTemplateId><DocParamDefault>[@CurrentLocationId]</DocParamDefault><Mandatory>false</Mandatory></Param><Param><DocParamId>1DD2B5B1-8B5A-B41B-032C-0183A737C79E</DocParamId><DocParamType>1002</DocParamType><DocParamName>OpAreaId</DocParamName><DocParamCaption>@Account.OpArea</DocParamCaption><DocTemplateId>BEB2FAF5-CA04-4111-9B12-7B8AEBFBB432</DocTemplateId><DocParamDefault>[@CurrentOpAreaId]</DocParamDefault><Mandatory>false</Mandatory></Param><Param><DocParamId>12E5F43F-86A8-8E93-032D-0183A737C79F</DocParamId><DocParamType>1004</DocParamType><DocParamName>UserId</DocParamName><DocParamCaption>@Common.User</DocParamCaption><DocTemplateId>BEB2FAF5-CA04-4111-9B12-7B8AEBFBB432</DocTemplateId><DocParamDefault>[@CurrentUserId]</DocParamDefault><Mandatory>false</Mandatory></Param><Param><DocParamId>78A65D30-D805-8674-032E-0183A737C7A0</DocParamId><DocParamType>1003</DocParamType><DocParamName>WorkstationId</DocParamName><DocParamCaption>@Common.Workstation</DocParamCaption><DocTemplateId>BEB2FAF5-CA04-4111-9B12-7B8AEBFBB432</DocTemplateId><DocParamDefault>[@CurrentWorkstationId]</DocParamDefault><Mandatory>false</Mandatory></Param><Param><DocParamId>F3E2D4E5-352A-0D85-0331-0183A737C7AD</DocParamId><DocParamType>1301</DocParamType><DocParamName>Z_PaymentMethodId</DocParamName><DocParamCaption>@Payment.PaymentMethod</DocParamCaption><DocTemplateId>BEB2FAF5-CA04-4111-9B12-7B8AEBFBB432</DocTemplateId><DocParamDefault/><Mandatory>false</Mandatory></Param><Param><DocParamId>867F7960-56DB-465B-0332-0183A737C7AF</DocParamId><DocParamType>1101</DocParamType><DocParamName>Z_TagId</DocParamName><DocParamCaption>Tag</DocParamCaption><DocTemplateId>BEB2FAF5-CA04-4111-9B12-7B8AEBFBB432</DocTemplateId><DocParamDefault/><Mandatory>false</Mandatory></Param></ParamList><DocTemplateId>BEB2FAF5-CA04-4111-9B12-7B8AEBFBB432</DocTemplateId><DocEditorType>5</DocEditorType><EntityType>37</EntityType><LogCount>14</LogCount><DataSourceId/><DocTemplateCode>DOC177</DocTemplateCode><RightList><Right><UsrEntityType>3</UsrEntityType><RightLevel>5</RightLevel><UsrEntityId>A0000131-0000-0000-0000-000000000003</UsrEntityId><IconName>station.png</IconName><UsrEntityCode/><UsrEntityName>Every station</UsrEntityName></Right><Right><UsrEntityType>15</UsrEntityType><RightLevel>2</RightLevel><UsrEntityId>A0000131-0000-0000-0000-000000000015</UsrEntityId><IconName>account_prs.png</IconName><UsrEntityCode/><UsrEntityName>Every user</UsrEntityName></Right></RightList></DocTemplate></DOEnt_DocTemplate>

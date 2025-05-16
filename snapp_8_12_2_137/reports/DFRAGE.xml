@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><DOEnt_DocTemplate><Header><EntityType>37</EntityType><EntityId>BA82F2A6-934D-36BA-005E-0181439CF797</EntityId><LastUpdate>2022-06-21T10:16:00.000+0200</LastUpdate></Header><DocTemplate><IconName>rpt-dataexport.png</IconName><EntityType>37</EntityType><DocTemplateId>BA82F2A6-934D-36BA-005E-0181439CF797</DocTemplateId><DocTemplateName>Deferral Aging</DocTemplateName><DocTemplateCode>6YUZMGTWRSZTW11</DocTemplateCode><CategoryId>56E73AC4-0538-494A-B661-345BBBDE739D</CategoryId><DocEnabled>true</DocEnabled><ExecRequireLogin>false</ExecRequireLogin><DocTemplateType>5</DocTemplateType><DocEditorType>6</DocEditorType><SystemCode>DFRAGE</SystemCode><DocContexts>221</DocContexts><SaleForApproval>false</SaleForApproval><SaleOpen>false</SaleOpen><SalePaid>false</SalePaid><SaleCompleted>false</SaleCompleted><IndividualPAH>false</IndividualPAH><LogCount>5</LogCount><DataSourceSelection>false</DataSourceSelection><DataSourceId/><MaxDateRangeDays/><MediaEncoderPluginId/><ProductDocumentTagIDs/><MediaRfidOptionType/><ParamList><Param><DocParamId>E4E963DE-52A5-EB27-01E6-0181439D7DFF</DocParamId><DocTemplateId>BA82F2A6-934D-36BA-005E-0181439CF797</DocTemplateId><DocParamType>4</DocParamType><DocParamName>IssueDateFrom</DocParamName><DocParamCaption>Issue date from</DocParamCaption><DocParamDefault>[@CurrentDate]</DocParamDefault><Mandatory>true</Mandatory></Param><Param><DocParamId>DD9FBF9B-06D3-500C-01E7-0181439D7E01</DocParamId><DocTemplateId>BA82F2A6-934D-36BA-005E-0181439CF797</DocTemplateId><DocParamType>4</DocParamType><DocParamName>IssueDateTo</DocParamName><DocParamCaption>Issue date to</DocParamCaption><DocParamDefault>[@CurrentDate]</DocParamDefault><Mandatory>true</Mandatory></Param><Param><DocParamId>DB724A13-8114-B5E4-01E8-0181439D7E02</DocParamId><DocTemplateId>BA82F2A6-934D-36BA-005E-0181439CF797</DocTemplateId><DocParamType>4</DocParamType><DocParamName>PointDate</DocParamName><DocParamCaption>Point in time</DocParamCaption><DocParamDefault>[@CurrentDate]</DocParamDefault><Mandatory>true</Mandatory></Param></ParamList><DataSourceList><DataSource><Name>Default</Name><Code>ED6V0YED33UCF3P</Code><SQL unescaped="true"><![CDATA[declare @EncodeDateFrom date = :@IssueDateFrom;
+declare @EncodeDateTo date = :@IssueDateTo;
+declare @PointDate date = :@PointDate;
+
+if (@EncodeDateTo > @PointDate)
+  set @EncodeDateTo = @PointDate;
+
+select
+  XTK.TicketId,
+  XTK.TicketCode,
+  XTK.PaymentDate,
+  XTK.SaleCode,
+  XTK.UnitAmount,
+  XTK.UnitTax,
+  XTK.UnitNetAmount,
+  XTK.ProductCode,
+  XTK.ProductName,
+  XTK.GateCategoryCode,
+  XTK.ClearingLimit,
+  XLC.ClearingUsed,
+  (case when                        XLC.AgeDays <=  30 then XLC.ClearingLeft else 0 end) as [ClearingLeft_0_30],
+  (case when XLC.AgeDays >=  31 and XLC.AgeDays <=  60 then XLC.ClearingLeft else 0 end) as [ClearingLeft_31_60],
+  (case when XLC.AgeDays >=  61 and XLC.AgeDays <=  90 then XLC.ClearingLeft else 0 end) as [ClearingLeft_61_90],
+  (case when XLC.AgeDays >=  91 and XLC.AgeDays <= 180 then XLC.ClearingLeft else 0 end) as [ClearingLeft_91_180],
+  (case when XLC.AgeDays >= 181 and XLC.AgeDays <= 365 then XLC.ClearingLeft else 0 end) as [ClearingLeft_181_365],
+  (case when XLC.AgeDays >= 366                        then XLC.ClearingLeft else 0 end) as [ClearingLeft_OVR_365]
+from
+  (
+    select
+      TCK.TicketId,
+      'P:' + Cast(TCK.LicenseId as varchar(max)) + '.' + Cast(TCK.StationSerial as varchar(max)) + '.' + Convert(varchar(max), TCK.EncodeFiscalDate, 12) + '.' + Cast(TCK.TicketSerial as varchar(max)) as TicketCode,
+      TRN.TransactionFiscalDate as PaymentDate,
+      SAL.SaleCode,
+      TCK.UnitAmount,
+      TCK.UnitTax,
+      (TCK.UnitAmount - TCK.UnitTax) as UnitNetAmount,
+      PRD.ProductCode,
+      PRD.ProductName,
+      GC.GateCategoryId,
+      Coalesce(GC.GateCategoryCode, '#DEFAULT') as GateCategoryCode,
+      (case when TRN.TransactionFiscalDate>@PointDate then 0 else Coalesce(TR.ClearingLimit, TCK.ClearingLimit) end) as ClearingLimit
+    from
+      tbTicket TCK inner join
+      tbProduct PRD on PRD.ProductId=TCK.ProductId left join
+      tbTicketTransaction TT on TT.TicketId=TCK.TicketId and TT.TicketTransactionType=1/*payment*/ left join
+      tbTransaction TRN on TRN.TransactionId=Coalesce(TT.TransactionId, TCK.TransactionId) left join
+      tbSale SAL on SAL.SaleId=TRN.SaleId left join
+      tbTicketRevenue TR on TR.TicketId=TCK.TicketId left join
+      tbGateCategory GC on GC.GateCategoryId=TR.GateCategoryId
+    where
+      TCK.EncodeFiscalDate>=@EncodeDateFrom and
+      TCK.EncodeFiscalDate<=@EncodeDateTo  and
+      (
+        SAL.Paid=1 or
+        (SAL.Consignment=1 and TCK.FirstUsageDateTime is not null)
+      )
+  ) XTK outer apply 
+  (
+	select 
+	  Coalesce(Sum(DeltaAmount), 0) as ClearingUsed,
+	  (XTK.ClearingLimit - Coalesce(Sum(DeltaAmount), 0)) as ClearingLeft,
+	  DateDiff(day, XTK.PaymentDate, @PointDate) as AgeDays
+	from 
+      tbLedgerClearing
+	where 
+      TicketId=XTK.TicketId and
+      LedgerFiscalDate<=@PointDate and
+	  (
+	    GateCategoryId=XTK.GateCategoryId or
+		(
+		  GateCategoryId is null and
+		  XTK.GateCategoryId is null
+		)
+	  )
+  ) XLC
+where
+  XLC.ClearingLeft>0
+order by
+  XTK.PaymentDate]]></SQL></DataSource></DataSourceList><RightList><Right><IconName>station.png</IconName><UsrEntityType>3</UsrEntityType><UsrEntityId>20A03348-9A17-4EEF-A1EE-02E59B9E2911</UsrEntityId><UsrEntityCode>BKOFFICE</UsrEntityCode><UsrEntityName>Back Office</UsrEntityName><RightLevel>5</RightLevel></Right><Right><IconName>account_prs.png</IconName><UsrEntityType>15</UsrEntityType><UsrEntityId>92DAB1BF-123C-4BE2-9C11-80620EA83054</UsrEntityId><UsrEntityCode>SYSUSR1000</UsrEntityCode><UsrEntityName>System</UsrEntityName><RightLevel>5</RightLevel></Right></RightList></DocTemplate></DOEnt_DocTemplate>

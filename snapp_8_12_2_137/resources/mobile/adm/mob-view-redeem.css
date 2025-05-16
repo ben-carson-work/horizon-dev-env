@@ -1,0 +1,123 @@
+#view-redeem .tab-body {
+  padding: 3vw;
+}
+ 
+#view-redeem #tab-header-result .tab-header-title {
+  color: white;
+}
+
+#view-redeem #tab-header-result.good-result {
+  background-color: var(--base-green-color);
+} 
+
+#view-redeem #tab-header-result.bad-result {
+  background-color: var(--base-red-color);
+} 
+
+#view-redeem #tab-header-wait {
+  line-height: 20rem;
+  font-size: 10rem;
+  text-align: center;
+  color: rgba(0,0,0,0.5);
+}
+
+#view-redeem #tab-header-idle .btn-scantype {
+  display: none;
+}
+
+#view-redeem #tab-header-idle .btn-scantype.btn-scantype-active {
+  display: block;
+}
+
+#view-redeem #tab-header-idle .btn-scantype[data-scantype='entry'] {
+  color: var(--base-green-color);
+}
+
+#view-redeem #tab-header-idle .btn-scantype[data-scantype='exit'] {
+  color: var(--base-blue-color);
+}
+
+#view-redeem #tab-header-manual .btn-keyboard {
+  color: white;
+  background-color: var(--highlight-color);
+}
+
+
+#view-redeem #tab-header-manual input {
+  width: calc(100vw - 20rem);
+  border: none;
+  padding: 3rem;
+  margin: 0;
+  font-size: 6rem;
+  line-height: 14rem;
+}
+
+#view-redeem .valres-item {
+  background-color: white;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 0 solid gray;
+  border-width: 0 1.5rem 1.5rem 1.5rem;
+  margin-bottom: 3rem;
+  opacity: 0.5;
+  font-size: 4.5rem;
+}
+#view-redeem .valres-item.latest {
+  opacity: 1;
+}
+
+#view-redeem .valres-header {
+  padding: 1.5rem;
+  color: white;
+  font-weight: bold;
+  background: gray;
+  display: flex;
+  justify-content: space-between;
+}
+
+#view-redeem .valres-item[data-status='good'] {
+  border-color: var(--base-green-color);
+}
+#view-redeem .valres-item[data-status='good'] .valres-header {
+  background-color: var(--base-green-color);
+}
+
+#view-redeem .valres-item[data-status='bad'] {
+  border-color: var(--base-red-color);
+}
+#view-redeem .valres-item[data-status='bad'] .valres-header {
+  background-color: var(--base-red-color);
+}
+
+#view-redeem .valres-body {
+  overflow: hidden;
+}
+
+#view-redeem .valres-pic {
+  width: 37.5rem;
+  height: 37.5rem;
+  float: left;
+  background-color: var(--body-bg-color);
+  background-size: cover;
+  background-position: center;
+}
+
+#view-redeem .valres-detail {
+  margin-left: 37.5rem;
+  padding: 1rem;
+}
+
+#view-redeem .valres-detail-item {
+  padding: 1rem;
+  text-align: center;
+}
+
+#view-redeem .valres-detail-item-account {
+  font-weight: bold;
+}
+
+#view-redeem .valres-detail-item-message {
+  font-size: 1.25em;
+  font-weight: bold;
+  color: var(--base-orange-color);
+}

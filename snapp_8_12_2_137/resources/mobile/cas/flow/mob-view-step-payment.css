@@ -1,0 +1,220 @@
+
+/* PAYMENT RECAP/SPLITS */
+
+#view-step-payment .payment-recap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: calc(100% - 50vw);
+  display: flex;
+  flex-direction: column;
+  padding: 5rem;
+}
+
+#view-step-payment .payment-recap-line {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+#view-step-payment .pr-due {
+  border-bottom: 1px solid var(--tab-border-color);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+#view-step-payment .pr-tendered {
+  border-top: 1px solid var(--tab-border-color);
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+
+#view-step-payment .pr-balance.tendered-enough {
+  color: var(--base-green-color);
+}
+
+#view-step-payment .pr-balance.tendered-short {
+  color: var(--base-red-color);
+}
+
+#view-step-payment .payment-split-list {
+  flex-grow: 1;
+  overflow: auto;
+}
+
+#view-step-payment .split {
+  border-bottom: 1px solid var(--border-color);  
+}
+
+#view-step-payment .split.edit-mode {
+  background-color: var(--base-blue-color);
+  height: 10rem;
+}
+
+#view-step-payment .split-line {
+  display: flex;
+  justify-content: space-between;
+}
+
+#view-step-payment .split-input {
+  background-color: var(--highlight-color);
+  display: flex;
+  justify-content: space-between;
+  padding: 3rem;
+  color: black;
+}
+
+
+
+/* CALCULATOR */
+
+#view-step-payment .calculator {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 50%;  
+  height: 50vw;
+}
+
+#view-step-payment .calculator table {
+  width: 100%;
+  height: 100%;
+  margin-left: -0.25rem;
+  border-spacing: 1rem;
+  border-collapse: separate;
+}
+
+#view-step-payment .calculator td {
+  padding: 1rem;
+  background-color: rgba(0,0,0,0.1);
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 25%;
+  font-size: 1.8em;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#view-step-payment .calculator td.calc-fnc {
+  background-color: rgba(0,0,0,0.2);
+}
+
+
+
+
+/* PAYMENT METHODS */
+
+#view-step-payment .paymethod-list {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50%;
+  height: calc(100% - 50vw);
+  overflow: auto;
+  padding: 0.5rem;
+}
+
+#view-step-payment .paymethod {
+  float: left;
+  width: 25%;
+  height: 12.5vw;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+#view-step-payment .paymethod.disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+#view-step-payment .paymethod-inner {
+  background-color: rgba(0,0,0,0.1);
+  height: 100%;
+  position: relative;
+}
+
+#view-step-payment .paymethod:not(.disabled):hover {
+  padding: 0;
+}
+
+#view-step-payment .paymethod:not(.disabled):hover .paymethod-inner {
+  border: 0.5rem solid var(--highlight-color);
+}
+
+#view-step-payment .paymethod-name {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 3rem;
+}
+
+#view-step-payment .paymethod-icon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 40%;
+}
+
+
+
+/* CURRENCY DENOMINATIONS */
+
+#view-step-payment .paycut-list {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  height: 50vw;
+  padding: 0.5rem;
+}
+
+#view-step-payment .paycut {
+  padding: 0.5rem;
+  float: left;
+  width: 25%;
+  height: 12.5vw;
+  cursor: pointer;
+}
+
+#view-step-payment .paycut-inner {
+  position: relative;
+  height: 100%;
+  padding: 2rem;
+  background-color: rgba(0,0,0,0.1);
+}
+
+#view-step-payment .paycut:hover {
+  padding: 0;
+}
+
+#view-step-payment .paycut:hover .paycut-inner {
+  border: 0.5rem solid var(--highlight-color);
+}
+
+#view-step-payment .paycut-icon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-position: center 2rem;
+  background-repeat: no-repeat;
+  background-size: 40%;
+}
+
+#view-step-payment .paycut-amount {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-weight: bold;
+}

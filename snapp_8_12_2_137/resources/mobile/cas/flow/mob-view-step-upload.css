@@ -1,0 +1,34 @@
+
+#view-step-upload .trn-recap {
+  margin: 5rem;
+  padding: 5rem;
+  border-radius: 5rem;
+  background-color: var(--content-bg-color);
+}
+
+#view-step-upload .trn-recap-title {
+  border-bottom: 1px solid var(--tab-border-color);
+  padding: 3rem;
+}
+
+#view-step-upload .trn-recap-body {
+  padding: 2rem;
+}
+
+#view-step-upload .trn-recap-line {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+#view-step-upload .trn-recap-line.line1 {
+  font-weight: bold;
+  font-size: 1.4em;
+}
+
+#view-step-upload .trn-recap-due .trn-recap-value,
+#view-step-upload .trn-recap-tendered .trn-recap-value,
+#view-step-upload .trn-recap-balance .trn-recap-value {
+  font-weight: bold;
+  margin-left: 1rem;
+}

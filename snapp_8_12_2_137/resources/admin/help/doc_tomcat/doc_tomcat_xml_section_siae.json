@@ -1,0 +1,27 @@
+{
+  "SectionCode": "siae",
+  "SectionName": "SIAE",
+  "AlertBox": {
+    "Type": "info",
+    "Text": [
+      "This section is meaningful and **mandatory** only for italian installations which are subjected to SIAE fiscal constraints."
+    ]
+  },
+  "ParamGroupList": [
+    {
+      "Caption": "Codice sistema",
+      "ParamList": [
+        {
+          "ParamName": "VGS-SIAE_CodiceSistema",
+          "ParamValue": "ABC123"
+        }
+      ],
+      "AlertBox": {
+        "Type": "info",
+        "Text": [
+          "Number assigned from SIAE to the distributor."
+        ]
+      }
+    }
+  ]
+}

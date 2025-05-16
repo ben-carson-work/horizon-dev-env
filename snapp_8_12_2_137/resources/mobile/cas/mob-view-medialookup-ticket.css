@@ -1,0 +1,33 @@
+#view-medialookup-ticket .tab-header-title {
+  margin-right: 20vw;
+}
+
+#view-medialookup-ticket .product-section .pref-item-list {
+  overflow: hidden;
+  border-top: none;
+  padding: 0;
+}
+
+#view-medialookup-ticket .product-pic {
+  background-color: var(--body-bg-color);
+  float: left;
+  height: 20rem;
+  width: 20rem;
+  line-height: 20rem;
+  font-size: 10rem;
+  text-align: center;
+  color: var(--tab-border-color);
+}
+
+#view-medialookup-ticket .product-detail {
+  margin-left: 21rem;
+  padding: 1rem;
+}
+
+#view-medialookup-ticket .product-name {
+  font-weight: bold;
+}
+
+#view-medialookup-ticket .product-code {
+  font-size: 0.8em;
+}

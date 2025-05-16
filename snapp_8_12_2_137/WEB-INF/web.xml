@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+	<welcome-file-list>
+		<welcome-file>index</welcome-file>
+	</welcome-file-list>
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+
+	<context-param>
+		<param-name>vgs-init-xml</param-name>
+		<param-value>/WEB-INF/vgsinit.xml</param-value>
+	</context-param>
+
+	<display-name>SnApp - Ticketing application</display-name>
+	<description>
+		Ticketing, Access Control and more by VGS s.r.l.
+	</description>
+
+	<jsp-config>
+		<taglib>
+			<taglib-uri>vgs-tags</taglib-uri>
+			<taglib-location>/WEB-INF/web-tags.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>snp-tags</taglib-uri>
+			<taglib-location>/WEB-INF/snp-tags.tld</taglib-location>
+		</taglib>
+    <taglib>
+      <taglib-uri>rgt-tags</taglib-uri>
+      <taglib-location>/WEB-INF/rgt-tags.tld</taglib-location>
+    </taglib>
+    <taglib>
+      <taglib-uri>ksk-tags</taglib-uri>
+      <taglib-location>/WEB-INF/ksk-tags.tld</taglib-location>
+    </taglib>
+	</jsp-config>
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/resources/common/404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/resources/common/403.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/resources/common/error.jsp</location>
+	</error-page>
+	<error-page>
+		<exception-type>java.lang.Exception</exception-type>
+		<location>/resources/common/error.jsp</location>
+	</error-page>
+
+	<listener>
+		<listener-class>com.vgs.web.library.VgsWebInit</listener-class>
+		<listener-class>com.vgs.web.library.BLBO_DBInfo$BOInit</listener-class>
+		<listener-class>com.vgs.cl.JvWebSafeThread$ServletContextAdapter</listener-class>
+    <listener-class>com.vgs.snapp.library.IIOProviderContextListener</listener-class> <!-- ImageIO service provider loader/unloader -->
+  </listener>
+
+  <!-- Override the tomcat default settings to force the jsp to be compiled for java 1.8 -->  
+  <servlet>
+    <servlet-name>jsp</servlet-name>
+    <init-param>
+        <param-name>compilerSourceVM</param-name>
+        <param-value>1.8</param-value>
+    </init-param>
+    <init-param>
+        <param-name>compilerTargetVM</param-name>
+        <param-value>1.8</param-value>
+    </init-param>
+  </servlet>
+	<servlet-mapping>
+		<servlet-name>jsp</servlet-name>
+		<url-pattern>*.jsp</url-pattern>
+		<url-pattern>*.jspf</url-pattern>		
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>FileUploadServlet</servlet-name>
+		<servlet-class>com.vgs.snapp.web.servlet.FileUploadServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FileUploadServlet</servlet-name>
+		<url-pattern>/FileUploadServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>RepositoryDownloadServlet</servlet-name>
+		<servlet-class>com.vgs.snapp.web.servlet.RepositoryDownloadServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RepositoryDownloadServlet</servlet-name>
+		<url-pattern>/repository</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>SnappBarcodeServlet</servlet-name>
+		<servlet-class>com.vgs.snapp.web.servlet.SnappBarcodeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SnappBarcodeServlet</servlet-name>
+		<url-pattern>/snapp-barcode</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>DocProcessorServlet</servlet-name>
+		<servlet-class>com.vgs.snapp.web.servlet.DocProcessorServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DocProcessorServlet</servlet-name>
+		<url-pattern>/docproc</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>VoucherPDFServlet</servlet-name>
+		<servlet-class>com.vgs.snapp.web.servlet.VoucherPDFServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VoucherPDFServlet</servlet-name>
+		<url-pattern>/voucherpdf</url-pattern>
+	</servlet-mapping>
+
+  <servlet>
+    <servlet-name>StoreRepositoryProxyServlet</servlet-name>
+    <servlet-class>com.vgs.snapp.web.servlet.StoreRepositoryProxyServlet
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StoreRepositoryProxyServlet</servlet-name>
+    <url-pattern>/storerepository</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ExternalPackageDownloaderServlet</servlet-name>
+    <servlet-class>com.vgs.snapp.web.servlet.ExternalPackageDownloaderServlet
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ExternalPackageDownloaderServlet</servlet-name>
+    <url-pattern>/ext-package</url-pattern>
+  </servlet-mapping>  
+
+	<servlet>
+		<servlet-name>ErrorHandlingServlet</servlet-name>
+		<servlet-class>com.vgs.snapp.web.servlet.ErrorHandlingServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ErrorHandlingServlet</servlet-name>
+		<url-pattern>/ErrorHandler</url-pattern>
+	</servlet-mapping>
+	<error-page>
+		<exception-type>java.lang.Throwable</exception-type>
+		<location>/ErrorHandler</location>
+	</error-page>
+  
+  <!-- REST -->  
+  <servlet>
+    <servlet-name>jersey-serlvet</servlet-name>
+    <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+    <init-param>
+       <param-name>javax.ws.rs.Application</param-name>
+       <param-value>com.vgs.snapp.rest.library.SnpRestApplication</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>jersey-serlvet</servlet-name>
+    <url-pattern>/rest/*</url-pattern>
+  </servlet-mapping>
+  <!-- REST -->  
+  
+	<!-- Index Servlet -->
+	<servlet>
+		<servlet-name>index</servlet-name>
+		<servlet-class>com.vgs.web.servlet.IndexServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>index</servlet-name>
+		<url-pattern>/index</url-pattern>
+	</servlet-mapping>
+
+	<!-- ImageCache Servlet -->
+	<servlet>
+		<servlet-name>imagecache</servlet-name>
+		<servlet-class>com.vgs.web.servlet.ImageCacheServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>imagecache</servlet-name>
+		<url-pattern>/imagecache/*</url-pattern>
+	</servlet-mapping>
+
+  <!-- Service Servlet -->
+  <servlet>
+    <servlet-name>service</servlet-name>
+    <servlet-class>com.vgs.web.servlet.Service2Servlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>service</servlet-name>
+    <url-pattern>/service/*</url-pattern>
+  </servlet-mapping>
+
+  <!-- Service Servlet (28/05/2018 -  Used only on VGS-STORE for backward compability, to be removed one day) --> 
+  <servlet>
+    <servlet-name>service2</servlet-name>
+    <servlet-class>com.vgs.web.servlet.Service2Servlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>service2</servlet-name>
+    <url-pattern>/service2/*</url-pattern>
+  </servlet-mapping>
+
+  <!-- Custom Servlet -->
+  <servlet>
+    <servlet-name>custom</servlet-name>
+    <servlet-class>com.vgs.snapp.web.servlet.CustomServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>custom</servlet-name>
+    <url-pattern>/custom/*</url-pattern>
+  </servlet-mapping>
+
+	<!-- Admin Servlet -->
+	<servlet>
+		<servlet-name>admin</servlet-name>
+		<servlet-class>com.vgs.web.servlet.PageServlet</servlet-class>
+		<init-param>
+			<param-name>vgs-context</param-name>
+			<param-value>BKO</param-value>
+		</init-param>
+		<init-param>
+			<param-name>welcome-page</param-name>
+			<param-value>home</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>admin</servlet-name>
+		<url-pattern>/admin/*</url-pattern>
+	</servlet-mapping>
+
+  <!-- B2B Servlet -->
+  <servlet>
+    <servlet-name>b2b</servlet-name>
+    <servlet-class>com.vgs.web.servlet.PageServlet</servlet-class>
+    <init-param>
+      <param-name>vgs-context</param-name>
+      <param-value>B2B</param-value>
+    </init-param>
+    <init-param>
+      <param-name>welcome-page</param-name>
+      <param-value>home</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>b2b</servlet-name>
+    <url-pattern>/b2b/*</url-pattern>
+  </servlet-mapping>
+
+	<!-- CallCenter Servlet -->
+	<servlet>
+		<servlet-name>cc</servlet-name>
+		<servlet-class>com.vgs.web.servlet.PageServlet</servlet-class>
+		<init-param>
+			<param-name>vgs-context</param-name>
+			<param-value>CLC</param-value>
+		</init-param>
+		<init-param>
+			<param-name>welcome-page</param-name>
+			<param-value>home</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>cc</servlet-name>
+		<url-pattern>/cc/*</url-pattern>
+	</servlet-mapping>
+
+  <!-- B2C Servlet -->
+  <servlet>
+    <servlet-name>b2c</servlet-name>
+    <servlet-class>com.vgs.web.servlet.PageServlet</servlet-class>
+    <init-param>
+      <param-name>vgs-context</param-name>
+      <param-value>B2C</param-value>
+    </init-param>
+    <init-param>
+      <param-name>welcome-page</param-name>
+      <param-value>home</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>b2c</servlet-name>
+    <url-pattern>/b2c/*</url-pattern>
+  </servlet-mapping>
+  
+  <!-- Web Payment Gateway Servlet -->
+  <servlet>
+    <servlet-name>wpg</servlet-name>
+    <servlet-class>com.vgs.web.servlet.PageServlet</servlet-class>
+    <init-param>
+      <param-name>vgs-context</param-name>
+      <param-value>WPG</param-value>
+    </init-param>
+    <init-param>
+      <param-name>welcome-page</param-name>
+      <param-value>home</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>wpg</servlet-name>
+    <url-pattern>/wpg/*</url-pattern>
+  </servlet-mapping>
+  
+  <!-- Mobile Servlet -->
+  <servlet>
+    <servlet-name>mobile</servlet-name>
+    <servlet-class>com.vgs.web.servlet.PageServlet</servlet-class>
+    <init-param>
+      <param-name>vgs-context</param-name>
+      <param-value>MOB</param-value>
+    </init-param>
+    <init-param>
+      <param-name>welcome-page</param-name>
+      <param-value>home</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>mobile</servlet-name>
+    <url-pattern>/mobile/*</url-pattern>
+  </servlet-mapping>
+  
+  <!-- Accreditation Servlet -->
+  <servlet>
+    <servlet-name>acc</servlet-name>
+    <servlet-class>com.vgs.web.servlet.PageServlet</servlet-class>
+    <init-param>
+      <param-name>vgs-context</param-name>
+      <param-value>ACC</param-value>
+    </init-param>
+    <init-param>
+      <param-name>welcome-page</param-name>
+      <param-value>home</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>acc</servlet-name>
+    <url-pattern>/acc/*</url-pattern>
+  </servlet-mapping>
+  
+  <!-- HealthCheck Servlet -->
+  <servlet>
+    <servlet-name>health-check</servlet-name>
+    <servlet-class>com.vgs.snapp.servlet.HealthCheckServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>health-check</servlet-name>
+    <url-pattern>/health-check/*</url-pattern>
+  </servlet-mapping>
+
+  
+  <security-constraint>
+    <web-resource-collection>
+      <url-pattern>/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <web-resource-collection>
+      <url-pattern>/rest/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>POST</http-method>
+      <http-method>PUT</http-method>
+      <http-method>PATCH</http-method>
+      <http-method>DELETE</http-method>
+    </web-resource-collection>
+    <web-resource-collection>
+      <url-pattern>/customer/*</url-pattern>
+      <http-method>PUT</http-method>
+    </web-resource-collection>
+  </security-constraint>
+  
+  <security-constraint>
+    <web-resource-collection>
+      <url-pattern>/*</url-pattern>
+      <http-method-omission>GET</http-method-omission>
+      <http-method-omission>POST</http-method-omission>
+    </web-resource-collection>
+    <web-resource-collection>
+      <url-pattern>/rest/*</url-pattern>
+      <http-method-omission>GET</http-method-omission>
+      <http-method-omission>POST</http-method-omission>
+      <http-method-omission>PUT</http-method-omission>
+      <http-method-omission>PATCH</http-method-omission>
+      <http-method-omission>DELETE</http-method-omission>
+    </web-resource-collection>
+    <web-resource-collection>
+      <web-resource-name>UBR all methods</web-resource-name>
+      <url-pattern>/customer/*</url-pattern>
+      <http-method-omission>PUT</http-method-omission>
+    </web-resource-collection>
+
+    <auth-constraint />
+  </security-constraint>
+
+
+</web-app>

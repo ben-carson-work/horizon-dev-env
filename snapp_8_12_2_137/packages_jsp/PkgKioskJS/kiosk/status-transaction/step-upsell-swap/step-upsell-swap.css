@@ -1,0 +1,38 @@
+.upsell-swap-item {
+  background-color: white;
+  border-radius: 1rem;
+  margin: 0.5rem;
+  padding: 1rem;
+  font-size: 1.5rem;
+}
+
+.upsell-swap-item-title {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.upsell-swap-target-list {
+  padding-left: 3rem;
+}
+
+.upsell-swap-target {
+  border-bottom: 1px solid #0002;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.upsell-swap-target.checked .swap-target-unchecked,
+.upsell-swap-target:not(.checked) .swap-target-checked {
+  display: none !important;
+}
+
+.swap-target-unchecked {
+  color: var(--bs-gray-300);
+}
+
+.swap-target-checked,
+.upsell-swap-target.checked .upsell-swap-target-price {
+  color: var(--bs-blue);
+}

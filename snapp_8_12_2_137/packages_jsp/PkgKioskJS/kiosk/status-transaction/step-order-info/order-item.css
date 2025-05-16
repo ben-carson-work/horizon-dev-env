@@ -1,0 +1,45 @@
+.order-item {
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.order-item-body {
+  width: 60%;
+}
+
+.order-item-quantity {
+  flex: 0 0 0px;
+}
+
+.order-item-total {
+  flex: 0 0 0px;
+  min-width: 10rem;
+}
+
+.order-item-title,
+.order-item-quantity-value, 
+.order-item-totalamount-value {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.order-item-subtitle, 
+.order-item-unitamount-value {
+  font-weight: 500;
+  color: #0009;
+}
+
+.order-item-quantity {
+  display: flex;
+}
+  
+.order-item-quantity-value {
+  padding: 0.6rem 1rem;
+  min-width: 4rem;
+  text-align: center;
+} 

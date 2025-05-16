@@ -1,0 +1,40 @@
+.event-body-performances {
+  margin: 1rem;  
+}
+
+.performance-date {
+  background-color: white;
+  font-weight: bold;
+  border-bottom: 1px solid black;
+  margin-bottom: 0.5rem;
+}
+
+.performance-date:not(:first-child) {
+  margin-top: 2rem;
+}
+
+.performance {
+  display: inline-block;
+  width: calc(25% - 1rem);
+  margin: 0.5rem;
+  border: 1px solid #0002;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  background-color: var(--vgs-blue);
+  color: white;
+}
+
+.performance-timeslot {
+  text-align: center;
+}
+
+.performance:not(.performance-status-soldout) .performance-soldout {
+  display: none !important;
+}
+
+.performance.performance-status-soldout {
+  opacity: 0.4;
+  cursor: default;
+}

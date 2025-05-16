@@ -1,0 +1,12 @@
+.upsell-cart-addon {
+  background-color: white;
+  border-radius: 1rem;
+  margin: 0.5rem;
+  padding: 1rem;
+  font-size: 1.5rem;
+}
+
+.upsell-cart-addon-title {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}

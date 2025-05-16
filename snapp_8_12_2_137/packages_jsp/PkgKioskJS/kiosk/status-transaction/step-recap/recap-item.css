@@ -1,0 +1,49 @@
+.recap-item {
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.recap-item-body {
+  width: 60%;
+}
+
+.recap-item-quantity {
+  flex: 0 0 0px;
+}
+
+.recap-item-total {
+  flex: 0 0 0px;
+  min-width: 10rem;
+}
+
+.recap-item-title,
+.recap-item-quantity-value, 
+.recap-item-totalamount-value {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.recap-item-subtitle, 
+.recap-item-unitamount-value {
+  font-weight: 500;
+  color: #0009;
+}
+
+.recap-item-quantity {
+  display: flex;
+}
+  
+.recap-item-quantity-value {
+  padding: 0.6rem 1rem;
+  min-width: 4rem;
+  text-align: center;
+}
+
+.recap-subitem {
+	padding-left: 2rem;
+}

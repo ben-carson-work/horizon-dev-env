@@ -1,0 +1,30 @@
+<ion-view view-title="{{LABELS['AccessPoint.Attendance']}}" data-page="adm_attendance">
+  <ion-content scroll="false">
+    <h2>{{LABELS['Common.Total']}}: {{attendance.TotalRecordCount}}</h2>
+    
+    <ion-scroll>
+      <div class="list">
+        <a attendance-status class="item item-thumbnail-left" ng-repeat="performance in attendance.PerformanceList track by $index">
+          <img ng-src="{{formatImageUrl(performance.EventProfilePictureId, 'repository')}}"/>
+          <h2>{{performance.DateTimeFrom | date: 'HH:mm'}}
+            <span class="quantity">{{performance.QuantityMax ? (performance.QuantityRedeemed / performance.QuantityMax) : performance.QuantityRedeemed}}</span>
+          </h2>
+          <p>
+            <span class="text">
+              <span class="ellipsis">{{performance.EventName}}</span>
+            </span>
+
+            <span class="percentage" ng-if="performance.QuantityMax">
+              <span class="percentage-bar" ng-style="{'width': (performance.QuantityRedeemed / performance.QuantityMax) * 100 + '%'}"></span>
+            </span>
+            <!--
+            <span class="percentage">
+              <span class="percentage-bar" ng-style="{'width': (3 / 10) * 100 + '%'}"></span>
+            </span>
+            -->
+          </p>
+        </a>
+      </div>
+    </ion-scroll>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,76 @@
+<ion-view view-title="{{LABELS['Payment.Payment']}}" data-page="pay_steps">
+	<ion-nav-buttons side="left">
+		<button class="button info" ng-click="goToInfo()" ng-if="activeStep === 1">
+      <img ng-src="{{iconInfo}}" />
+    </button>
+		
+    <form name="manualBarcodeForm" ng-submit="manualBarcodeForm.$valid && pay()" novalidate ng-show="activeStep === 3 && keyboardIsActive">
+	    <input type="text" required class="manual-barcode" name="txt-barcode" ng-model="step.barcode" placeholder="{{LABELS['Common.InsertBarcode']}}" autocomplete="off" autocorrect="off" autocapitalize="none" ng-disabled="step.isAuthorizing">
+		</form>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+      <button ng-if="activeStep === 3" toggle-focus keyboardactive="{{keyboardIsActive}}" targetid="manual-barcode" class="button btn-keyboard" ng-click="toggleKeyboard()" ng-disabled="step.isAuthorizing">
+        <img ng-src="{{appIcons.keyboard}}" ng-if="!keyboardIsActive"/>
+        <img ng-src="{{appIcons.keyboard_active}}" ng-if="keyboardIsActive"/>
+      </button>
+  </ion-nav-buttons>
+
+  <ion-content class="padding">
+		<!-- Step 1 -->
+    <form name="StepOneForm" ng-submit="submitForm(StepOneForm)" novalidate ng-if="activeStep === 1">
+	    <div class="list list-inset">
+	      <label class="item item-input">
+	        <input my-autofocus ng-keydown="submitForm(StepOneForm, $event)" type="number" required ng-pattern="amountPattern" id="txt-amount" name="txt-amount" ng-model="step.amount" placeholder="{{LABELS['Common.Amount']}} {{appCurrency.Symbol ? '('+ appCurrency.Symbol +')' : ''}}" autocomplete="off" autocorrect="off" autocapitalize="none">
+	      </label>
+	    </div>
+			<div class="button-container center">
+				<button class="button" ng-class="{disabled: !StepOneForm.$valid}">{{LABELS['Common.Next']}}</button>
+			</div>
+    </form>
+
+		<!-- Step 2 -->
+		<form name="StepTwoForm" ng-submit="doStep(3)" novalidate ng-if="activeStep === 2">
+			<div class="list list-inset">
+	    	<textarea id="txt-notes" ng-model="step.notes" placeholder="{{LABELS['Common.Notes']}}" autocomplete="off" autocorrect="off" autocapitalize="none"></textarea>
+			</div>
+			<div class="button-container center">
+	      <button class="button">{{LABELS['Common.Next']}}</button>
+				<a class="button red" ng-click="doStep(1)">{{LABELS['Common.Back']}}</a>
+			</div>	
+    </form>
+
+		<!-- Step 3 -->
+		<div id="wait-media" ng-if="activeStep === 3">
+			<div class="container">
+				<div class="title" ng-if="!step.isAuthorizing">
+					<div class="pulsing">{{LABELS['Payment.WaitForMedia']}}</div>
+				</div>
+				<div class="title" ng-if="step.isAuthorizing">
+					<div class="pulsing">{{LABELS['Payment.Authorizing']}}</div>
+				</div>
+			</div>
+			<div class="button-container center">
+				<!-- step 2: <a class="button red" ng-click="doStep(2)" ng-disabled="step.isAuthorizing">{{LABELS['Common.Back']}}</a>-->
+				<a class="button red" ng-click="doStep(1)" ng-disabled="step.isAuthorizing">{{LABELS['Common.Back']}}</a>
+			</div>
+    </div>
+
+		<!-- Step 4 -->
+		<div id="pay-confirm" ng-if="activeStep === 4">
+			<div class="container">
+				<div class="title approved" ng-if="step.isApproved">
+					<div>{{LABELS['Payment.Approved']}}</div>
+					<div ng-if="step.wallet.SaleCode">{{LABELS['Sale.PNR']}} - {{step.wallet.SaleCode}}</div>
+				</div>
+				<div class="title denied" ng-if="!step.isApproved">
+					<div>{{LABELS['Payment.Denied']}}</div>
+					<div>{{step.errorMsg}}</div>
+				</div>
+			</div>
+			<div class="button-container center">
+				<button class="button red" ng-click="doStep(3)" ng-if="!step.isApproved">{{LABELS['Common.Retry']}}</button>
+	      <button class="button" ng-click="doStep(1, true)">{{LABELS['Payment.NewTransaction']}}</button>
+			</div>
+		</div>
+  </ion-content>
+</ion-view>

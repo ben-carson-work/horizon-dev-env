@@ -1,0 +1,69 @@
+.repository-file-drop.drag-over {
+  position: relative;
+}
+
+.repository-file-drop .drag-over-hint {
+  display: none;
+}
+
+.repository-file-drop.drag-over * {
+  pointer-events: none;
+}
+
+.repository-file-drop.drag-over .drag-over-hint {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  border: 3px dashed var(--base-blue-color);
+  background-color: rgba(0,0,0,0.1);
+  z-index: 1000;
+  border-radius: 5px;
+}
+
+#page-title-box.drag-over {
+  padding: 20px;
+}
+#repository_tab_content.drag-over {
+  margin: 5px;
+}
+
+.upload-item-list {
+  max-height: 600px;
+  overflow: auto;
+  padding: 5px;
+}
+
+.upload-item-template {
+  padding: 5px;
+}
+
+.upload-item-template .upload-item {
+  border: 1px solid #cecece;
+  background-color: #fafafa;
+  padding: 10px;
+}
+
+.upload-item-template .txt-name {
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+.upload-item-template .txt-size {
+  float: right;
+}
+
+.upload-item-template .progress {
+  margin: 0;
+  margin-top: 5px;
+}
+
+.upload-item-template .progress-bar {
+  background: var(--base-blue-color);
+}
+
+.upload-progress-dialog {
+  padding: 0 !important;
+}

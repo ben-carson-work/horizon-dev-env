@@ -1,0 +1,34 @@
+#stopsale-dialog .stopsale-legend {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+#stopsale-dialog .stopsale-legend-item {
+  padding: 5px;
+  margin-right: 5px;
+  min-width: 100px;
+}
+
+#stopsale-dialog .stopsale-legend-herd {
+  color: white;
+}
+
+#stopsale-dialog .stopsale-icon {
+  float: right;
+}
+
+#stopsale-dialog .cal-month .cal-day:not(.other-month):not(.active) {
+  background: white;
+}
+
+#stopsale-dialog .cal-month .cal-day.active,
+#stopsale-dialog .stopsale-legend-soft {
+  background: var(--base-orange-color);
+}
+
+#stopsale-dialog .cal-month .cal-day.active[data-stopsale='hard'],
+#stopsale-dialog .stopsale-legend-hard {
+  background: var(--base-red-color);
+  color: white;
+}

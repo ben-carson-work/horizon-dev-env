@@ -1,0 +1,117 @@
+openapi: 3.0.3
+info:
+  title: Accesso Horizon / Gantner Access Control APIs
+  description: The api for handling the turnstyles integrated with Gantner's
+
+  termsOfService: https://accesso.com/solutions/ticketing/ticketing-visitor-management
+  contact:
+    name: accesso
+    url: https://www.accesso.com
+  license:
+    name: Proprietary License. All rights reserved.
+    url: https://www.accesso.com/solutions/ticketing/ticketing-visitor-management
+  version: '1.0'
+tags:
+  - name: Validation
+  - name: Rotation
+paths:
+  /validate:
+    post:
+      tags:
+        - Validation
+      summary: Validate a read media code
+      description: Validate a read media code
+      operationId: validate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateResponse'
+        '400':
+          description: Invalid input
+        '500':
+          description: Internal server error
+  /rotate:
+    post:
+      tags:
+        - Rotation
+      summary: Handle turnstyle rotation
+      description: Handle turnstyle rotation
+      operationId: rotation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RotationRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RotationResponse'
+        '400':
+          description: Invalid input
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    ValidateRequest:
+      type: object
+      required:
+      - readerCode
+      - mediaCode
+      - action
+      properties:
+        readerCode:
+          $ref: '#/components/schemas/ReaderCode'
+        mediaCode:
+          type: string
+          descrition: The read media code
+          minLength: 6
+          maxLength: 30
+          example: 1TQCA9354X6X6E
+        action:
+          $ref: '#/components/schemas/Action'
+    ValidateResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+          description: Media code's validation result. True if it is valid
+        message:
+          type: string
+    RotationRequest:
+      type: object
+      required:
+      - readerCode
+      - action
+      properties:
+        readerCode:
+          $ref: '#/components/schemas/ReaderCode'
+        action:
+          $ref: '#/components/schemas/Action'
+    RotationResponse:
+      type: object
+      properties:
+        message:
+          type: string
+    ReaderCode:
+      type: string
+      description: Reader's unique identifier, the one configured in the AccessPoint's settings
+      example: "1-1"
+    Action:
+      type: string
+      enum: [Entry, Exit]
+      description: Type of action that will be performed
+    
+        

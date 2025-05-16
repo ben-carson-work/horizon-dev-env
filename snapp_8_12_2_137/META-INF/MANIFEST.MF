@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+entStructureVersion: 4
+clientMinVersion: 8.11.2.0
+lookupTables: com.vgs.ticket.lookup.LkSN
+siteTitle: SnApp Back End
+iconFolders: /flags,/icons
+Build-Jdk-Spec: 1.8
+version: 8.12.2.137
+Created-By: Maven WAR Plugin 3.3.1
+

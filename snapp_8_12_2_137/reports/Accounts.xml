@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DOEnt_DocTemplate>
+	<Header>
+		<EntityType>37</EntityType>
+		<EntityId>67CE77F7-AAD3-4358-0549-015AB7D0B9B5</EntityId>
+		<LastUpdate>2023-10-20T15:27:00.000+0200</LastUpdate>
+	</Header>
+	<DocTemplate>
+		<IconName>rpt-dataexport.png</IconName>
+		<EntityType>37</EntityType>
+		<DocTemplateId>67CE77F7-AAD3-4358-0549-015AB7D0B9B5</DocTemplateId>
+		<DocTemplateName>@Account.Accounts</DocTemplateName>
+		<DocTemplateCode>DOC1</DocTemplateCode>
+		<CategoryId>06A43409-24CA-32A6-0194-015AB7D0B14E</CategoryId>
+		<DocEnabled>true</DocEnabled>
+		<ExecRequireLogin>true</ExecRequireLogin>
+		<DocTemplateType>5</DocTemplateType>
+		<DocEditorType>6</DocEditorType>
+		<SystemCode>Accounts</SystemCode>
+		<DocContexts/>
+		<SaleForApproval>false</SaleForApproval>
+		<SaleOpen>false</SaleOpen>
+		<SalePaid>false</SalePaid>
+		<SaleCompleted>false</SaleCompleted>
+		<IndividualPAH>false</IndividualPAH>
+		<DataExportOutputFormat/>
+		<CsvFieldSeparator/>
+		<CsvQuoteCharacter/>
+		<CsvIncludeHeaderLine/>
+		<LogCount>0</LogCount>
+		<DataSourceSelection>false</DataSourceSelection>
+		<DataSourceId/>
+		<MaxDateRangeDays/>
+		<MediaEncoderPluginId/>
+		<ProductDocumentTagIDs/>
+		<AttachDocTemplateIDs/>
+		<MediaRfidOptionType/>
+		<ParamList>
+			<Param>
+				<DocParamId>393275FD-1C41-830D-0044-018B4D438528</DocParamId>
+				<DocTemplateId>67CE77F7-AAD3-4358-0549-015AB7D0B9B5</DocTemplateId>
+				<DocParamType>1</DocParamType>
+				<DocParamName>CategoryCode</DocParamName>
+				<DocParamCaption>Account Category Code</DocParamCaption>
+				<DocParamDefault/>
+				<Mandatory>false</Mandatory>
+			</Param>
+			<Param>
+				<DocParamId>362A1F92-28C2-F12C-0046-018B4D438554</DocParamId>
+				<DocTemplateId>67CE77F7-AAD3-4358-0549-015AB7D0B9B5</DocTemplateId>
+				<DocParamType>2</DocParamType>
+				<DocParamName>EntityType</DocParamName>
+				<DocParamCaption>Account Type</DocParamCaption>
+				<DocParamDefault>15</DocParamDefault>
+				<Mandatory>false</Mandatory>
+			</Param>
+			<Param>
+				<DocParamId>33CE9C6D-0033-D200-0047-018B4D438555</DocParamId>
+				<DocTemplateId>67CE77F7-AAD3-4358-0549-015AB7D0B9B5</DocTemplateId>
+				<DocParamType>4</DocParamType>
+				<DocParamName>LastUpdate</DocParamName>
+				<DocParamCaption>@Common.LastUpdate</DocParamCaption>
+				<DocParamDefault/>
+				<Mandatory>false</Mandatory>
+			</Param>
+		</ParamList>
+		<DataSourceList>
+			<DataSource>
+				<Name>Default</Name>
+				<Code>AUFWMJPYFPKCFKE</Code>
+				<SQL unescaped="true"><![CDATA[select 
+  A.AccountId as [Account ID],
+  A.AccountStatus as [Account Status],
+  A.AccountCode as [Account Code],
+  A.EntityType as [Entity Type Code],
+  UsrLogin.UserName as [Account Username],
+  UsrEmail.UserName as [Account Username (email)],
+  A.DisplayName [Account Name],
+  Stuff((
+      select ', ' + CAT.CategoryCode
+      from
+        tbCategory2Entity C2E inner join
+        tbCategory CAT on CAT.CategoryId=C2E.CategoryId
+      where C2E.EntityId=A.AccountId
+      order by CAT.CategoryName
+      FOR XML PATH('')
+    ), 1, 2, '') as [Category Codes],
+  Stuff((
+      select ', ' + CAT.CategoryName
+      from
+        tbCategory2Entity C2E inner join
+        tbCategory CAT on CAT.CategoryId=C2E.CategoryId
+      where C2E.EntityId=A.AccountId
+      order by CAT.CategoryName
+      FOR XML PATH('')
+    ), 1, 2, '') as [Category Names],
+  AD.FirstName as [First Name],
+  AD.LastName as [Last Name],
+  AD.CompanyName as [Company],
+  AD.Address as [Address],
+  AD.ZipCode as [Zip Code],
+  AD.City as [City],
+  AD.Province as [Province],
+  AD.State as [State],
+  AD.Country as [Country],
+  AD.HomePhone as [Home Phone],
+  AD.BusinessPhone as [Business Phone],
+  AD.MobilePhone as [Mobile],
+  AD.Fax as [Fax],
+  AD.EmailAddress as [Email Address],
+  AD.ExternalCode as [External Code],
+  AD.NickName as [Nickname],
+  (select top 1 LogDateTime from tbHistoryLog where EntityId=A.AccountId and HistoryLogType in (1,2)/*Create/LastUpdate*/ order by LogDateTime desc) as [Last Update]
+from
+  tbAccount A left join
+  tbAccountDetail AD on AD.AccountId=A.AccountId left join
+  tbLoginAlias UsrLogin on UsrLogin.AccountId=A.AccountId and UsrLogin.PrimaryAlias=1 left join
+  tbLoginAlias UsrEmail on UsrEmail.AccountId=A.AccountId and UsrEmail.LoginAliasType=1
+where
+  (:@EntityType is null or A.EntityType=:@EntityType) and
+  (:@LastUpdate is null or A.AccountId in (select EntityId from tbHistoryLog where HistoryLogType in (1,2) and LogDateTime>=:@LastUpdate)) and
+  (
+    Coalesce(:@CategoryCode, '')='' or 
+    A.AccountId in (
+      select EntityId
+      from
+        tbCategory CAT inner join
+        tbCategory2Entity C2E on C2E.CategoryId=CAT.CategoryId
+      where
+        CAT.CategoryCode=:@CategoryCode
+    )
+  )
+order by
+  A.DisplayName]]></SQL>
+			</DataSource>
+		</DataSourceList>
+		<RightList>
+			<Right>
+				<IconName>station.png</IconName>
+				<UsrEntityType>3</UsrEntityType>
+				<UsrEntityId>ACD59ABD-B0FE-DF2C-0108-015AB7D0B016</UsrEntityId>
+				<UsrEntityCode>BKOFFICE</UsrEntityCode>
+				<UsrEntityName>Back Office</UsrEntityName>
+				<RightLevel>5</RightLevel>
+			</Right>
+			<Right>
+				<IconName>account_prs.png</IconName>
+				<UsrEntityType>15</UsrEntityType>
+				<UsrEntityId>E1FC2E69-410D-6AB4-003C-0179C2BB4E51</UsrEntityId>
+				<UsrEntityCode>SYSUSR1000</UsrEntityCode>
+				<UsrEntityName>System</UsrEntityName>
+				<RightLevel>5</RightLevel>
+			</Right>
+		</RightList>
+		<RichDescList>
+			<RichDescItem>
+				<IconName>flag_USA.png</IconName>
+				<LangISO>en</LangISO>
+				<Description>&lt;h1&gt;Accounts Report&lt;/h1&gt;&lt;h2&gt;Abstract&lt;/h2&gt;“Accounts” generates a report of the details of all created accounts (active, blocked, deleted) since the last update.​​​​​​​&lt;h2&gt;Generating the report&lt;/h2&gt; Parameter Input&lt;br&gt;While generating the report, input parameters menu presents an intuitive interface.&lt;br&gt;Built-in wizards will help you quickly and easily create at your choice profile for your site by&lt;ul&gt;&lt;li&gt;[&lt;em&gt;Account Category Code&lt;/em&gt;] – Account Category (see ACCOUNTS &amp;gt;&amp;gt; People). When null, default is all the categories&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Account Type&lt;/em&gt;] – Account Type. Default is “15” = PERSON. When null, default is all the entities&amp;nbsp;&lt;strong&gt;(see LOOKUP TABLES &amp;gt;&amp;gt; EntityType)&lt;/strong&gt;&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Last Update&lt;/em&gt;] – Last update Date and Time, easy to select.&lt;/li&gt;&lt;/ul&gt; Output File Extension&lt;br&gt;Built-in wizards will help you easily and quickly generate at your choice reports in XLSX or CSV or PDF formats. Format selection is required before running the report.​​​​​​​&lt;ul&gt;&lt;li&gt;XLSX&lt;ul&gt;&lt;li&gt;Report generates an EXCEL (latest version) file&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;CSV&lt;ul&gt;&lt;li&gt;its generation requires:&lt;ul&gt;&lt;li&gt;&lt;em&gt;Field delimiter&lt;/em&gt;: Separator to be put between fields. Usually a "comma". When null, default is taken from user configuration.&lt;/li&gt;&lt;li&gt;&lt;em&gt;Quote character&lt;/em&gt;: Character used to surround fields&lt;/li&gt;&lt;li&gt;&lt;em&gt;Include header line&lt;/em&gt;&amp;nbsp;to tick the box. Default is YES.&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;PDF&lt;ul&gt;&lt;li&gt;Report generates a PDF (latest version) file&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Header&lt;/h2&gt; Report parameters&lt;ul&gt;&lt;li&gt;[&lt;em&gt;Execution date/time&lt;/em&gt;] - Report Execution Time. Date and Hours format as per configuration [Location, Operating Area, Workstation]&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Account Category Code&lt;/em&gt;] – Account Category&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Account Type&lt;/em&gt;] – Account Type.&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Last Update&lt;/em&gt;] – Last update Date and Time. Display format as per configuration [Location, Operating Area, Workstation]&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Contents (by Columns)&lt;/h2&gt; The program produces easy-to-read reports that include text information.&lt;ul&gt;&lt;li&gt;[&lt;em&gt;Account ID&lt;/em&gt;] – Account ID&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Account Status&lt;/em&gt;] – Account Status # (1: Active; 2: Blocked; 3: Deleted)&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Account Code&lt;/em&gt;] – Account Code&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Entity Type Code&lt;/em&gt;] - Entity Type Code # (see LOOKUP TABLES &amp;gt;&amp;gt; EntityType, Table Code: 131)&lt;/li&gt;&lt;li&gt;[Account&amp;nbsp;&lt;em&gt;Username&lt;/em&gt;] – Account Login Username&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Login Email&lt;/em&gt;] - Account Login Mail address&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Account Username (email)&lt;/em&gt;] – Account User Name. Display format “Last Name, First Name”&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Account Name (description)&lt;/em&gt;] – Account User Name. Display format “Last Name, First Name”&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Category Code&lt;/em&gt;] – Account Category Code&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Category Name&lt;/em&gt;] - Category Naming&lt;/li&gt;&lt;li&gt;[&lt;em&gt;First Name&lt;/em&gt;] - Account First Name&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Last Name&lt;/em&gt;] - Account Last Name&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Company&lt;/em&gt;] - Company Name&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Address&lt;/em&gt;] - Address&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Zip Code&lt;/em&gt;] - Zip Code&lt;/li&gt;&lt;li&gt;[&lt;em&gt;City&lt;/em&gt;] - City&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Province&lt;/em&gt;] - Province&lt;/li&gt;&lt;li&gt;[&lt;em&gt;State&lt;/em&gt;] - State&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Country&lt;/em&gt;] - Country&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Home&amp;nbsp;Phone&lt;/em&gt;] – Home Phone. Format Display: “(area code) phone_number”&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Business Phone&lt;/em&gt;] – Business/Office Phone. Format Display: “(area code) phone_number”&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Mobile&lt;/em&gt;] – Mobile Phone. Format Display: “(area code) phone_number”&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Fax&lt;/em&gt;] – Fax. Format Display: “(area code) phone_number”&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Email Address&lt;/em&gt;] – User Mail address&lt;/li&gt;&lt;li&gt;[&lt;em&gt;External Code&lt;/em&gt;] - External code&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Nickname&lt;/em&gt;] – Account Nickname&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Last Update&lt;/em&gt;] – Last update Date (Date and Hours format as per configuration [Location, Operating Area, Workstation])&lt;/li&gt;&lt;/ul&gt;</Description>
+			</RichDescItem>
+		</RichDescList>
+	</DocTemplate>
+</DOEnt_DocTemplate>

@@ -1,0 +1,18 @@
+<%@page import="com.vgs.snapp.web.b2c.dataobject.*"%>
+<%@page import="com.vgs.snapp.web.b2c.page.*"%>
+<%@page import="com.vgs.cl.document.*"%>
+<%@page import="com.vgs.web.cmd.*"%>
+<%@page import="com.vgs.service.dataobject.*"%>
+<%@page import="com.vgs.web.library.*"%>
+<%@page import="com.vgs.snapp.web.b2c.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<% 
+PageB2C_Base<?> pageBase = (PageB2C_Base<?>)request.getAttribute("pageBase");
+DOB2C_Catalog node = (DOB2C_Catalog)request.getAttribute("CatalogNode"); 
+%>
+
+<div class="catalog-node">
+  <div class="catalog-pic"><img src="<%=node.ProfilePictureURL.getHtmlString()%>"/></div>
+  <div class="catalog-name"><%=node.CatalogName.getHtmlString()%></div>
+
+</div>

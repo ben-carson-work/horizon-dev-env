@@ -1,0 +1,133 @@
+{
+  "Title": "@Right.UI",
+  "IconAlias": "eye",
+  "IconColor": "green",
+  "SectionList": [
+    {
+      "Title": "TBD: Login",
+      "Rights": [
+        "",
+        ""
+      ]
+    },
+    {
+      "Title": "TBD: PahLandingPage",
+      "Rights": [
+        "",
+        ""
+      ]
+    },
+    {
+      "Title": "TBD: Catalogs",
+      "Rights": [
+        "",
+        ""
+      ]
+    },
+    {
+      "Title": "TBD: Accounts",
+      "Rights": [
+        "",
+        ""
+      ]
+    },
+    {
+      "Title": "TBD: POS",
+      "Rights": [
+        "",
+        ""
+      ]
+    },
+    {
+      "Title": "TBD: B2B",
+      "Rights": [
+        "",
+        ""
+      ]
+    },
+    {
+      "Title": "TBD: Notes",
+      "Rights": [
+        "",
+        ""
+      ]
+    },
+    {
+      "Title": "TBD: OpenTab",
+      "Rights": [
+        "",
+        ""
+      ]
+    },
+    {
+      "Title": "TBD: Organize",
+      "Rights": [
+        "",
+        ""
+      ]
+    },
+    {
+      "Title": "TBD: DatedProducts",
+      "Rights": [
+        "",
+        ""
+      ]
+    },
+    {
+      "Title": "TBD: Forms",
+      "Rights": [
+        "",
+        ""
+      ]
+    },
+    {
+      "Title": "TBD: SearchGroups",
+      "Rights": [
+        "",
+        ""
+      ]
+    },
+    {
+      "Title": "TBD: Grids",
+      "Rights": [
+        "",
+        ""
+      ]
+    },
+    {
+      "Title": "TBD: AdmSounds",
+      "Rights": [
+        "",
+        ""
+      ]
+    },
+    {
+      "Title": "TBD: AptDisplay",
+      "Rights": [
+        "",
+        ""
+      ]
+    },
+    {
+      "Title": "TBD: Reservations",
+      "Rights": [
+        "",
+        ""
+      ]
+    },
+    {
+      "Title": "TBD: ConfirmEmail",
+      "Rights": [
+        "",
+        ""
+      ]
+    },
+    {
+      "Title": "TBD: Other",
+      "Rights": [
+        "",
+        ""
+      ]
+    }
+  ]
+}

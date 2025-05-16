@@ -1,0 +1,48 @@
+{
+  "Title": "@Common.General",
+  "IconAlias": "info-circle",
+  "IconColor": "blue",
+  "SectionList": [
+    {
+      "FieldList": [
+        {
+          "Field": "AccountStatus",
+          "Caption": "@Common.Status",
+          "Type": "LKCOMBO",
+          "LkCombo": {
+            "LookupTableName": "AccountStatus"
+          }
+        },
+        {
+          "Field": "ParentAccountId",
+          "Caption": "@Common.Parent",
+          "Type": "DYNCOMBO",
+          "DynCombo": {
+            "EntityType": "Account_LocOrg"
+          }
+        },
+        {
+          "Field": "CategoryId",
+          "Caption": "@Category.Categories",
+          "Type": "DYNMULTI",
+          "DynMulti": {
+            "EntityType": "Category_Organization"
+          }
+        }
+      ]
+    },
+    {
+      "Title": "@Account.TaxExemptTab",
+      "FieldList": [
+        {
+          "Field": "TaxExemptTaxIDs",
+          "Caption": "@Account.ExemptibleTaxes",
+          "Type": "DYNMULTI",
+          "DynMulti": {
+            "EntityType": "TaxExemptExplicit"
+          }
+        }
+      ]
+    }
+  ]
+}

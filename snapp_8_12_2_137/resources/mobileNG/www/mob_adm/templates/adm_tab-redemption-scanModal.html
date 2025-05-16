@@ -1,0 +1,12 @@
+<ion-modal-view id="redemptionScanModal">
+    <ion-header-bar>
+      <h1 class="title">{{LABELS['Ticket.UsageType']}}</h1>
+    </ion-header-bar>
+    <ion-content>
+        <ion-list>
+            <ion-item ng-repeat="button in scan.buttons track by $index" ng-click="clickedScanButton($index)">
+                {{button}}
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-modal-view>

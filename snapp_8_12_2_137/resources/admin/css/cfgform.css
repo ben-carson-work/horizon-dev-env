@@ -1,0 +1,20 @@
+
+.v-cfgform-field {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 8px 4px 8px;
+  border-bottom: 1px var(--body-bg-color) solid;
+}
+
+.v-cfgform-field-select {
+  width: 40%;
+}
+
+.v-cfgform-field-value {
+  width: 60%;
+  text-align: right;
+}
+
+.v-cfgform-field:not(.selected) .v-cfgform-field-value {
+  display: none;
+}

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DOEnt_DocTemplate>
+	<Header>
+		<EntityType>37</EntityType>
+		<EntityId>D7A42B70-DCAD-E691-004D-016B6F3C2462</EntityId>
+		<LastUpdate>2023-10-20T14:47:00.000+0200</LastUpdate>
+	</Header>
+	<DocTemplate>
+		<IconName>rpt-dataexport.png</IconName>
+		<EntityType>37</EntityType>
+		<DocTemplateId>D7A42B70-DCAD-E691-004D-016B6F3C2462</DocTemplateId>
+		<DocTemplateName>Box Deposits</DocTemplateName>
+		<DocTemplateCode>6JAXMW9XS2EMDE1</DocTemplateCode>
+		<CategoryId>06A43409-24CA-32A6-0194-015AB7D0B14E</CategoryId>
+		<DocEnabled>true</DocEnabled>
+		<ExecRequireLogin>true</ExecRequireLogin>
+		<DocTemplateType>5</DocTemplateType>
+		<DocEditorType>6</DocEditorType>
+		<SystemCode>BoxDeposits</SystemCode>
+		<DocContexts/>
+		<SaleForApproval>false</SaleForApproval>
+		<SaleOpen>false</SaleOpen>
+		<SalePaid>false</SalePaid>
+		<SaleCompleted>false</SaleCompleted>
+		<IndividualPAH>false</IndividualPAH>
+		<DataExportOutputFormat/>
+		<CsvFieldSeparator/>
+		<CsvQuoteCharacter/>
+		<CsvIncludeHeaderLine/>
+		<LogCount>1</LogCount>
+		<DataSourceSelection>false</DataSourceSelection>
+		<DataSourceId/>
+		<MaxDateRangeDays/>
+		<MediaEncoderPluginId/>
+		<ProductDocumentTagIDs/>
+		<AttachDocTemplateIDs/>
+		<MediaRfidOptionType/>
+		<ParamList>
+			<Param>
+				<DocParamId>6FE83694-A49E-CB7D-010D-018AF49D7724</DocParamId>
+				<DocTemplateId>D7A42B70-DCAD-E691-004D-016B6F3C2462</DocTemplateId>
+				<DocParamType>4</DocParamType>
+				<DocParamName>DateFrom</DocParamName>
+				<DocParamCaption>@Common.FromDate</DocParamCaption>
+				<DocParamDefault>[@CurrentDate]</DocParamDefault>
+				<Mandatory>true</Mandatory>
+			</Param>
+			<Param>
+				<DocParamId>E570DE0D-505D-E863-010E-018AF49D7725</DocParamId>
+				<DocTemplateId>D7A42B70-DCAD-E691-004D-016B6F3C2462</DocTemplateId>
+				<DocParamType>4</DocParamType>
+				<DocParamName>DateTo</DocParamName>
+				<DocParamCaption>@Common.ToDate</DocParamCaption>
+				<DocParamDefault>[@CurrentDate]</DocParamDefault>
+				<Mandatory>true</Mandatory>
+			</Param>
+			<Param>
+				<DocParamId>2CD5572E-7086-DE9C-010F-018AF49D7726</DocParamId>
+				<DocTemplateId>D7A42B70-DCAD-E691-004D-016B6F3C2462</DocTemplateId>
+				<DocParamType>1001</DocParamType>
+				<DocParamName>LocationId</DocParamName>
+				<DocParamCaption>@Account.Location</DocParamCaption>
+				<DocParamDefault/>
+				<Mandatory>false</Mandatory>
+			</Param>
+			<Param>
+				<DocParamId>92FFB1A2-3FF7-460A-0110-018AF49D7727</DocParamId>
+				<DocTemplateId>D7A42B70-DCAD-E691-004D-016B6F3C2462</DocTemplateId>
+				<DocParamType>1002</DocParamType>
+				<DocParamName>OpAreaId</DocParamName>
+				<DocParamCaption>@Account.OpArea</DocParamCaption>
+				<DocParamDefault/>
+				<Mandatory>false</Mandatory>
+			</Param>
+			<Param>
+				<DocParamId>D24B79FE-F19F-D403-0111-018AF49D7728</DocParamId>
+				<DocTemplateId>D7A42B70-DCAD-E691-004D-016B6F3C2462</DocTemplateId>
+				<DocParamType>1004</DocParamType>
+				<DocParamName>UserId</DocParamName>
+				<DocParamCaption>@Common.User</DocParamCaption>
+				<DocParamDefault/>
+				<Mandatory>false</Mandatory>
+			</Param>
+			<Param>
+				<DocParamId>D2789361-EF10-9AA5-0112-018AF49D7729</DocParamId>
+				<DocTemplateId>D7A42B70-DCAD-E691-004D-016B6F3C2462</DocTemplateId>
+				<DocParamType>1003</DocParamType>
+				<DocParamName>WorkstationId</DocParamName>
+				<DocParamCaption>@Common.Workstation</DocParamCaption>
+				<DocParamDefault/>
+				<Mandatory>false</Mandatory>
+			</Param>
+		</ParamList>
+		<DataSourceList>
+			<DataSource>
+				<Name>Default</Name>
+				<Code>1HCD52TYS0HRZ8Y</Code>
+				<SQL unescaped="true"><![CDATA[select
+  B.BoxId as [Box ID],
+  B.BoxCode as [Box Code],
+  B.FBoxDate as [Box Fiscal Date],
+  LA.AccountId as [Box Location ID],
+  LA.AccountCode as [Box Location Code],
+  LA.DisplayName as [Box Location Name],
+  UA.AccountId as [Box User Account ID],
+  UA.AccountCode as [Box User Account Code],
+  UA.DisplayName as [Box User Account Name],
+  BD.BoxDepositId as [BoxDeposit ID],
+  LABD.AccountId as [Location ID],
+  LABD.AccountCode as [Location Code],
+  LABD.DisplayName as [Location Name],
+  OPA.AccountId as [Operating Area ID],
+  OPA.AccountCode as [Operating Area Code],
+  OPA.DisplayName as [Operating Area Name],
+  WKS.WorkstationId as [Workstation ID],
+  WKS.WorkstationCode as [Workstation Code],
+  WKS.WorkstationName as [Workstation Name],
+  UABD.AccountId as [User Account ID],
+  UABD.AccountCode as [User Account Code],
+  UABD.DisplayName as [User Account Name],
+  SA.AccountId as [Supervisor Account ID],
+  SA.AccountCode as [Supervisor Account Code],
+  SA.DisplayName as [Supervisor Account Name],
+  BD.BoxDepositType as [Box Deposit Type Code],
+  dbo.fnLookupItemDesc(64,BD.BoxDepositType) as [Deposit Type Label],
+  convert(varchar, BD.DepositDateTime, 103) as [Deposit Date],
+  SubString(convert(varchar, BD.DepositDateTime, 8), 1, 5) as [Deposit Time],
+  BD.DepositAmount as [Deposit Amount],
+  BD.BagNumber as [Bag Number]
+from
+  tbBox B left join
+  tbAccount LA on LA.AccountId=B.LocationAccountId left join
+  tbAccount UA on UA.AccountId=B.UserAccountId left join
+  tbBoxDeposit BD on BD.BoxId=B.BoxId left join
+  tbWorkstation WKS on WKS.WorkstationId=BD.WorkstationId left join
+  tbAccount LABD on LABD.AccountId=WKS.LocationAccountId left join
+  tbAccount OPA on OPA.AccountId=WKS.OpAreaAccountId left join
+  tbAccount UABD on UABD.AccountId=BD.UserAccountId left join
+  tbAccount SA on SA.AccountId=BD.SupAccountId
+where
+  B.FBoxDate>=:@DateFrom and
+  B.FBoxDate<=:@DateTo and
+  (:@WorkstationId is null or WKS.WorkstationId=:@WorkstationId) and
+  (:@OpAreaId is null or WKS.OpAreaAccountId=:@OpAreaId) and
+  (:@LocationId is null or WKS.LocationAccountId=:@LocationId) and
+  (:@UserId is null or B.UserAccountId=:@UserId)]]></SQL>
+			</DataSource>
+		</DataSourceList>
+		<RightList>
+			<Right>
+				<IconName>station.png</IconName>
+				<UsrEntityType>3</UsrEntityType>
+				<UsrEntityId>ACD59ABD-B0FE-DF2C-0108-015AB7D0B016</UsrEntityId>
+				<UsrEntityCode>BKOFFICE</UsrEntityCode>
+				<UsrEntityName>Back Office</UsrEntityName>
+				<RightLevel>5</RightLevel>
+			</Right>
+			<Right>
+				<IconName>account_prs.png</IconName>
+				<UsrEntityType>15</UsrEntityType>
+				<UsrEntityId>E1FC2E69-410D-6AB4-003C-0179C2BB4E51</UsrEntityId>
+				<UsrEntityCode>SYSUSR1000</UsrEntityCode>
+				<UsrEntityName>System</UsrEntityName>
+				<RightLevel>5</RightLevel>
+			</Right>
+		</RightList>
+		<RichDescList>
+			<RichDescItem>
+				<IconName>flag_USA.png</IconName>
+				<LangISO>en</LangISO>
+				<Description>&lt;div&gt;&lt;h1&gt;Box Deposits&lt;/h1&gt;&lt;h2&gt;Abstract&lt;/h2&gt;&lt;/div&gt;“Box Deposits” generates a report of the Financial Statement within a selected period at your choice filtered by Location, Operating Area, Workstation and User.&lt;div&gt;&lt;h2&gt;Generating the report&lt;/h2&gt;&lt;/div&gt; Parameter Input&lt;br&gt;While generating the report, input parameters menu presents an intuitive interface.&lt;br&gt;Built-in wizards will help you quickly and easily create at your choice profile for your site by&lt;ul&gt;&lt;li&gt;[&lt;em&gt;Datasource&lt;/em&gt;] – Data source easy-to-select by eligible users (please refer to SnApp BKO &amp;gt;&amp;gt; Templates &amp;gt;&amp;gt; Statistical Reports &amp;gt;&amp;gt; Audit &amp;gt;&amp;gt; Profile)&lt;/li&gt;&lt;li&gt;[&lt;em&gt;From date – To Date&lt;/em&gt;] – Period to be analysed, easy-to-select.&lt;ul&gt;&lt;li&gt;Note: The dates if not specified are to be considered&amp;nbsp;&lt;em&gt;“Fiscal Date”&lt;/em&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Location&lt;/em&gt;] – Site Location, easy-to-select. When select&amp;nbsp;&lt;em&gt;-empty-&lt;/em&gt;, default is all the locations&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Operating Area&lt;/em&gt;] – Operating area, easy-to-select. When select&amp;nbsp;&lt;em&gt;-empty-&lt;/em&gt;, default is all the operating areas.&lt;/li&gt;&lt;li&gt;[&lt;em&gt;User&lt;/em&gt;] – Site User Name. When select&amp;nbsp;&lt;em&gt;-empty-&lt;/em&gt;, default is all the users.&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Workstation&lt;/em&gt;] – Site Workstation Name. When select&amp;nbsp;&lt;em&gt;-empty-&lt;/em&gt;, default is all the workstations.&lt;/li&gt;&lt;/ul&gt; &amp;nbsp;&lt;br&gt;Output File Extension&lt;br&gt;Built-in wizards will help you easily and quickly generate at your choice reports in XLSX or CSV or PDF formats. Format selection is required before running the report.&lt;ul&gt;&lt;li&gt;XLSX&lt;ul&gt;&lt;li&gt;Report generates an EXCEL (latest version) file&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;CSV&lt;ul&gt;&lt;li&gt;its generation requires:&lt;ul&gt;&lt;li&gt;&lt;em&gt;Field delimiter&lt;/em&gt;: Separator to be put between fields. Usually a "comma". When null, default is taken from user configuration.&lt;/li&gt;&lt;li&gt;&lt;em&gt;Quote character&lt;/em&gt;: Character used to surround fields&lt;/li&gt;&lt;li&gt;&lt;em&gt;Include header line&lt;/em&gt;&amp;nbsp;to tick the box. Default is YES.&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;PDF&lt;ul&gt;&lt;li&gt;Report generates a PDF (latest version) file&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Header&lt;/h2&gt; Report parameters&lt;ul&gt;&lt;li&gt;[&lt;em&gt;Title Report&lt;/em&gt;] - Box Deposit Details&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Execution date/time&lt;/em&gt;] -&amp;nbsp;&amp;nbsp;Execution Time. Date and Hours format as per configuration [Location, Operating Area, Workstation].&lt;/li&gt;&lt;li&gt;[&lt;em&gt;From date – To Date&lt;/em&gt;] – Selected analysis period.&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Location&lt;/em&gt;] – Site Location Code and Name. Display format: "[SITE LOCATION CODE] Site Location Name". Selecting&amp;nbsp;&lt;em&gt;blanck &lt;/em&gt;or &lt;em&gt;"- empty" &lt;/em&gt;all the Locations' exposure are analysed and listed&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Operating Area&lt;/em&gt;] – Site Operating Area Code and Name. Display format: "[SITE OPERATING AREA CODE] Site Operating Area Name". Selecting&amp;nbsp;&lt;em&gt;blanck &lt;/em&gt;or &lt;em&gt;"- empty" &lt;/em&gt;all the Operating Area' exposure are analysed and listed&lt;/li&gt;&lt;li&gt;[&lt;em&gt;User&lt;/em&gt;] – Site User Name. Selecting&amp;nbsp;&lt;em&gt;blanck &lt;/em&gt;or &lt;em&gt;"- empty" &lt;/em&gt;all the Workstation' exposure are analysed and listed&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Workstation&lt;/em&gt;] – Site Workstation Code and Name. Display format: "[SITE WORKSTATION CODE] Site Workstation Name". Selecting&amp;nbsp;&lt;em&gt;blanck &lt;/em&gt;or &lt;em&gt;"- empty" &lt;/em&gt;all the Workstation' exposure are analysed and listed&lt;/li&gt;&lt;/ul&gt;&lt;div&gt;&lt;h2&gt;Contents (by columns)&lt;/h2&gt;&lt;/div&gt;&lt;ul&gt;&lt;li&gt;[&lt;em&gt;Box ID&lt;/em&gt;]: Box&amp;nbsp;Maintenance ID Group.&lt;/li&gt;&lt;li&gt;[&lt;em&gt;BoxCode&lt;/em&gt;]: Box&amp;nbsp;Maintenance Code Group.&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Box Fiscal Date&lt;/em&gt;]: Box&amp;nbsp;Maintenance Fiscal Date.&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Box Location ID&lt;/em&gt;]: Box&amp;nbsp;Maintenance Location&amp;nbsp;ID&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Box Location Code&lt;/em&gt;]: Box&amp;nbsp;Maintenance Location&amp;nbsp;Code&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Box Location Name&lt;/em&gt;]: Box&amp;nbsp;Maintenance Location&amp;nbsp;Name&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Box Account User&amp;nbsp; ID&lt;/em&gt;]: Box&amp;nbsp;Maintenance Account&amp;nbsp;User ID&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Box Account User Code&lt;/em&gt;]: Box&amp;nbsp;Maintenance Account User Code&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Box Account User&amp;nbsp;Name&lt;/em&gt;]: Box&amp;nbsp;Maintenance Account User Name&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Box Deposit ID&lt;/em&gt;]: Box&amp;nbsp; Maintenance Deposit ID&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Location ID&lt;/em&gt;]: Site Location ID&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Location Code&lt;/em&gt;]: Site Location Code&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Location Name&lt;/em&gt;]: Site Location Name&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Operating Area ID&lt;/em&gt;]: Operation Area&amp;nbsp;ID&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Operating Area Code&lt;/em&gt;]: Operation Area&amp;nbsp;Code&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Operating Area Name&lt;/em&gt;]: Operation Area Name&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Workstation ID&lt;/em&gt;]: Workstation ID&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Workstation Code&lt;/em&gt;]: Workstation Code&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Workstation Name&lt;/em&gt;]: Workstation Name&lt;/li&gt;&lt;li&gt;[&lt;em&gt;User Account ID&lt;/em&gt;]: User Account ID&amp;nbsp;&lt;/li&gt;&lt;li&gt;[&lt;em&gt;User Account Code&lt;/em&gt;]: User Account Code&amp;nbsp;&lt;/li&gt;&lt;li&gt;[&lt;em&gt;User Account Name&lt;/em&gt;]: User Account Name&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Supervisor Account ID&lt;/em&gt;]: Supervisor Account ID&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Supervisor Account Code&lt;/em&gt;]: Supervisor Account Code&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Supervisor Account Name&lt;/em&gt;]: Supervisor Account Name&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Box Deposit Type&lt;/em&gt;]: Box Maintenance Deposit Type Code # (see "DepositType Description" here below)&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Deposit Type Label&lt;/em&gt;]&amp;nbsp; Deposit Type Description&amp;nbsp;(see Lookup Table "Box Deposit Type" table - Table Code: 64)&lt;table border="0" cellpadding="0" cellspacing="0" class=" cke_show_border"&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;1: Box Creation&lt;br&gt;2: Initial Fund&lt;br&gt;3: Withdraw&lt;br&gt;4: Deposit&lt;br&gt;5: Final Close&lt;br&gt;6: Reopened By User&lt;br&gt;7: Reopened By System&lt;br&gt;8: Closed By System&lt;br&gt;9: Audit&lt;br&gt;10: Final Close Suspended&lt;br&gt;11: Cash drawer manually opened&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Deposit Date&lt;/em&gt;]: Deposit Date (format as selected Calendar format)&amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Deposit Time&lt;/em&gt;]:&amp;nbsp; Deposit Time&amp;nbsp;(format as selected Timing format)&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Deposit Amount&lt;/em&gt;]:&amp;nbsp; Deposit Amount Value in selected currency&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Bag Number&lt;/em&gt;]: Bag Number&lt;/li&gt;&lt;/ul&gt;</Description>
+			</RichDescItem>
+		</RichDescList>
+	</DocTemplate>
+</DOEnt_DocTemplate>

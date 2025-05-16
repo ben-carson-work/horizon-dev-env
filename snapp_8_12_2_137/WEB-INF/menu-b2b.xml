@@ -1,0 +1,39 @@
+<DOSnappMenu>
+  <MenuItemList>
+      
+    <!-- DASHBOARD -->
+    <MenuItem ItemCode="main-dashboard" Caption="@Common.Dashboard" IconName="gauge" HRef="?page=dashboard"/>
+      
+    <!-- CALL CENTER -->
+    <MenuItem ItemCode="main-shopcart" Caption="@Sale.NewSale" IconName="[font-awesome]cart-shopping" HRef="?page=shopcart"/>
+      
+    <!-- AUDIT -->
+    <MenuItem ItemCode="main-audit" Caption="@Common.Audit" IconName="dollar-sign">
+      <MenuItemList>
+        <MenuItem ItemCode="sale-list" Caption="@Common.Sales" HRef="?page=sale_list"/>
+        <MenuItem ItemCode="invoice-list" Caption="@Invoice.Invoices" HRef="?page=invoice_list"/>
+        <MenuItem ItemCode="credit-list" Caption="@Account.Credit.B2B_Credits" HRef="?page=credit_list"/>
+        <MenuItem ItemCode="activity-list" Caption="@Account.Credit.B2B_Activity" HRef="?page=activity_list"/>
+        <MenuItem ItemCode="report-list" Caption="@DocTemplate.Reports" HRef="?page=report_list"/>
+        <MenuItem ItemCode="siae-logs" Caption="SIAE Logs" HRef="?page=siae_log_list"/>
+      </MenuItemList>
+    </MenuItem>
+    
+    <!-- INVENTORY -->
+    <MenuItem ItemCode="main-inventory" Caption="@Common.Inventory" IconName="cubes">
+      <MenuItemList>
+        <MenuItem ItemCode="inventory-product-list" Caption="@Ticket.Tickets" HRef="?page=inventory_product_list"/>
+      </MenuItemList>
+    </MenuItem>
+
+    <!-- SETTINGS -->
+    <MenuItem ItemCode="main-settings" Caption="@Common.Settings" IconName="sliders-h">
+      <MenuItemList>
+        <MenuItem ItemCode="my-profile" Caption="@Account.MyProfile" HRef="?page=user&amp;id=session"/>
+        <MenuItem ItemCode="user-list" Caption="@Account.Users" HRef="?page=user_list"/>
+        <MenuItem ItemCode="payment-token" Caption="@Common.PaymentTokens" HRef="?page=payment_token"/>
+      </MenuItemList>
+    </MenuItem>
+
+  </MenuItemList>
+</DOSnappMenu>

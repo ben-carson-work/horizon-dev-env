@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DOEnt_DocTemplate>
+	<Header>
+		<EntityType>37</EntityType>
+		<EntityId>F7A6AB71-5454-DF1F-070E-015AB7D0BCD0</EntityId>
+		<LastUpdate>2023-10-20T11:04:00.000+0200</LastUpdate>
+	</Header>
+	<DocTemplate>
+		<IconName>rpt-dataexport.png</IconName>
+		<EntityType>37</EntityType>
+		<DocTemplateId>F7A6AB71-5454-DF1F-070E-015AB7D0BCD0</DocTemplateId>
+		<DocTemplateName>@Stats.VouchSumReport</DocTemplateName>
+		<DocTemplateCode>DOC94</DocTemplateCode>
+		<CategoryId>06A43409-24CA-32A6-0194-015AB7D0B14E</CategoryId>
+		<DocEnabled>true</DocEnabled>
+		<ExecRequireLogin>true</ExecRequireLogin>
+		<DocTemplateType>5</DocTemplateType>
+		<DocEditorType>6</DocEditorType>
+		<SystemCode>VouchSumReport</SystemCode>
+		<DocContexts/>
+		<SaleForApproval>false</SaleForApproval>
+		<SaleOpen>false</SaleOpen>
+		<SalePaid>false</SalePaid>
+		<SaleCompleted>false</SaleCompleted>
+		<IndividualPAH>false</IndividualPAH>
+		<DataExportOutputFormat/>
+		<CsvFieldSeparator/>
+		<CsvQuoteCharacter/>
+		<CsvIncludeHeaderLine/>
+		<LogCount>0</LogCount>
+		<DataSourceSelection>false</DataSourceSelection>
+		<DataSourceId/>
+		<MaxDateRangeDays/>
+		<MediaEncoderPluginId/>
+		<ProductDocumentTagIDs/>
+		<AttachDocTemplateIDs/>
+		<MediaRfidOptionType/>
+		<ParamList>
+			<Param>
+				<DocParamId>7976DD96-3463-AD04-0752-018B1DC4C5A3</DocParamId>
+				<DocTemplateId>F7A6AB71-5454-DF1F-070E-015AB7D0BCD0</DocTemplateId>
+				<DocParamType>1</DocParamType>
+				<DocParamName>AccountId</DocParamName>
+				<DocParamCaption>@Common.OrganizationCode</DocParamCaption>
+				<DocParamDefault/>
+				<Mandatory>false</Mandatory>
+			</Param>
+			<Param>
+				<DocParamId>FEC21A16-AEEF-2C5D-0753-018B1DC4C5A4</DocParamId>
+				<DocTemplateId>F7A6AB71-5454-DF1F-070E-015AB7D0BCD0</DocTemplateId>
+				<DocParamType>4</DocParamType>
+				<DocParamName>DateFrom</DocParamName>
+				<DocParamCaption>@Common.FromDate</DocParamCaption>
+				<DocParamDefault>[@CurrentDate]</DocParamDefault>
+				<Mandatory>false</Mandatory>
+			</Param>
+			<Param>
+				<DocParamId>B7C06E05-A93B-6D2C-0754-018B1DC4C5A4</DocParamId>
+				<DocTemplateId>F7A6AB71-5454-DF1F-070E-015AB7D0BCD0</DocTemplateId>
+				<DocParamType>4</DocParamType>
+				<DocParamName>DateTo</DocParamName>
+				<DocParamCaption>@Common.ToDate</DocParamCaption>
+				<DocParamDefault>[@CurrentDate]</DocParamDefault>
+				<Mandatory>false</Mandatory>
+			</Param>
+		</ParamList>
+		<DataSourceList>
+			<DataSource>
+				<Name>Default</Name>
+				<Code>26ZQZ6HFE1989UZ</Code>
+				<SQL unescaped="true"><![CDATA[declare @AccountId uniqueidentifier;
+declare @AccountCode varchar(15);
+
+if (len(:@AccountId)=36)
+begin
+  select @AccountCode=AccountCode from tbAccount where AccountId=:@AccountId
+end
+else
+begin
+  select @AccountCode=:@AccountId
+end
+
+select 
+  AD.CompanyName as [Company Name],
+  V.VoucherName as [Voucher Name],  
+  /* QtyIssued - Net of expired and voided */
+  Sum(case when V.VoucherStatus<400 then 1 else 0 end) as [Quantity Issued],
+  /* AmountIssued - for "not paid" vouchers will be 0 */
+  Sum(case when V.VoucherStatus<400 then V.AmountMax else 0 end) as [Amount Issued],  
+  Sum(case when V.VoucherStatus=301 then 1 else 0 end) as [Quantity Redeemed],
+  Sum(case when V.VoucherStatus=301 then V.AmountMax else 0 end) as [Amount Redeemed],
+  /* QtyExpired - Net of redeemed */
+  Sum(case when (V.ValidDateTo is null) or (V.ValidDateTo>=CONVERT(date, GetDate())) or (V.VoucherStatus>300) then 0 else 1 end) as [Quantity Expired],
+  Sum(case when (V.ValidDateTo is null) or (V.ValidDateTo>=CONVERT(date, GetDate())) or (V.VoucherStatus>300) then 0 else V.AmountMax end) as [Amount Expired],
+  Sum(case when V.VoucherStatus>400 then 1 else 0 end) as [Quantity Voided],
+  /* Balance - Which amount is still active out there (Amount Issue minus Amount Redeemed minus Amount Expired minus Amount Voided) */
+  Sum(case when ((V.ValidDateTo is null) or (V.ValidDateTo>=CONVERT(date, GetDate()))) and (V.VoucherStatus<300) then V.AmountMax else 0 end) as [Balance]
+from 
+  tbVoucher V left join
+  tbAccount A on A.AccountId=V.AccountId left join
+  tbAccountDetail AD on AD.AccountId=A.AccountId
+where
+  Coalesce(@AccountCode, '') in ('', AccountCode) and
+  (:@DateFrom is null or V.CreateDate>=:@DateFrom) and
+  (:@DateTo is null or V.CreateDate<=:@DateTo)
+group by
+  AD.CompanyName,
+  V.VoucherName
+order by 
+  AD.CompanyName,
+  V.VoucherName
+        ]]></SQL>
+			</DataSource>
+		</DataSourceList>
+		<RightList>
+			<Right>
+				<IconName>station.png</IconName>
+				<UsrEntityType>3</UsrEntityType>
+				<UsrEntityId>ACD59ABD-B0FE-DF2C-0108-015AB7D0B016</UsrEntityId>
+				<UsrEntityCode>BKOFFICE</UsrEntityCode>
+				<UsrEntityName>Back Office</UsrEntityName>
+				<RightLevel>5</RightLevel>
+			</Right>
+			<Right>
+				<IconName>account_prs.png</IconName>
+				<UsrEntityType>15</UsrEntityType>
+				<UsrEntityId>E1FC2E69-410D-6AB4-003C-0179C2BB4E51</UsrEntityId>
+				<UsrEntityCode>SYSUSR1000</UsrEntityCode>
+				<UsrEntityName>System</UsrEntityName>
+				<RightLevel>5</RightLevel>
+			</Right>
+		</RightList>
+		<RichDescList>
+			<RichDescItem>
+				<IconName>flag_USA.png</IconName>
+				<LangISO>en</LangISO>
+				<Description>&lt;h1&gt;Voucher Summary Report&lt;/h1&gt;&lt;h2&gt;Abstract&lt;/h2&gt;“Voucher Summary” generates a report of all&amp;nbsp;Voucher&amp;nbsp;generated by selected Company Name in a selected period at your choice.&lt;h2&gt;Generating the report&lt;/h2&gt; Parameter Input&lt;br&gt;While generating the report, input parameters menu presents an intuitive interface.&lt;br&gt;Built-in wizards will help you quickly and easily create at your choice profile for your site by&lt;br&gt;&lt;br&gt;&lt;ul&gt;&lt;li&gt;[&lt;em&gt;Organization Code&lt;/em&gt;] – Company Name&lt;/li&gt;&lt;li&gt;[&lt;em&gt;From date – To Date&lt;/em&gt;] – Period to be analysed, easy-to-select.&lt;ul&gt;&lt;li&gt;Note: The dates if not specified are to be considered “Fiscal Date”&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt; &amp;nbsp;&lt;br&gt;Output File Extension&lt;br&gt;“Voucher Summary Report” generates reports in XLSX or CSV or PDF formats. Selection is required before running the report.&lt;ul&gt;&lt;li&gt;XLSX&lt;ul&gt;&lt;li&gt;Report generates an EXCEL (latest version) file&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;CSV&lt;ul&gt;&lt;li&gt;its generation requires:&lt;ul&gt;&lt;li&gt;&lt;em&gt;Field delimiter&lt;/em&gt;: Separator to be put between fields. Usually a "comma". When null, default is taken from user configuration.&lt;/li&gt;&lt;li&gt;&lt;em&gt;Quote character&lt;/em&gt;: Character used to surround fields&lt;/li&gt;&lt;li&gt;&lt;em&gt;Include header line&lt;/em&gt;&amp;nbsp;to tick the box. Default is YES.&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;PDF&lt;ul&gt;&lt;li&gt;Report generates a PDF (latest version) file&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Header&lt;/h2&gt; Report parameters:&lt;ul&gt;&lt;li&gt;[&lt;em&gt;Execution date/time&lt;/em&gt;] -Report Execution Time. Date and Hours format as per configuration [Location, Operating Area, Workstation]&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Organization Code&lt;/em&gt;] – Company Name&lt;/li&gt;&lt;li&gt;[&lt;em&gt;From date – To Date&lt;/em&gt;] – Selected Period&lt;/li&gt;&lt;/ul&gt; &amp;nbsp;&lt;h2&gt;Contents (by Columns)&lt;/h2&gt; The program produces easy-to-read reports that include text information.&lt;ul&gt;&lt;li&gt;[&lt;em&gt;Company Name&lt;/em&gt;] - Company Name&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Voucher Name&lt;/em&gt;] - Voucher Label&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Quantity Issued&lt;/em&gt;] - Total Issued Voucher Quantity in unit&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Amount Issued&lt;/em&gt;] - Total Amount Value of the Issued Voucher in local currency&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Quantity&amp;nbsp;Redeemed&lt;/em&gt;] - Total Redeemed Voucher Quantity in unit&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Amount Redeemed&lt;/em&gt;] - Total Amount Value of the Redeemed Voucher in local currency&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Quantity Expired&lt;/em&gt;] - Total Expired Voucher Quantity in unit&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Amount Expired&lt;/em&gt;] - Total Amount Value of the Expired Voucher in local currency&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Quantity Voided&lt;/em&gt;] - Total Voided Voucher Quantity in unit&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Balance&lt;/em&gt;] - Net Balance in local currency&lt;/li&gt;&lt;/ul&gt;</Description>
+			</RichDescItem>
+		</RichDescList>
+	</DocTemplate>
+</DOEnt_DocTemplate>

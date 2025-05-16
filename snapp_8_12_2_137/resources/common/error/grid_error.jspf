@@ -1,0 +1,38 @@
+<%@page import="com.vgs.web.library.*"%>
+<%@page import="com.vgs.cl.*"%>
+<%@page import="com.vgs.cl.lookup.*"%>
+<%@page import="com.vgs.snapp.lookup.*"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isErrorPage="true"%>
+<%@taglib uri="vgs-tags" prefix="v" %>
+<%@taglib uri="snp-tags" prefix="snp" %>
+
+<jsp:useBean id="pageBase" class="com.vgs.snapp.web.common.page.PageGridWidget" scope="request"/>
+
+<%
+String dataUrl = pageBase.getContextURL() + "?" + request.getQueryString();
+
+LookupItem logLevel = LkSNErrorCode.findLogLevel(exception); 
+if (logLevel == null)
+  logLevel = LkSNLogLevel.Fatal;
+
+String stackTrace = JvUtils.getStackTrace(exception);
+pageBase.log().log(LkSNLogType.Software, logLevel, null, stackTrace, 0, null, null);
+
+String message = pageBase.getLang().Common.GenericError.getText();
+if (logLevel.getCode() > IvLog.LOGLEVEL_ERROR)
+  message = JvUtils.getErrorMessage(exception);  
+%>
+  
+<div class="errorbox"/>
+<%=JvString.escapeHtml(message)%>
+</div>
+
+<% if (BLBO_DBInfo.isDebugMode()) { %>
+  <v:widget caption="Stack Trace">
+    <v:widget-block>
+      <pre style="border:none; background:none"><%=stackTrace%></pre>
+    </v:widget-block>
+  </v:widget>
+<% } %>
+
+<table class="listcontainer hidden" data-url="<%=dataUrl%>"></table>

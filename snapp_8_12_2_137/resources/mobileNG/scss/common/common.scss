@@ -1,0 +1,408 @@
+body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Open Sans', sans-serif;
+}
+
+[nav-view-transition][nav-view-direction] {
+   background-color: transparent;
+}
+
+.padding {
+    padding: .625rem;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.button {
+    border: none;
+    @include border-radius(.4rem);
+    width: 100%;
+
+    &.button-default {
+        &, &.activated {
+            background-color: $btn-default-bg;
+        }
+    }
+
+    &, &:hover {
+        color: #fff;
+    }
+
+    &.activated {
+        opacity: .75;
+    }
+}
+
+.item-thumbnail-left {
+    &, .item-content {
+        padding-top: $myitemthumbpadding;
+        padding-bottom: $myitemthumbpadding;
+        padding-right: $myitemthumbpadding;
+    }
+
+    @include itemTextStyle();
+}
+
+ion-content {
+    .button {
+        min-width: 200px;
+        margin: .75rem auto 0;
+        @include btnStyle();
+    }
+}
+
+.popup-container {
+    .popup {
+        width: 21.875rem;
+
+        .popup-title {
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        .popup-body {
+            text-align: center;
+            font-size: 1.2rem;
+            line-height: 1.7rem;
+        }
+        .popup-buttons {
+            .button {
+                @include btnStyle();
+            }
+        }
+    }
+}
+
+.loading-container .loading {
+    background-color: transparent;
+    @include border-radius(0);
+}
+
+.bar.bar-header {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+
+    &, .title {
+        height: $mybarheight;
+    }
+
+    .title {
+        text-transform: uppercase;
+        font-size: 1.375rem;
+        line-height: $mybarheight;
+    }
+
+    .button {
+        border: none;
+        @include border-radius(0);
+        background-color: transparent;
+        background-repeat: no-repeat;
+        padding: 0;
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+    .button.btn-usagetype { 
+        //opacity: .5;
+    }
+}
+
+.has-header {
+    top: $mybarheight;
+}
+
+.bar-footer.has-tabs, .has-tabs {
+    bottom: $mytabsheight;
+}
+
+.list-inset {
+    $padding: .625rem;
+
+    label.item-input input, textarea {
+        padding: $padding;
+    }
+
+    label.item-input {
+        padding: 0;
+        margin-bottom: 1rem;
+    }
+}
+
+.ellipsis {
+    text-overflow: ellipsis;
+    display: block;
+    overflow: hidden;
+}
+
+form {
+    .list-inset {
+        background: transparent;
+        margin: 1.25rem 0 .5rem;
+    }
+
+    .error {
+        margin-bottom: 1rem;
+
+        + .button-container button {
+            margin-top: 0;
+        }
+    }
+
+    label.item-input input, textarea, select {
+        @include inputBtnStyle();
+        @include border-radius(.4rem);
+        background-color: #fff;
+        padding: .625rem !important;     
+    }
+}
+
+.checkIcon {
+    $s: 2rem;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    width: $s;
+    height: $s;
+    margin-top: -$s/2;
+    background-size: $s auto;
+    background-repeat: no-repeat;
+}
+
+label.item.item-input {
+    background: transparent;
+    border: none;
+}
+
+textarea {
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 15rem;
+}
+
+ ion-nav-bar {
+    .bar.bar-stable.bar-header {
+        .buttons-left, .buttons-right {
+            @include display-flex();
+            @include align-items(center);
+
+            > span {
+                padding: 0 .25rem;
+                margin: 0;
+            }
+        }
+        .button {
+            &.button {
+                @include headerBtnStyle();
+            }
+            &.back-button {
+                max-height: 100%;
+
+                .icon {
+                    display: block;
+                    height: 100%;
+
+                    &:before {
+                        font-size: 2.5rem !important;
+                        line-height: 3.5rem !important;
+                    }
+                }
+                .back-text {
+                    display: none;
+                }
+            }
+            &.info {
+                $w: 2.5rem;
+                width: $w;
+
+                img {
+                    width: $w;
+                }
+            }
+        }
+    }
+    &.manual-barcode {
+        .bar.bar-stable.bar-header {
+            .title, .buttons-left .button {
+                display: none;
+            }
+            .buttons-right {
+                top: 0;
+                right: 0;
+                bottom: 0;
+                padding: 5px;
+            }
+        }
+    }
+ }
+
+ion-tabs {
+    .tabs {
+        background-color: $gray;
+        background-image: none;
+        padding-top: 0;
+        height: $mytabsheight;
+        line-height: $mytabsheight;
+    }
+    .tab-item {
+        border-top: .25rem solid transparent;
+        color: #fff !important;
+        font-size: .8rem !important;
+        line-height: .95rem !important;
+        
+        .icon {
+            $h: 2.2rem;
+            height: $h;
+            background-repeat: no-repeat;
+            background-size: $h auto;
+            background-position: center top;
+            margin: .25rem auto;
+        }
+
+        &.tab-item-active {
+            color: #fff !important;
+        }
+    }
+}
+
+.center {
+    text-align: center;
+}
+
+.col.arrow {
+    position: relative;
+    padding-right: 2rem;
+
+    > img {
+        $s: 1.5rem;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        margin-top: -$s/2;
+        width: $s;
+        height: $s;
+    }
+}
+
+input.manual-barcode {
+    @include inputBtnStyle();
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: $mycontentpadding ($mybarheight + $mycontentpadding) $mycontentpadding $mycontentpadding;
+    text-transform: uppercase;
+}
+
+ion-view[data-page="login"] {
+    #login-logo {
+        margin-top: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    form {
+        .list-inset {
+            margin-bottom: 0;
+
+            label.item.item-input {
+                margin-top: 0;
+                margin-bottom: 2rem;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        .button {
+            margin-top: 2rem;
+        }
+
+        .error {
+            margin-bottom: 1.5rem;
+            margin-top: 1.5rem;
+            font-size: 1.2rem;
+
+            +.button-container .button {
+                margin-top: 0;
+            }
+        }
+    }
+}
+
+ion-view[data-page="menu"] {
+    > ion-content {
+        padding: 16px;
+
+        > .scroll {
+            height: 100%;
+            @include display-flex();
+            @include align-items(center);
+            @include justify-content(center);
+        }
+    }
+
+    .list {
+        width: 100%;
+        @include display-flex();
+        @include justify-content(center);
+        @include align-items(center);
+        @include flex-wrap(wrap);
+
+        > .item {
+            height: 50vw; //200px;
+            background: transparent;
+            border: none;
+            max-width: 24rem;
+            max-height: 22rem;
+
+            > .item-content {
+                background: $bar-stable-bg;
+                @include display-flex();
+                @include justify-content(center);
+                @include align-items(center);
+                @include flex-direction(column);
+                width: 100%;
+                height: 100%;
+                white-space: normal;
+                word-break: break-all;
+                text-align: center;
+
+                img {
+                    width: 50%; //5rem;
+                    height: auto;
+                }
+
+                h2 {
+                    margin-top: 1rem;
+                    text-transform: uppercase;
+                    font-weight: bold;
+                    color: #fff;
+                    font-size: 3.6vw;
+                }
+
+                &.disabled {
+                    opacity: .5;
+                }
+            }
+        }
+    }
+}
+
+@media all and (min-width: 512px) {
+
+}
+
+@media all and (min-width: 768px) {
+    ion-view[data-page="menu"] {
+        .list {
+            > .item {
+                > .item-content h2 {
+                    font-size: 2rem;
+                }
+            }
+        }
+    }
+}

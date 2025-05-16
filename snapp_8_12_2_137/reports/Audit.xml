@@ -1,0 +1,783 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><DOEnt_DocTemplate><Header><EntityType>37</EntityType><EntityId>5658C227-AEA7-C632-03C1-01706219FD91</EntityId><LastUpdate>2022-05-17T12:30:00.000+0000</LastUpdate></Header><DocTemplate><IconName>rpt-pdf.png</IconName><EntityType>37</EntityType><DocTemplateId>5658C227-AEA7-C632-03C1-01706219FD91</DocTemplateId><DocTemplateName>Audit</DocTemplateName><DocTemplateCode>GB4C4EFTZQGRQ34</DocTemplateCode><CategoryId>F508B973-06E3-FFD7-2730-01804C1F4D40</CategoryId><DocEnabled>true</DocEnabled><ExecRequireLogin>true</ExecRequireLogin><DocTemplateType>5</DocTemplateType><DocEditorType>5</DocEditorType><DocData unescaped="true"><![CDATA[{
+  "PageWidth": 21,
+  "PageHeight": 29.7,
+  "UnitOfMeasure": "CM",
+  "Title": "Audit",
+  "MarginTop": 2,
+  "MarginLeft": 2,
+  "MarginBottom": 2,
+  "MarginRight": 2,
+  "DefaultFontSize": 11,
+  "BandList": [
+    {
+      "BandType": "title",
+      "Comp": {
+        "Height": 4
+      },
+      "CompList": [
+        {
+          "X": 0,
+          "Y": 0,
+          "Width": 7.5,
+          "Height": 3.5,
+          "Alignment": "right",
+          "FontStyle": "bold",
+          "Text": [
+            "[@ITL.Common.Date {transform:uppercase}]:",
+            "[@ITL.Account.Location {transform:uppercase}]:",
+            "[@ITL.Account.OpArea {transform:uppercase}]:",
+            "[@ITL.Common.Workstation {transform:uppercase}]:",
+            "[@ITL.Common.User {transform:uppercase}]:"
+          ]
+        },
+        {
+          "X": 7.7,
+          "Y": 0,
+          "Width": 7.5,
+          "Height": 3.5,
+          "Text": [
+            "[@Param.DateFrom {format:ShortDate}] - [@Param.DateTo {format:ShortDate}]",
+            "[@Filters.LocationDesc]",
+            "[@Filters.OpAreaDesc]",
+            "[@Filters.WorkstationDesc]",
+            "[@Filters.UserDesc]"
+          ]
+        }
+      ]
+    },
+    {
+      "BandType": "detail",
+      "Comp": {
+        "Height": 0.6
+      },
+      "DataSourceName": "Group",
+      "CompList": [
+        {
+          "X": 4,
+          "Y": 0,
+          "Width": 10,
+          "Height": 0.6,
+          "FontStyle": "bold",
+          "Text": "[@Group.TagName]"
+        },
+        {
+          "X": 4,
+          "Y": 0,
+          "Width": 10,
+          "Height": 0.6,
+          "Alignment": "right",
+          "Text": "[@Group.TotalAmount {format:CurrencySymbol}]"
+        }
+      ],
+      "BandList": [
+        {
+          "BandType": "GroupHeader",
+          "Comp": {
+            "Height": 1
+          },
+          "IndexVars": "[@Group.GroupDummy]",
+          "CompList": [
+            {
+              "X": 0,
+              "Y": 0,
+              "Width": 17,
+              "Height": 0.8,
+              "Alignment": "center",
+              "FontStyle": "bold",
+              "FontSize": 16,
+              "Text": "[@ITL.Stats.FinancialGroup]"
+            }
+          ]
+        },
+        {
+          "BandType": "GroupFooter",
+          "Comp": {
+            "Height": 1.5
+          },
+          "IndexVars": "[@Group.GroupDummy]",
+          "CompList": [
+            {
+              "X": 4,
+              "Y": 0,
+              "Width": 10,
+              "Height": 0.5,
+              "BackgroundColor": "#ffffff",
+              "BorderTopColor": "#000000",
+              "BorderTopWidth": 0.5
+            },
+            {
+              "X": 4,
+              "Y": 0,
+              "Width": 10,
+              "Height": 1,
+              "FontStyle": "bold",
+              "Text": "[@ITL.Common.Total]"
+            },
+            {
+              "X": 10,
+              "Y": 0,
+              "Width": 4,
+              "Height": 0.8,
+              "Alignment": "right",
+              "Text": "[@Group.TotalAmount {aggregate:sum;format:CurrencySymbol}]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "BandType": "detail",
+      "Comp": {
+        "Height": 0.6
+      },
+      "DataSourceName": "Taxes",
+      "CompList": [
+        {
+          "X": 4,
+          "Y": 0,
+          "Width": 10,
+          "Height": 0.6,
+          "FontStyle": "bold",
+          "Text": "[@Taxes.TaxName]"
+        },
+        {
+          "X": 4,
+          "Y": 0,
+          "Width": 10,
+          "Height": 0.6,
+          "Alignment": "right",
+          "Text": "[@Taxes.Amount {format:CurrencySymbol}]"
+        }
+      ],
+      "BandList": [
+        {
+          "BandType": "GroupHeader",
+          "Comp": {
+            "Height": 1
+          },
+          "IndexVars": "[@Group.GroupDummy]",
+          "CompList": [
+            {
+              "X": 0,
+              "Y": 0,
+              "Width": 17,
+              "Height": 0.8,
+              "Alignment": "center",
+              "FontStyle": "bold",
+              "FontSize": 16,
+              "Text": "[@ITL.Common.Tax]"
+            }
+          ]
+        },
+        {
+          "BandType": "GroupFooter",
+          "Comp": {
+            "Height": 1.5
+          },
+          "IndexVars": "[@Group.GroupDummy]",
+          "CompList": [
+            {
+              "X": 4,
+              "Y": 0,
+              "Width": 10,
+              "Height": 0.5,
+              "BackgroundColor": "#ffffff",
+              "BorderTopColor": "#000000",
+              "BorderTopWidth": 0.5
+            },
+            {
+              "X": 4,
+              "Y": 0,
+              "Width": 10,
+              "Height": 1,
+              "FontStyle": "bold",
+              "Text": "[@ITL.Common.Total]"
+            },
+            {
+              "X": 10,
+              "Y": 0,
+              "Width": 4,
+              "Height": 0.8,
+              "Alignment": "right",
+              "Text": "[@Taxes.Amount {aggregate:sum;format:CurrencySymbol}]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "BandType": "detail",
+      "Comp": {
+        "Height": 0.6
+      },
+      "DataSourceName": "Payment",
+      "CompList": [
+        {
+          "X": 4,
+          "Y": 0,
+          "Width": 10,
+          "Height": 0.6,
+          "FontStyle": "bold",
+          "Text": "[@Payment.PaymentMethod]"
+        },
+        {
+          "X": 4,
+          "Y": 0,
+          "Width": 10,
+          "Height": 0.6,
+          "Alignment": "right",
+          "Text": "[@Payment.PaymentAmount {format:CurrencySymbol}]"
+        }
+      ],
+      "BandList": [
+        {
+          "BandType": "GroupHeader",
+          "Comp": {
+            "Height": 1
+          },
+          "IndexVars": "[@Group.GroupDummy]",
+          "CompList": [
+            {
+              "X": 0,
+              "Y": 0,
+              "Width": 17,
+              "Height": 0.8,
+              "Alignment": "center",
+              "FontStyle": "bold",
+              "FontSize": 16,
+              "Text": "[@ITL.Payment.Payment]"
+            }
+          ]
+        },
+        {
+          "BandType": "GroupHeader",
+          "IndexVars": "[@Payment.PaymentGroup]",
+          "Comp": {
+            "Height": 0.6
+          },
+          "CompList": [
+            {
+              "X": 4,
+              "Y": 0,
+              "Width": 10,
+              "Height": 0.5,
+              "FontStyle": "bold",
+              "Text": "[@Payment.PaymentGroup {transform:uppercase}]"
+            },
+            {
+              "X": 4,
+              "Y": 0,
+              "Width": 10,
+              "Height": 0.5,
+              "BackgroundColor": "#ffffff",
+              "BorderBottomColor": "#000000",
+              "BorderBottomWidth": 0.5
+            }
+          ]
+        },
+        {
+          "BandType": "GroupFooter",
+          "Comp": {
+            "Height": 1.5
+          },
+          "IndexVars": "[@Payment.GroupDummy]",
+          "CompList": [
+            {
+              "X": 4,
+              "Y": 0,
+              "Width": 10,
+              "Height": 0.5,
+              "BackgroundColor": "#ffffff",
+              "BorderTopColor": "#000000",
+              "BorderTopWidth": 0.5
+            },
+            {
+              "X": 4,
+              "Y": 0,
+              "Width": 10,
+              "Height": 1,
+              "FontStyle": "bold",
+              "Text": "[@ITL.Common.Total]"
+            },
+            {
+              "X": 10,
+              "Y": 0,
+              "Width": 4,
+              "Height": 0.8,
+              "Alignment": "right",
+              "Text": "[@Payment.PaymentAmount {aggregate:sum;format:CurrencySymbol}]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "BandType": "detail",
+      "Comp": {
+        "Height": 0.6
+      },
+      "DataSourceName": "Discount",
+      "CompList": [
+        {
+          "X": 4,
+          "Y": 0,
+          "Width": 10,
+          "Height": 0.6,
+          "FontStyle": "bold",
+          "Text": "[@Discount.ProductName]"
+        },
+        {
+          "X": 4,
+          "Y": 0,
+          "Width": 10,
+          "Height": 0.6,
+          "Alignment": "right",
+          "Text": "[@Discount.Amount {format:CurrencySymbol}]"
+        }
+      ],
+      "BandList": [
+        {
+          "BandType": "GroupHeader",
+          "Comp": {
+            "Height": 1
+          },
+          "IndexVars": "[@Discount.GroupDummy]",
+          "CompList": [
+            {
+              "X": 0,
+              "Y": 0,
+              "Width": 17,
+              "Height": 0.8,
+              "Alignment": "center",
+              "FontStyle": "bold",
+              "FontSize": 16,
+              "Text": "[@ITL.Stats.ItemDiscounts]"
+            }
+          ]
+        },
+        {
+          "BandType": "GroupFooter",
+          "Comp": {
+            "Height": 1.5
+          },
+          "IndexVars": "[@Discount.GroupDummy]",
+          "CompList": [
+            {
+              "X": 4,
+              "Y": 0,
+              "Width": 10,
+              "Height": 0.5,
+              "BackgroundColor": "#ffffff",
+              "BorderTopColor": "#000000",
+              "BorderTopWidth": 0.5
+            },
+            {
+              "X": 4,
+              "Y": 0,
+              "Width": 10,
+              "Height": 1,
+              "FontStyle": "bold",
+              "Text": "[@ITL.Common.Total]"
+            },
+            {
+              "X": 10,
+              "Y": 0,
+              "Width": 4,
+              "Height": 0.8,
+              "Alignment": "right",
+              "Text": "[@Discount.Amount {aggregate:sum;format:CurrencySymbol}]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "BandType": "detail",
+      "Comp": {
+        "Height": 0.6
+      },
+      "DataSourceName": "TransactionDiscount",
+      "CompList": [
+        {
+          "X": 4,
+          "Y": 0,
+          "Width": 10,
+          "Height": 0.6,
+          "FontStyle": "bold",
+          "Text": "[@TransactionDiscount.ProductName]"
+        },
+        {
+          "X": 4,
+          "Y": 0,
+          "Width": 10,
+          "Height": 0.6,
+          "Alignment": "right",
+          "Text": "[@TransactionDiscount.Amount {format:CurrencySymbol}]"
+        }
+      ],
+      "BandList": [
+        {
+          "BandType": "GroupHeader",
+          "Comp": {
+            "Height": 1
+          },
+          "IndexVars": "[@TransactionDiscount.GroupDummy]",
+          "CompList": [
+            {
+              "X": 0,
+              "Y": 0,
+              "Width": 17,
+              "Height": 0.8,
+              "Alignment": "center",
+              "FontStyle": "bold",
+              "FontSize": 16,
+              "Text": "[@ITL.Stats.TransactionDiscounts]"
+            }
+          ]
+        },
+        {
+          "BandType": "GroupFooter",
+          "Comp": {
+            "Height": 1.5
+          },
+          "IndexVars": "[@TransactionDiscount.GroupDummy]",
+          "CompList": [
+            {
+              "X": 4,
+              "Y": 0,
+              "Width": 10,
+              "Height": 0.5,
+              "BackgroundColor": "#ffffff",
+              "BorderTopColor": "#000000",
+              "BorderTopWidth": 0.5
+            },
+            {
+              "X": 4,
+              "Y": 0,
+              "Width": 10,
+              "Height": 1,
+              "FontStyle": "bold",
+              "Text": "[@ITL.Common.Total]"
+            },
+            {
+              "X": 10,
+              "Y": 0,
+              "Width": 4,
+              "Height": 0.8,
+              "Alignment": "right",
+              "Text": "[@TransactionDiscount.Amount {aggregate:sum;format:CurrencySymbol}]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}]]></DocData><SystemCode/><DocContexts/><SaleForApproval>false</SaleForApproval><SaleOpen>false</SaleOpen><SalePaid>false</SalePaid><SaleCompleted>false</SaleCompleted><IndividualPAH>false</IndividualPAH><LogCount>4</LogCount><DataSourceSelection>false</DataSourceSelection><DataSourceId/><MaxDateRangeDays/><MediaEncoderPluginId/><ProductDocumentTagIDs/><MediaRfidOptionType/><ParamList><Param><DocParamId>F1366C9A-79D4-C20D-198F-0180CD560AB1</DocParamId><DocTemplateId>5658C227-AEA7-C632-03C1-01706219FD91</DocTemplateId><DocParamType>4</DocParamType><DocParamName>DateFrom</DocParamName><DocParamCaption>@Common.FromDate</DocParamCaption><DocParamDefault>[@CurrentDate]</DocParamDefault><Mandatory>false</Mandatory></Param><Param><DocParamId>79B2F02B-A634-6562-1990-0180CD560AB2</DocParamId><DocTemplateId>5658C227-AEA7-C632-03C1-01706219FD91</DocTemplateId><DocParamType>4</DocParamType><DocParamName>DateTo</DocParamName><DocParamCaption>@Common.ToDate</DocParamCaption><DocParamDefault>[@CurrentDate]</DocParamDefault><Mandatory>false</Mandatory></Param><Param><DocParamId>1360674E-D9D6-5EB9-1991-0180CD560AB3</DocParamId><DocTemplateId>5658C227-AEA7-C632-03C1-01706219FD91</DocTemplateId><DocParamType>1001</DocParamType><DocParamName>LocationId</DocParamName><DocParamCaption>@Account.Location</DocParamCaption><DocParamDefault>[@CurrentLocationId]</DocParamDefault><Mandatory>false</Mandatory></Param><Param><DocParamId>9A80D805-BDB6-C734-1992-0180CD560AB4</DocParamId><DocTemplateId>5658C227-AEA7-C632-03C1-01706219FD91</DocTemplateId><DocParamType>1002</DocParamType><DocParamName>OpAreaId</DocParamName><DocParamCaption>@Account.OpArea</DocParamCaption><DocParamDefault>[@CurrentOpAreaId]</DocParamDefault><Mandatory>false</Mandatory></Param><Param><DocParamId>7EC0439E-35CD-1235-1993-0180CD560AB5</DocParamId><DocTemplateId>5658C227-AEA7-C632-03C1-01706219FD91</DocTemplateId><DocParamType>1004</DocParamType><DocParamName>UserId</DocParamName><DocParamCaption>@Common.User</DocParamCaption><DocParamDefault>[@CurrentUserId]</DocParamDefault><Mandatory>false</Mandatory></Param><Param><DocParamId>763AFCBB-BB71-0471-1994-0180CD560AB6</DocParamId><DocTemplateId>5658C227-AEA7-C632-03C1-01706219FD91</DocTemplateId><DocParamType>1003</DocParamType><DocParamName>WorkstationId</DocParamName><DocParamCaption>@Common.Workstation</DocParamCaption><DocParamDefault>[@CurrentWorkstationId]</DocParamDefault><Mandatory>false</Mandatory></Param></ParamList><DataSourceList><DataSource><Name>Discount</Name><Code>8DJ0AV6C8E7DKR2</Code><SQL unescaped="true"><![CDATA[select 
+  1 as GroupDummy,
+  P.ProductName,
+  Sum(-1 * TI.QtyPaid * SID.DiscountAmount) as Amount
+from
+  tbSaleItemDiscount SID left join
+  tbSaleItem SI on SI.SaleItemId=SID.SaleItemId left join
+  tbProduct P on P.ProductId=SID.PromoProductId left join
+  tbTransactionItem TI on TI.SaleItemId=SI.SaleItemId left join
+  tbTransaction T on T.TransactionId=TI.TransactionId left join
+  tbWorkstation W on T.WorkstationId=W.WorkstationId left join
+  tbAccount OPA on OPA.AccountId=W.OpAreaAccountId left join
+  tbAccount Loc on Loc.AccountId=W.LocationAccountId
+where
+  T.TransactionFiscalDate>=:@DateFrom and
+  T.TransactionFiscalDate<=:@DateTo and
+  (:@WorkstationId is null or W.WorkstationId=:@WorkstationId) and
+  (:@OpAreaId is null or W.OpAreaAccountId=:@OpAreaId) and
+  (:@LocationId is null or W.LocationAccountId=:@LocationId) and
+  (:@UserId is null or T.UserAccountId=:@UserId)
+group by
+  P.ProductName
+order by
+  P.ProductName
+				]]></SQL></DataSource><DataSource><Name>Filters</Name><Code>S77MPCXUE0J7MUK</Code><SQL unescaped="true"><![CDATA[select
+  /* LOCATION */
+  (case
+    when :@WorkstationId is not null
+    then (
+      select '[' + L.AccountCode + '] ' + L.DisplayName
+      from
+        tbWorkstation W inner join
+        tbAccount L on L.AccountId=W.LocationAccountId
+      where W.WorkstationId=:@WorkstationId
+    )
+    when :@OpAreaId is not null
+    then (
+      select '[' + L.AccountCode + '] ' + L.DisplayName
+      from
+        tbAccount OPA inner join
+        tbAccount L on L.AccountId=OPA.ParentAccountId
+      where OPA.AccountId=:@OpAreaId
+    )
+    when :@LocationId is not null
+    then (
+      select '[' + L.AccountCode + '] ' + L.DisplayName
+      from tbAccount L
+      where L.AccountId=:@LocationId
+    )
+    else ''
+  end) as LocationDesc,
+
+  /* OPAREA */
+  (case
+    when :@WorkstationId is not null
+    then (
+      select '[' + OPA.AccountCode + '] ' + OPA.DisplayName
+      from
+        tbWorkstation W inner join
+        tbAccount OPA on OPA.AccountId=W.OpAreaAccountId
+      where W.WorkstationId=:@WorkstationId
+    )
+    when :@OpAreaId is not null
+    then (
+      select '[' + AccountCode + '] ' + DisplayName
+      from tbAccount
+      where AccountId=:@OpAreaId
+    )
+    else ''
+  end) as OpAreaDesc,
+  
+  /* WORKSTATION */
+  (case
+    when :@WorkstationId is not null
+    then (
+      select ('[' + WorkstationCode + '] ' + WorkstationName) as WorkstationDesc
+      from tbWorkstation
+      where WorkstationId=:@WorkstationId
+    )
+    else ''
+  end) as WorkstationDesc,
+  
+  /* USER */
+  (case
+    when :@UserId is not null
+    then (
+      select ('[' + LA.UserName + '] ' + A.DisplayName) as UserDesc
+      from
+        tbAccount A left join 
+        tbLoginAlias LA on LA.AccountId=A.AccountId and LA.PrimaryAlias=1
+      where A.AccountId=:@UserId
+    )
+    else ''
+  end) as UserDesc
+				]]></SQL></DataSource><DataSource><Name>Group</Name><Code>6WVD6HQJ8BD5H25</Code><SQL unescaped="true"><![CDATA[select 
+  1 as GroupDummy,
+  Coalesce(Tag.TagName, 'Undefined') TagName,
+  Sum(TI.QtyPaid * SI.StatAmount) as TotalAmount
+from 
+  tbTransaction T inner join
+  tbTransactionItem TI on T.TransactionId=TI.TransactionId left join
+  tbSaleItem SI on SI.SaleItemId=TI.SaleItemId left join
+  tbProduct P on P.ProductId=SI.ProductId left join
+  tbTag Tag on Tag.TagId=P.FinanceGroupTagId left join
+  tbWorkstation W on T.WorkstationId=W.WorkstationId left join
+  tbAccount OPA on OPA.AccountId=W.OpAreaAccountId left join
+  tbAccount Loc on Loc.AccountId=W.LocationAccountId
+where
+  T.TransactionFiscalDate>=:@DateFrom and
+  T.TransactionFiscalDate<=:@DateTo and
+  (:@WorkstationId is null or W.WorkstationId=:@WorkstationId) and
+  (:@OpAreaId is null or W.OpAreaAccountId=:@OpAreaId) and
+  (:@LocationId is null or W.LocationAccountId=:@LocationId) and
+  (:@UserId is null or T.UserAccountId=:@UserId)
+group by
+  Tag.TagName
+order by
+  Tag.TagName
+				]]></SQL></DataSource><DataSource><Name>Payment</Name><Code>XAUQ1UMVY9M8M5J</Code><SQL unescaped="true"><![CDATA[select
+  1 as GroupDummy,
+  Coalesce(Tag.TagName, 'Undefined') PaymentGroup,
+  Coalesce(Plg.PluginName, Drv.DriverName) as PaymentMethod,
+  Sum(P.PaymentAmount) as PaymentAmount
+from
+  tbTransaction T inner join
+  tbPayment P on P.TransactionId=T.TransactionId left join
+  tbPlugin Plg on Plg.PluginId=P.PluginId left join
+  tbPluginPaymentMethod PPM on PPM.PluginId=P.PluginId left join
+  tbDriver Drv on Drv.DriverId=Plg.DriverId left join
+  tbWorkstation W on T.WorkstationId=W.WorkstationId left join
+  tbAccount OPA on OPA.AccountId=W.OpAreaAccountId left join
+  tbAccount Loc on Loc.AccountId=W.LocationAccountId left join
+  tbTag Tag on Tag.TagId=PPM.PaymentGroupTagId 
+where
+  P.PaymentStatus=2 /* Approved */ and
+  T.TransactionFiscalDate>=:@DateFrom and
+  T.TransactionFiscalDate<=:@DateTo and
+  (:@WorkstationId is null or W.WorkstationId=:@WorkstationId) and
+  (:@OpAreaId is null or W.OpAreaAccountId=:@OpAreaId) and
+  (:@LocationId is null or W.LocationAccountId=:@LocationId) and
+  (:@UserId is null or T.UserAccountId=:@UserId)
+group by
+  Coalesce(Tag.TagName, 'Undefined'),
+  Coalesce(Plg.PluginName, Drv.DriverName)
+order by
+  PaymentGroup,
+  PaymentMethod
+				]]></SQL></DataSource><DataSource><Name>Taxes</Name><Code>MDJRJAKQUWRP556</Code><SQL unescaped="true"><![CDATA[select 
+    1 as GroupDummy,
+	TX.TaxName,
+    Sum(SIT.TaxAmount * TI.QtyPaid) as Amount
+from
+	tbSaleItemTax SIT left join
+	tbSaleItem SI on SI.SaleItemId=SIT.SaleItemId left join
+	tbTax TX on TX.TaxId=SIT.TaxId left join
+	tbTransactionItem TI on TI.SaleItemId=SI.SaleItemId left join
+	tbTransaction T on T.TransactionId=TI.TransactionId left join
+    tbWorkstation W on T.WorkstationId=W.WorkstationId left join
+    tbAccount OPA on OPA.AccountId=W.OpAreaAccountId left join
+    tbAccount Loc on Loc.AccountId=W.LocationAccountId
+where
+  T.TransactionFiscalDate>=:@DateFrom and
+  T.TransactionFiscalDate<=:@DateTo and
+  (:@WorkstationId is null or W.WorkstationId=:@WorkstationId) and
+  (:@OpAreaId is null or W.OpAreaAccountId=:@OpAreaId) and
+  (:@LocationId is null or W.LocationAccountId=:@LocationId) and
+  (:@UserId is null or T.UserAccountId=:@UserId)
+group by
+	TX.TaxName
+order by
+	TX.TaxName
+				]]></SQL></DataSource><DataSource><Name>TransactionDiscount</Name><Code>W664G8BM74VJTKQ</Code><SQL unescaped="true"><![CDATA[select 
+  1 as GroupDummy,
+  P.ProductName,
+  Sum(SI.TotalAmount) Amount
+from
+  tbSaleItem SI left join
+  tbProduct P on P.ProductId=SI.ProductId left join
+  tbPromoRule PR on PR.ProductId= P.ProductId left join
+  tbTransactionItem TI on TI.SaleItemId=SI.SaleItemId left join
+  tbTransaction T on T.TransactionId=TI.TransactionId left join
+  tbWorkstation W on T.WorkstationId=W.WorkstationId left join
+  tbAccount OPA on OPA.AccountId=W.OpAreaAccountId left join
+  tbAccount Loc on Loc.AccountId=W.LocationAccountId
+where
+  P.ProductType=5 /*PromoRule*/ and
+  PR.PromoActionTarget=1 /*Transaction*/ and 
+  PR.PromoDiscountType=2 /*AbsDiscount*/ and
+  T.TransactionFiscalDate>=:@DateFrom and
+  T.TransactionFiscalDate<=:@DateTo and
+  T.Paid<>0 and
+  (:@WorkstationId is null or W.WorkstationId=:@WorkstationId) and
+  (:@OpAreaId is null or W.OpAreaAccountId=:@OpAreaId) and
+  (:@LocationId is null or W.LocationAccountId=:@LocationId) and
+  (:@UserId is null or T.UserAccountId=:@UserId)
+group by
+  P.ProductName
+order by
+  P.ProductName
+				]]></SQL></DataSource></DataSourceList><RightList><Right><IconName>station.png</IconName><UsrEntityType>3</UsrEntityType><UsrEntityId>A0000131-0000-0000-0000-000000000003</UsrEntityId><UsrEntityCode/><UsrEntityName>Every station</UsrEntityName><RightLevel>5</RightLevel></Right><Right><IconName>role.png</IconName><UsrEntityType>13</UsrEntityType><UsrEntityId>A49F1B54-4E23-4F41-983E-00B4E0E2117D</UsrEntityId><UsrEntityCode>B2BADM</UsrEntityCode><UsrEntityName>B2B Administrator</UsrEntityName><RightLevel>2</RightLevel></Right><Right><IconName>role.png</IconName><UsrEntityType>13</UsrEntityType><UsrEntityId>2898A945-2C3A-06EB-6584-015EA773A548</UsrEntityId><UsrEntityCode>SDC-GUEST</UsrEntityCode><UsrEntityName>SDC Guests</UsrEntityName><RightLevel>2</RightLevel></Right></RightList><RichDescList><RichDescItem><IconName>flag_USA.png</IconName><LangISO>en</LangISO><Description>&lt;div&gt;&#13;
+&lt;h1&gt;Audit Report&lt;/h1&gt;&#13;
+&#13;
+&lt;h2&gt;Abstract&lt;/h2&gt;&#13;
+&lt;/div&gt;&#13;
+&amp;ldquo;Audit Report&amp;rdquo; generates a report on&amp;nbsp;the Financial Statement within a selected period at your choice filtered by Location, Operating Area, Workstation and User.&#13;
+&#13;
+&lt;div&gt;&#13;
+&lt;h2&gt;Generating the report&lt;/h2&gt;&#13;
+&lt;/div&gt;&#13;
+Parameter Input&lt;br /&gt;&#13;
+While generating the report, input parameters menu presents an intuitive interface.&lt;br /&gt;&#13;
+Built-in wizards will help you quickly and easily create at your choice profile for your site by:&lt;br /&gt;&#13;
+&lt;br /&gt;&#13;
+&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&amp;nbsp;[&lt;em&gt;Datasource&lt;/em&gt;] &amp;ndash; Data source easy-to-select by eligible users (please refer to SnApp BKO &amp;gt;&amp;gt; Templates &amp;gt;&amp;gt; Statistical Reports &amp;gt;&amp;gt; Audit &amp;gt;&amp;gt; Profile)&lt;br /&gt;&#13;
+&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&amp;nbsp;[&lt;em&gt;From date &amp;ndash; To Date&lt;/em&gt;] &amp;ndash; Period to be analysed, easy-to-select.&lt;br /&gt;&#13;
+&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; Note: The dates if not specified are to be considered&amp;nbsp;&lt;em&gt;&amp;ldquo;Fiscal Date&amp;rdquo;&lt;/em&gt;&lt;br /&gt;&#13;
+&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;[&lt;em&gt;Location&lt;/em&gt;] &amp;ndash; Site Location, easy-to-select. When select &amp;quot;&lt;em&gt;-empty&lt;/em&gt;&amp;quot;, default is all the locations&lt;br /&gt;&#13;
+&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&amp;nbsp;[&lt;em&gt;Operating Area&lt;/em&gt;] &amp;ndash; Operating area, easy-to-select. When select&amp;nbsp;&amp;quot;&lt;em&gt;-empty&lt;/em&gt;&amp;quot;, default is all the operating areas.&lt;br /&gt;&#13;
+&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&amp;nbsp;[&lt;em&gt;User&lt;/em&gt;] &amp;ndash; Site User Name. When select&amp;nbsp;&amp;quot;&lt;em&gt;-empty&lt;/em&gt;&amp;quot;, default is all the users&lt;br /&gt;&#13;
+&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&amp;nbsp;[&lt;em&gt;Workstation&lt;/em&gt;] &amp;ndash; Site Workstation Name. When select&amp;nbsp;&amp;quot;&lt;em&gt;-empty&lt;/em&gt;&amp;quot;, default is all the workstations&lt;br /&gt;&#13;
+&lt;br /&gt;&#13;
+Output File Extension&lt;br /&gt;&#13;
+Report generates a PDF (latest version) file&#13;
+&lt;div&gt;&#13;
+&lt;h2&gt;Page Layout&lt;/h2&gt;&#13;
+&lt;/div&gt;&#13;
+The information generated have the following format:&lt;br /&gt;&#13;
+General:&lt;br /&gt;&#13;
+&amp;middot;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; [&lt;em&gt;Report Title&lt;/em&gt;] &amp;ndash; Report Title &amp;quot;Audit&amp;quot; centered at the top of each page generated.&lt;br /&gt;&#13;
+&amp;middot;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; [&lt;em&gt;Execution date/time&lt;/em&gt;] - Report Execution Time. Date and Hours format as per configuration [Location, Operating Area, Workstation].as&amp;nbsp;footer on the left side of the page&#13;
+&#13;
+&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; [&lt;em&gt;# n&lt;/em&gt;] &amp;ndash; Page number as&amp;nbsp;footer on the right side of the page.&lt;br /&gt;&#13;
+&lt;em&gt;​&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &lt;/em&gt;[&lt;em&gt;Footer&lt;/em&gt;]&lt;em&gt;&amp;nbsp;&lt;/em&gt;Report&amp;#39;s execution date and timing&lt;/div&gt;&#13;
+&amp;nbsp;&#13;
+&#13;
+&lt;div&gt;&lt;em&gt;Header&lt;/em&gt;&lt;/div&gt;&#13;
+&#13;
+&lt;p&gt;&amp;middot;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; [&lt;em&gt;DATE:&lt;/em&gt;] &amp;ndash; Selected analysis period with the following format From Date - To Date (dates are written as the preferred Calendar Date format)&lt;br /&gt;&#13;
+&lt;span style="font-family:Calibri,sans-serif; font-size:11pt"&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;[&lt;/span&gt;&lt;em style="font-family:Calibri,sans-serif; font-size:11pt"&gt;LOCATION&lt;/em&gt;&lt;span style="font-family:Calibri,sans-serif; font-size:11pt"&gt;] &amp;ndash; Site Location Code and Name. Display format: &amp;quot;[SITE LOCATION CODE] Site Location Name&amp;quot;.Selecting blanck or &amp;quot;- empty&amp;quot; all the &amp;nbsp;Locations&amp;#39; exposure are analysed and listed&lt;/span&gt;&lt;br /&gt;&#13;
+&lt;span style="font-size:11pt"&gt;&lt;span style="line-height:107%"&gt;&lt;span style="font-family:Calibri,sans-serif"&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&amp;nbsp;[&lt;em&gt;&lt;span calibri=""&gt;OPERATING AREA&lt;/span&gt;&lt;/em&gt;] &amp;ndash; Site Operating Area Code and Name. Display format: &amp;quot;[SITE OPERATING AREA CODE] Site Operating Area Name&amp;quot;. Selecting blanck or &amp;quot;- empty&amp;quot; all the &amp;nbsp;Operating Area&amp;#39; exposure are analysed and listed&lt;br /&gt;&#13;
+&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&amp;nbsp;[&lt;em&gt;&lt;span calibri=""&gt;USER&lt;/span&gt;&lt;/em&gt;] &amp;ndash; Account &amp;nbsp;User Code and Name. Selecting blanck or &amp;quot;- empty&amp;quot; all the users. Display format: [USER CODE] &amp;quot;Last Name&amp;quot;, &amp;quot;First Name&amp;quot;&lt;br /&gt;&#13;
+&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&amp;nbsp;[&lt;em&gt;&lt;span calibri=""&gt;WORKSTATION&lt;/span&gt;&lt;/em&gt;] &amp;ndash; Site Workstation Code and Name. Display format: &amp;quot;[SITE WORKSTATION CODE] Site Workstation Name&amp;quot;. Selecting blanck or &amp;quot;- empty&amp;quot; all the Workstation&amp;#39; exposure are analysed and listed&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;&#13;
+&#13;
+&lt;div&gt;&#13;
+&lt;h2&gt;Contents&lt;/h2&gt;&#13;
+&lt;/div&gt;&#13;
+The program produces easy-to-read reports organized into tables, one for each section as described on the sample table here below:&#13;
+&#13;
+&lt;table border="0" cellpadding="0" cellspacing="0"&gt;&#13;
+	&lt;tbody&gt;&#13;
+		&lt;tr&gt;&#13;
+			&lt;td colspan="2" style="width:665px"&gt;&#13;
+			&lt;div&gt;&lt;strong&gt;Section Title&lt;/strong&gt;&lt;/div&gt;&#13;
+			&lt;/td&gt;&#13;
+		&lt;/tr&gt;&#13;
+		&lt;tr&gt;&#13;
+			&lt;td style="width:332px"&gt;&lt;strong&gt;Item A&lt;/strong&gt;&lt;/td&gt;&#13;
+			&lt;td style="width:332px"&gt;&lt;em&gt;Value expressed in selected currency (i.e. $ 100.00)&lt;/em&gt;&lt;/td&gt;&#13;
+		&lt;/tr&gt;&#13;
+		&lt;tr&gt;&#13;
+			&lt;td style="width:332px"&gt;&lt;strong&gt;Item B&lt;/strong&gt;&lt;/td&gt;&#13;
+			&lt;td style="width:332px"&gt;&lt;em&gt;Value expressed in selected currency (i.e. $ 1000.00)&lt;/em&gt;&lt;/td&gt;&#13;
+		&lt;/tr&gt;&#13;
+		&lt;tr&gt;&#13;
+			&lt;td style="width:332px"&gt;&lt;strong&gt;Item C&lt;/strong&gt;&lt;/td&gt;&#13;
+			&lt;td style="width:332px"&gt;&lt;em&gt;Value expressed in selected currency (i.e. $ 100.00)&lt;/em&gt;&lt;/td&gt;&#13;
+		&lt;/tr&gt;&#13;
+		&lt;tr&gt;&#13;
+			&lt;td style="width:332px"&gt;&lt;strong&gt;Total&lt;/strong&gt;&lt;/td&gt;&#13;
+			&lt;td style="width:332px"&gt;&lt;em&gt;Value expressed in selected currency (i.e. $ 100.00)&lt;/em&gt;&lt;/td&gt;&#13;
+		&lt;/tr&gt;&#13;
+	&lt;/tbody&gt;&#13;
+&lt;/table&gt;&#13;
+&amp;nbsp;&#13;
+&#13;
+&lt;ul&gt;&#13;
+	&lt;li&gt;&lt;em&gt;Section Title (centered)&lt;/em&gt;: Financial Group.&lt;/li&gt;&#13;
+	&lt;li&gt;&lt;em&gt;Table row&lt;/em&gt;: each row is divided in two columns&#13;
+	&lt;ul&gt;&#13;
+		&lt;li&gt;&lt;em&gt;Column 1&lt;/em&gt;: Financial Group Name&lt;/li&gt;&#13;
+		&lt;li&gt;&lt;em&gt;Column 2&lt;/em&gt;: Value expressed in selected currency (i.e. $ 100.00)&lt;br /&gt;&#13;
+		&amp;nbsp;&lt;/li&gt;&#13;
+	&lt;/ul&gt;&#13;
+	&lt;/li&gt;&#13;
+	&lt;li&gt;&lt;em&gt;Section Title (centered)&lt;/em&gt;: Tax.&lt;/li&gt;&#13;
+	&lt;li&gt;&lt;em&gt;Table row&lt;/em&gt;: each row is divided in two columns&#13;
+	&lt;ul&gt;&#13;
+		&lt;li&gt;&lt;em&gt;Column 1&lt;/em&gt;: Tax Name (VAT, State Tax, County Tax&amp;hellip;.)&lt;/li&gt;&#13;
+		&lt;li&gt;&lt;em&gt;Column 2&lt;/em&gt;: Value expressed in selected currency (i.e. $ 100.00)&lt;br /&gt;&#13;
+		&amp;nbsp;&lt;/li&gt;&#13;
+	&lt;/ul&gt;&#13;
+	&lt;/li&gt;&#13;
+	&lt;li&gt;&lt;em&gt;Section Title&amp;nbsp;(centered)&lt;/em&gt;: Payment.&lt;/li&gt;&#13;
+	&lt;li&gt;&lt;em&gt;Table row&lt;/em&gt;: each row is divided in two columns regrouped by typology&#13;
+	&lt;ul&gt;&#13;
+		&lt;li&gt;&lt;em&gt;Column 1&lt;/em&gt;: Payment Method Name (Bank transfer, Credit Card, Wallet, Web Payment, Cash&amp;hellip;)&lt;/li&gt;&#13;
+		&lt;li&gt;&lt;em&gt;Column 2&lt;/em&gt;: Value expressed in selected currency (i.e. $ 100.00)&lt;br /&gt;&#13;
+		&amp;nbsp;&lt;/li&gt;&#13;
+	&lt;/ul&gt;&#13;
+	&lt;/li&gt;&#13;
+	&lt;li&gt;&lt;em&gt;Section Title&amp;nbsp;(centered)&lt;/em&gt;: Item Discounts&lt;/li&gt;&#13;
+	&lt;li&gt;&lt;em&gt;Table row&lt;/em&gt;: each row is divided in two columns regrouped by typology&#13;
+	&lt;ul&gt;&#13;
+		&lt;li&gt;&lt;em&gt;Column 1&lt;/em&gt;: Item Discount Name (Coupon, Voucher, Reward Point, Hotel Guest&amp;hellip;)&lt;/li&gt;&#13;
+		&lt;li&gt;&lt;em&gt;Column 2&lt;/em&gt;: Value expressed in selected currency (i.e. $ 100.00)&lt;/li&gt;&#13;
+	&lt;/ul&gt;&#13;
+	&lt;/li&gt;&#13;
+&lt;/ul&gt;&#13;
+</Description></RichDescItem></RichDescList></DocTemplate></DOEnt_DocTemplate>

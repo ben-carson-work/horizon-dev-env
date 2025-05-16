@@ -1,0 +1,35 @@
+{
+  "Title": "@Common.Localization",
+  "IconAlias": "calendar",
+  "IconColor": "gray",
+  "SectionList": [
+    {
+      "Rights": [
+        "LangISO"
+      ]
+    },
+    {
+      "Rights": [
+        "ShortDateFormat",
+        "LongDateFormat",
+        "ShortTimeFormat",
+        "LongTimeFormat",
+        "FirstDayOfWeek"
+      ]
+    },
+    {
+      "Rights": [
+        "DecimalSeparator",
+        "ThousandSeparator",
+        "CSVSeparator",
+        "ExtDisplayCurrencyFormat"
+      ]
+    },
+    {
+      "Rights": [
+        "FiscalDateSwitchHour",
+        "TimeZone"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "SectionCode": "procqueue",
+  "SectionName": "Process Queue",
+  "ParamGroupList": [
+    {
+      "Caption": "Transactions pool size",
+      "ParamList": [
+        {
+          "ParamName": "ProcessQueueSize-Trn[low]",
+          "ParamValue": "5"
+        },
+        {
+          "ParamName": "ProcessQueueSize-Trn[medium]",
+          "ParamValue": "5"
+        },
+        {
+          "ParamName": "ProcessQueueSize-Trn[high]",
+          "ParamValue": "5"
+        }
+      ],
+      "AlertBox": {
+        "Type": "info",
+        "Text": [
+          "Overrides the overall SnApp defaults (5 for each pool).\\",
+          "low/medium/high identify the 3 handled priority queues."
+        ]
+      }
+    }
+  ]
+}

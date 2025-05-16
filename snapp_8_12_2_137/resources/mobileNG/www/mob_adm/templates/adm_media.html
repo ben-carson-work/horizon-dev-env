@@ -1,0 +1,73 @@
+<ion-view view-title="{{LABELS['Common.Medias']}}" data-page="adm_media">
+  <ion-content scroll="false">
+    <h2 ng-if="media.MediaList">{{LABELS['Common.Total']}}: {{media.TotalRecordCount}}</h2>
+    <p ng-if="!media.MediaList" class="mediaNotFound">{{LABELS['Common.MediaNotFound']}}</p>
+
+    <ion-scroll ng-if="media.MediaList">
+      <ion-list>
+        <ion-item ng-repeat="item in media.MediaList track by $index">
+          <div class="row profile">
+            <div ng-show="item.AccountProfilePictureId">
+              <img ng-src="{{formatImageUrl(item.AccountProfilePictureId, 'repository')}}" />
+            </div>
+            <div class="col">
+              <div class="bold">{{item.AccountName}}</div>
+
+              <div class="bold heading">{{LABELS['Common.Balance']}}</div>
+              <div>{{(item.WalletBalance ? (item.WalletBalance * appCurrency.ExchangeRate) : 0) | currency: appCurrency.Symbol: appCurrency.RoundDecimals}}</div>
+
+              <div class="bold heading">{{LABELS['Common.CreditLimit']}}</div>
+              <div>{{(item.WalletCreditLimit ? (item.WalletCreditLimit * appCurrency.ExchangeRate) : 0) | currency: appCurrency.Symbol: appCurrency.RoundDecimals}}</div>
+
+              <div class="bold heading">{{LABELS['Common.Expiration']}}</div>
+              <div>{{item.WalletExpireDate ? (item.WalletExpireDate | date: 'dd/MM/yyyy') : '-' }}</div>
+            </div>
+          </div>
+          
+          <ul>
+            <li class="row" ng-click="mediaDetail(item)">
+              <div class="col col-33">{{LABELS['Common.Media']}}</div>
+              <div class="col col-67 arrow">
+                <img ng-src="{{appIcons.arrow_r}}"/>
+                {{item.MediaCalcCode}}
+              </div>
+            </li>
+            <li class="row" ng-click="mediaProduct(item)">
+              <div class="col col-33">{{LABELS['Ticket.Ticket']}}</div>
+              <div class="col col-67 arrow">
+                <img ng-src="{{appIcons.arrow_r}}"/>
+                {{item.MainProductName}}
+              </div>
+            </li>
+            <li class="row" ng-click="item.PortfolioUsageCount && searchTicketUsage(item.MediaId)">
+              <div class="col col-50">{{LABELS['Ticket.Usages']}}</div>
+              <!-- used counter -->
+              <div class="col col-50 arrow" ng-if="item.PortfolioUsageCount">
+                <img ng-src="{{appIcons.arrow_r}}"/>
+                <span class="badge badge-assertive">{{item.PortfolioUsageCount}}</span>
+              </div>
+              <!-- not used -->
+              <div class="col col-50" ng-if="!item.PortfolioUsageCount || item.PortfolioUsageCount === 0">
+                {{LABELS['Ticket.NotUsed']}}
+              </div>
+            </li>
+            <li class="row" ng-click="portfolioMedias(item.PortfolioId)"> <!-- ng-if="item.PortfolioMediaCount > 1" -->
+              <div class="col col-67">{{LABELS['Common.PortfolioMedias']}}</div>
+              <div class="col col-33 arrow">
+                <img ng-src="{{appIcons.arrow_r}}"/>
+                <span class="badge badge-assertive">{{item.PortfolioMediaCount}}</span>
+              </div>
+            </li>
+            <li class="row" ng-click="portfolioTickets(item.PortfolioId)"> <!-- ng-if="item.TicketCount > 1" -->
+              <div class="col col-67">{{LABELS['Common.PortfolioTickets']}}</div>
+              <div class="col col-33 arrow">
+                <img ng-src="{{appIcons.arrow_r}}"/>
+                <span class="badge badge-assertive">{{item.TicketCount}}</span>
+              </div>
+            </li>
+          </ul>
+        </ion-item>
+      </ion-list>
+    </ion-scroll>
+  </ion-content>
+</ion-view>

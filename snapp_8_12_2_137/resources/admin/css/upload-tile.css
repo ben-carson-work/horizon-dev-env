@@ -1,0 +1,113 @@
+.v-upload-tile {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 4px;
+  background-color: var(--border-color);
+  overflow: hidden;
+  line-height: normal;
+}
+
+.v-upload-tile:not(.v-upload-status-empty) .v-upload-tile-empty, .v-upload-tile.v-upload-status-loading .v-upload-tile-empty {display: none}
+.v-upload-tile:not(.v-upload-status-loading) .v-upload-tile-loading {display: none}
+.v-upload-tile.v-upload-status-empty .v-upload-tile-preview {display: none}
+.v-upload-tile.v-upload-status-empty .v-upload-tile-info {display: none}
+
+.v-upload-tile.disabled .v-upload-tile-empty,
+.v-upload-tile.disabled .v-upload-tile-topbar-item-clear {
+  display: none !important;
+}
+
+
+.v-upload-tile-empty,
+.v-upload-tile-loading,
+.v-upload-tile-preview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3em;
+} 
+
+.v-upload-tile-empty {
+  cursor: pointer;
+}
+
+.v-upload-tile-empty:hover {
+  background-color: rgba(0,0,0,0.2);
+}
+
+.v-upload-tile-loading {
+  opacity: 0.5;
+}
+
+.v-upload-tile-preview {
+  font-size: 5em;
+  background-color: white;
+  border-radius: 4px;
+  border: 2px solid var(--border-color);
+}
+
+.v-upload-tile-topbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: none; 
+  background-color: rgba(0,0,0,0.2);
+}
+
+.v-upload-tile:not(.v-upload-status-empty):hover .v-upload-tile-topbar {
+  display: block;
+}
+
+.v-upload-tile-topbar-item {
+  font-size: 2em;
+  margin: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.v-upload-tile-topbar-item-clear {
+  float: right;
+}
+
+.v-upload-tile-topbar-item-download {
+  float: left;
+}
+
+.v-upload-tile-topbar-item:hover {
+  color: var(--base-blue-color);
+}
+
+.v-upload-tile-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 4px;
+  background-color: rgba(0,0,0,0.2);
+}
+
+.v-upload-tile-info-filename {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: bold;
+}
+
+.v-upload-tile-dragover {
+  border: 5px dashed var(--base-blue-color);
+}
+
+.v-upload-tile-dragover * {
+  display: none !important;
+
+ }

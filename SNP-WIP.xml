@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Context path="">
+    <Parameter name="VGS-ServerId" value="1" />
+    <Parameter name="VGS-DB_driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+    <Parameter name="VGS-DB_url" value="jdbc:sqlserver://sqlserver\Developer:1433;databaseName=SNP_WIP;user=sa;password=P@ssw0rd"/>
+    <Parameter name="VGS-SiteUrl" value="http://localhost:8080/SNP-WIP"/>
+    <Parameter name="VGS-TestMode" value="true"/>
+    <Parameter name="VGS-TestModeLabel" value="WIP - Local Test Environment"/>
+    <Parameter name="VGS-DB_poolMax[cmd]" value="10000" />
+    <Parameter name="VGS-DB_poolMax[default]" value="10000" />
+</Context>

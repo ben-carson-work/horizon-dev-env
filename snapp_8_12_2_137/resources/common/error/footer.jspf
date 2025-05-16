@@ -1,0 +1,28 @@
+<%@page import="com.vgs.cl.JvDateTime"%>
+<%@page import="com.vgs.web.tag.ConfigTag"%>
+<%@ taglib uri="vgs-tags" prefix="v" %>
+
+  &nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>
+  <a id="home-link" href="<%=ConfigTag.getValue("site_url")%>/">HOME</a>
+</div>
+
+<div id="vgs-footer">Horizon by VGS &mdash; &copy; 2023 accesso Technology Group, plc</div>
+<script>
+document.addEventListener('DOMContentLoaded', function(event) {
+  // guess context
+  var siteUrl = '<%=ConfigTag.getValue("site_url") %>';
+  var a = document.getElementById('home-link');
+  if (siteUrl != 'null') {
+    var path = location.pathname + location.search;
+    if (path.indexOf('/admin?') != -1 || path.indexOf('/admin/?') != -1) {
+      a.setAttribute('href', siteUrl + '/admin');
+    } else if (path.indexOf('/b2b?') != -1 || path.indexOf('/b2b/?') != -1) {
+      a.setAttribute('href', siteUrl + '/b2b');
+    }
+  } else {
+    a.setAttribute('style', 'display: none;');
+  }
+});
+</script>
+</body>
+</html>

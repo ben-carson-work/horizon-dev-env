@@ -1,0 +1,20 @@
+#step-recap #recap-body {
+  position: absolute;
+  top: 24rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  padding: 3rem;
+}
+
+#step-recap #addon-title {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-variant-caps: all-small-caps;
+} 
+
+#step-recap:not(.has-addons) #addon-container {
+  display: none;
+}

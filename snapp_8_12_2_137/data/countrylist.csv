@@ -1,0 +1,251 @@
+id;continent;name;capital;iso-2;iso-3;tld;currency
+1;Asia;Afghanistan;Kabul;AF;AFG;.af;AFN
+2;Africa;Egypt;Kairo;EG;EGY;.eg;EGP
+3;Europe;Åland Islands;Mariehamn;AX;ALA;.ax;EUR
+4;Europe;Albania;Tirana;AL;ALB;.al;ALL
+5;Africa;Algeria;Algier;DZ;DZA;.dz;DZD
+6;Australia;American Samoa;Pago-Pago;AS;ASM;.as;USD
+7;South America;Virgin Islands, U.S.;Charlotte Amalie;VI;VIR;.vi;USD
+8;Europe;Andorra;Andorra la Vella;AD;AND;.ad;EUR
+9;Africa;Angola;Luanda;AO;AGO;.ao;AOA
+10;North America;Anguilla;The Valley;AI;AIA;.ai;XCD
+11;Antarctica;Antarctica;Juneau;AQ;ATA;.aq;
+12;North America;Antigua And Barbuda;Saint John's;AG;ATG;.ag;XCD
+13;Africa;Equatorial Guinea;Malabo;GQ;GNQ;.gq;XAF
+14;South America;Argentina;Buenos Aires;AR;ARG;.ar;ARS
+15;Asia;Armenia;Eriwan;AM;ARM;.am;AMD
+16;North America;Aruba;Oranjestad;AW;ABW;.aw;ANG
+17;Africa;Ascension;-/-;AC;ASC;.ac;
+18;Asia;Azerbaijan;Baku;AZ;AZE;.az;AZN
+19;Africa;Ethiopia;Addis Abeba;ET;ETH;.et;ETB
+20;Australia;Australia;Canberra;AU;AUS;.au;AUD
+21;North America;Bahamas;Nassau;BS;BHS;.bs;BSD
+22;Asia;Bahrain;Manama;BH;BHR;.bh;BHD
+23;Asia;Bangladesh;Dhaka;BD;BGD;.bd;BDT
+24;North America;Barbados;Bridgetown;BB;BRB;.bb;BBD
+25;Europe;Belgium;Brüssel;BE;BEL;.be;EUR
+26;North America;Belize;Belmopan;BZ;BLZ;.bz;BZD
+27;Africa;Benin;Porto Novo;BJ;BEN;.bj;XOF
+28;North America;Bermuda;Hamilton;BM;BMU;.bm;BMD
+29;Asia;Bhutan;Thimphu;BT;BTN;.bt;BTN
+30;South America;Bolivia;Sucre;BO;BOL;.bo;BOB
+31;Europe;Bosnia And Herzegovina;Sarajevo;BA;BIH;.ba;BAM
+32;Africa;Botswana;Gaborone;BW;BWA;.bw;BWP
+33;Antarctica;Bouvet Island;(Forschungsinsel);BV;BVT;.bv;NOK
+34;South America;Brazil;Brasília;BR;BRA;.br;BRL
+35;North America;Virgin Islands, British;Road Town;VG;VGB;.vg;USD
+36;Asia;British Indian Ocean Territory;-/-;IO;IOT;.io;USD
+37;Asia;Brunei Darussalam;Bandar Seri Begawan;BN;BRN;.bn;BND
+38;Europe;Bulgaria;Sofia;BG;BGR;.bg;BGN
+39;Africa;Burkina Faso;Ouagadougou;BF;BFA;.bf;XOF
+40;Africa;Burundi;Bujumbura;BI;BDI;.bi;BIF
+41;South America;Chile;Santiago;CL;CHL;.cl;CLP
+42;Asia;China;Peking (Beijing);CN;CHN;.cn;CNY
+43;Australia;Cook Islands;Avarua;CK;COK;.ck;NZD
+44;North America;Costa Rica;San José;CR;CRI;.cr;CRC
+45;Africa;CÔte D'ivoire;Yamoussoukro;CI;CIV;.ci;XOF
+46;Europe;Denmark;Kopenhagen;DK;DNK;.dk;DKK
+47;Europe;Germany;Berlin;DE;DEU;.de;EUR
+48;Africa;Saint Helena;Jamestown;SH;SHN;.sh;SHP
+49;Africa;Diego Garcia;Diego Garcia (Main Island);DG;DGA;-/-;
+50;North America;Dominica;Roseau;DM;DMA;.dm;XCD
+51;South America;Dominican Republic;Santo Domingo;DO;DOM;.do;DOP
+52;Africa;Djibouti;Dschibuti;DJ;DJI;dj;DJF
+53;South America;Ecuador;Quito;EC;ECU;.ec;USD
+54;North America;El Salvador;San Salvador;SV;SLV;.sv;SVC
+55;Africa;Eritrea;Asmara (Asmera);ER;ERI;.er;ERN
+56;Europe;Estonia;Tallinn (Reval);EE;EST;.ee;EEK
+57;Europe;European Union;Brussels;EU;-/-;.eu;EUR
+58;Africa;Falkland Islands (malvinas);Port Stanley;FK;FLK;.fk;FLP
+59;Europe;Faroe Islands;Tórshavn;FO;FRO;.fo;DKK
+60;Australia;Fiji;Suva;FJ;FJI;.fj;FJD
+61;Europe;Finland;Helsinki;FI;FIN;.fi;EUR
+62;Europe;France;Paris;FR;FRA;.fr;EUR
+63;South America;French Guiana;Cayenne;GF;GUF;.gf;EUR
+64;Australia;French Polynesia;Papeete;PF;PYF;.pf;XPF
+65;Antarctica;French Southern Territories;Port-aux-Français;TF;ATF;.tf;EUR
+66;Africa;Gabon;Libreville;GA;GAB;.ga;XAF
+67;Africa;Gambia;Banjul;GM;GMB;.gm;GMD
+68;Europe;Georgia;Tiflis;GE;GEO;.ge;GEL
+69;Africa;Ghana;Accra;GH;GHA;.gh;GHC
+70;Africa;Gibraltar;Gibraltar (Stadt);GI;GIB;.gi;GIP
+71;North America;Grenada;St. George's;GD;GRD;.gd;XCD
+72;Europe;Greece;Athen;GR;GRC;.gr;EUR
+73;North America;Greenland;Nuuk;GL;GRL;.gl;DKK
+74;North America;Guadeloupe;Basse-Terre;GP;GLP;.gp;EUR
+75;Asia;Guam;Hagåtña;GU;GUM;.gu;USD
+76;North America;Guatemala;Guatemala-Stadt;GT;GTM;.gt;GTQ
+77;Europe;Guernsey;St. Peter Port;GG;GGY;.gg;GGP
+78;Africa;Guinea;Conakry;GN;GIN;.gn;GNF
+79;Africa;Guinea-bissau;Bissau;GW;GNB;.gw;XOF
+80;South America;Guyana;Georgetown;GY;GUY;.gy;GYD
+81;North America;Haiti;Port-au-Prince;HT;HTI;.ht;USD
+82;Australia;Heard Island And Mcdonald Islands;-/-;HM;HMD;.hm;AUD
+83;North America;Honduras;Tegucigalpa;HN;HND;.hn;HNL
+84;Asia;Hong Kong;-/-;HK;HKG;.hk;HNL
+85;Asia;India;Neu-Delhi;IN;IND;.in;ISK
+86;Asia;Indonesia;Jakarta;ID;IDN;.id;INR
+87;Europe;Isle Of Man;Douglas;IM;IMN;.im;IMP
+88;Asia;Iraq;Bagdad;IQ;IRQ;.iq;IDR
+89;Asia;Iran, Islamic Republic Of;Teheran;IR;IRN;.ir;IRR
+90;Europe;Ireland;Dublin;IE;IRL;.ie;EUR
+91;Europe;Iceland;Reykjavík;IS;ISL;.is;HUF
+92;Asia;Israel;Jerusalem;IL;ISR;.il;ILS
+93;Europe;Italy;Rom;IT;ITA;.it;EUR
+94;North America;Jamaica;Kingston;JM;JAM;.jm;JMD
+95;Asia;Japan;Tokio;JP;JPN;.jp;JPY
+96;Asia;Yemen;Sanaa;YE;YEM;.ye;YER
+97;Europe;Jersey;Saint Helier;JE;JEY;.je;JEP
+98;Asia;Jordan;Amman;JO;JOR;.jo;JOD
+99;North America;Cayman Islands;George Town;KY;CYM;.ky;KYD
+100;Asia;Cambodia;Phnom Penh;KH;KHM;.kh;KHR
+101;Africa;Cameroon;Yaoundé;CM;CMR;.cm;XAF
+102;North America;Canada;Ottawa;CA;CAN;.ca;CAD
+103;Europe;Canary Islands;Santa Cruz;IC;;;
+104;Africa;Cape Verde;Praia;CV;CPV;.cv;CVE
+105;Asia;Kazakhstan;Astana;KZ;KAZ;.kz;KZT
+106;Asia;Qatar;Doha;QA;QAT;.qa;QAR
+107;Africa;Kenya;Nairobi;KE;KEN;.ke;KES
+108;Asia;Kyrgyzstan;Bischkek;KG;KGZ;.kg;KGS
+109;Australia;Kiribati;Bairiki;KI;KIR;.ki;AUD
+110;Asia;Cocos (keeling) Islands;West Island;CC;CCK;.cc;AUD
+111;South America;Colombia;Santa Fé de Bogotá;CO;COL;.co;COP
+112;Africa;Comoros;Moroni;KM;COM;.km;KMF
+113;Africa;Congo, The Democratic Republic Of The;Kinshasa;CD;COD;.cd;CDF
+114;Africa;Congo;Brazzaville;CG;COG;.cg;XAF
+115;Asia;Korea, Democratic People's Republic Of;Pjöngjang;KP;PRK;.kp;KPW
+116;Asia;Korea, Republic Of;Seoul;KR;KOR;.kr;KRW
+117;Europe;Croatia;Zagreb;HR;HRV;.hr;HRK
+118;North America;Cuba;Havanna;CU;CUB;.cu;CUP
+119;Asia;Kuwait;Kuwait;KW;KWT;.kw;KWD
+120;Asia;Lao People's Democratic Republic;Vientiane;LA;LAO;.la;LAK
+121;Africa;Lesotho;Maseru;LS;LSO;.ls;LSL
+122;Europe;Latvia;Rīga;LV;LVA;.lv;LVL
+123;Asia;Lebanon;Beirut;LB;LBN;.lb;LBP
+124;Africa;Liberia;Monrovia;LR;LBR;.lr;LRD
+125;Africa;Libyan Arab Jamahiriya;Tripolis;LY;LBY;.ly;LYD
+126;Europe;Liechtenstein;Vaduz;LI;LIE;.li;CHF
+127;Europe;Lithuania;Wilna;LT;LTU;.lt;LTL
+128;Europe;Luxembourg;Luxemburg;LU;LUX;.lu;EUR
+129;Asia;Macao;-/-;MO;MAC;.mo;MOP
+130;Africa;Madagascar;Antananarivo;MG;MDG;.mg;MGA
+131;Africa;Malawi;Lilongwe;MW;MWI;.mw;MWK
+132;Asia;Malaysia;Kuala Lumpur;MY;MYS;.my;MYR
+133;Asia;Maldives;Malé;MV;MDV;.mv;MVR
+134;Africa;Mali;Bamako;ML;MLI;.ml;XOF
+135;Europe;Malta;Valletta;MT;MLT;.mt;EUR
+136;Africa;Morocco;Rabat;MA;MAR;.ma;MAD
+137;Australia;Marshall Islands;Delap-Uliga-Darrit;MH;MHL;.mh;USD
+138;North America;Martinique;Fort-de-France;MQ;MTQ;.mq;EUR
+139;Africa;Mauritania;Nouakchott;MR;MRT;.mr;MRO
+140;Africa;Mauritius;Port Louis;MU;MUS;.mu;MUR
+141;Africa;Mayotte;Mamoudzou;YT;MYT;.yt;EUR
+142;Europe;Macedonia, The Former Yugoslav Republic Of;Skopje;MK;MKD;.mk;MKD
+143;North America;Mexico;Mexiko-Stadt;MX;MEX;.mx;MXN
+144;Australia;Micronesia, Federated States Of;Palikir;FM;FSM;.fm;USD
+145;Europe;Moldova;Chişinău;MD;MDA;.md;MDL
+146;Europe;Monaco;Monaco;MC;MCO;.mc;EUR
+147;Asia;Mongolia;Ulaanbaatar;MN;MNG;.mn;MNT
+148;North America;Montserrat;Plymouth;MS;MSR;.ms;XCD
+149;Africa;Mozambique;Maputo;MZ;MOZ;.mz;MZM
+150;Asia;Myanmar;Rangun;MM;MMR;.mm;MMK
+151;Africa;Namibia;Windhoek;NA;NAM;.na;ZAR
+152;Australia;Nauru;Yaren;NR;NRU;.nr;AUD
+153;Asia;Nepal;Kathmandu;NP;NPL;.np;NPR
+154;Australia;New Caledonia;Nouméa;NC;NCL;.nc;XPF
+155;Australia;New Zealand;Wellington;NZ;NZL;.nz;NZD
+156;Asia;Saudi–Iraqi neutral zone;-/-;NT;NTZ;.nt;
+157;North America;Nicaragua;Managua;NI;NIC;.ni;NIO
+158;Europe;Netherlands;Amsterdam;NL;NLD;.nl;EUR
+159;North America;Netherlands Antilles;Willemstad;AN;ANT;.an;ANG
+160;Africa;Niger;Niamey;NE;NER;.ne;XOF
+161;Africa;Nigeria;Abuja;NG;NGA;.ng;NGN
+162;Australia;Niue;Alofi;NU;NIU;.nu;NZD
+163;Australia;Northern Mariana Islands;Saipan;MP;MNP;.mp;USD
+164;Australia;Norfolk Island;Kingston;NF;NFK;.nf;AUD
+165;Europe;Norway;Oslo;NO;NOR;.no;NOK
+166;Asia;Oman;Maskat;OM;OMN;.om;OMR
+167;Europe;Austria;Wien;AT;AUT;.at;EUR
+168;Asia;Pakistan;Islamabad;PK;PAK;.pk;PKR
+169;Asia;Palestinian Territory, Occupied;Ramallah;PS;PSE;.ps;
+170;Australia;Palau;Melekeok;PW;PLW;.pw;USD
+171;South America;Panama;Panama-Stadt;PA;PAN;.pa;USD
+172;Australia;Papua New Guinea;Port Moresby;PG;PNG;.pg;PGK
+173;South America;Paraguay;Asunción;PY;PRY;.py;PYG
+174;South America;Peru;Lima;PE;PER;.pe;PEN
+175;Asia;Philippines;Manila;PH;PHL;.ph;PHP
+176;Australia;Pitcairn;Adamstown;PN;PCN;.pn;NZD
+177;Europe;Poland;Warschau;PL;POL;.pl;PLN
+178;Europe;Portugal;Lissabon;PT;PRT;.pt;EUR
+179;North America;Puerto Rico;San Juan;PR;PRI;.pr;USD
+180;Africa;Réunion;Saint-Denis;RE;REU;.re;EUR
+181;Africa;Rwanda;Kigali;RW;RWA;.rw;RWF
+182;Europe;Romania;Bukarest;RO;ROU;.ro;RON
+183;Asia;Russian Federation;Moskau;RU;RUS;.ru;RUB
+184;Australia;Solomon Islands;Honiara;SB;SLB;.sb;SBD
+185;Africa;Zambia;Lusaka;ZM;ZMB;.zm;ZMK
+186;Australia;Samoa;Apia;WS;WSM;.ws;WST
+187;Europe;San Marino;San Marino;SM;SMR;.sm;EUR
+188;Africa;Sao Tome And Principe;São Tomé;ST;STP;.st;STD
+189;Asia;Saudi Arabia;Riad;SA;SAU;.sa;SAR
+190;Europe;Sweden;Stockholm;SE;SWE;.se;SEK
+191;Europe;Switzerland;Bern;CH;CHE;.ch;CHF
+192;Africa;Senegal;Dakar;SN;SEN;.sn;XOF
+193;Europe;Serbien und Montenegro;Belgrad;CS;SCG;.cs;
+194;Africa;Seychelles;Victoria;SC;SYC;.sc;SCR
+195;Africa;Sierra Leone;Freetown;SL;SLE;.sl;SLL
+196;Africa;Zimbabwe;Harare;ZW;ZWE;.zw;ZWD
+197;Asia;Singapore;Singapur;SG;SGP;.sg;SGD
+198;Europe;Slovakia;Bratislava;SK;SVK;.sk;SKK
+199;Europe;Slovenia;Ljubljana;SI;SVN;.si;SIT
+200;Africa;Somalia;Mogadischu;SO;SOM;.so;SOS
+201;Europe;Spain;Madrid;ES;ESP;.es;EUR
+202;Asia;Sri Lanka;Colombo;LK;LKA;.lk;LKR
+203;North America;Saint Kitts And Nevis;Basseterre;KN;KNA;.kn;XCD
+204;South America;Saint Lucia;Castries;LC;LCA;.lc;XCD
+205;North America;Saint Pierre And Miquelon;Saint-Pierre;PM;SPM;.pm;EUR
+206;South America;Saint Vincent And The Grenadines;Kingstown;VC;VCT;.vc;XCD
+207;Africa;South Africa;Tshwane / Pretoria;ZA;ZAF;.za;ZAR
+208;Africa;Sudan;Khartum;SD;SDN;.sd;SDD
+209;South America;South Georgia And The South Sandwich Islands;Grytviken;GS;SGS;;GBP
+210;South America;Suriname;Paramaribo;SR;SUR;.sr;SRD
+211;Europe;Svalbard And Jan Mayen;Longyearbyen;SJ;SJM;.sj;NOK
+212;Africa;Swaziland;Mbabane;SZ;SWZ;.sz;SZL
+213;Asia;Syrian Arab Republic;Damaskus;SY;SYR;.sy;SYP
+214;Asia;Tajikistan;Duschanbe;TJ;TJK;.tj;RUB
+215;Asia;Taiwan;Taipeh;TW;TWN;.tw;TWD
+216;Africa;Tanzania, United Republic Of;Dodoma;TZ;TZA;.tz;TZS
+217;Asia;Thailand;Bangkok;TH;THA;.th;THB
+218;Australia;Timor-leste;Dili;TL;TLS;.tl;IDR
+219;Africa;Togo;Lomé;TG;TGO;.tg;XOF
+220;Australia;Tokelau;-/-;TK;TKL;.tk;NZD
+221;Australia;Tonga;Nuku’alofa;TO;TON;.to;TOP
+222;South America;Trinidad And Tobago;Port-of-Spain;TT;TTO;.tt;TTD
+223;Africa;Tristan da Cunha;Jamestown;TA;TAA;;
+224;Africa;Chad;N'Djamena;TD;TCD;.td;XAF
+225;Europe;Czech Republic;Prag;CZ;CZE;.cz;CZK
+226;Africa;Tunisia;Tunis;TN;TUN;.tn;TND
+227;Asia;Turkey;Ankara;TR;TUR;.tr;TRY
+228;Asia;Turkmenistan;Aşgabat;TM;TKM;.tm;TMM
+229;North America;Turks And Caicos Islands;Cockburn Town auf Grand Turk;TC;TCA;.tc;USD
+230;Australia;Tuvalu;Funafuti;TV;TUV;.tv;TVD
+231;Africa;Uganda;Kampala;UG;UGA;.ug;UGX
+232;Europe;Ukraine;Kiew;UA;UKR;.ua;UAH
+233;Europe;Soviet Union;Moskau;SU;SUN;.su;
+234;South America;Uruguay;Montevideo;UY;URY;.uy;UYU
+235;Asia;Uzbekistan;Taschkent;UZ;UZB;.uz;UZS
+236;Australia;Vanuatu;Port Vila;VU;VUT;.vu;VUV
+237;Europe;Holy See (Vatican);Vatikanstadt;VA;VAT;.va;EUR
+238;South America;Venezuela;Caracas;VE;VEN;.ve;VEB
+239;Asia;United Arab Emirates;Abu Dhabi;AE;ARE;.ae;AED
+240;North America;United States;Washington, D.C.;US;USA;.us;USD
+241;Europe;United Kingdom;London;GB;GBR;.gb;GBP
+242;Asia;Viet Nam;Hà Nội;VN;VNM;.vn;VND
+243;Australia;Wallis And Futuna;Mata-Utu;WF;WLF;.wf;XPF
+244;Asia;Christmas Island;Flying Fish Cove;CX;CXR;.cx;AUD
+245;Europe;Belarus;Minsk;BY;BLR;.by;BYR
+246;Africa;Western Sahara;El Aaiún;EH;ESH;.eh;MAD
+247;Africa;Central African Republic;Bangui;CF;CAF;.cf;XAF
+248;Asia;Cyprus;Nikosia;CY;CYP;.cy;CYP
+249;Europe;Hungary;Budapest;HU;HUN;.hu;HUF
+250;Europe;Montenegro;Podgorica;ME;MNE;.me;

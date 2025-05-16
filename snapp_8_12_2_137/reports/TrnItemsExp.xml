@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><DOEnt_DocTemplate><Header><EntityType>37</EntityType><EntityId>99716D07-EB42-4577-AE1A-312B0485B01D</EntityId><LastUpdate>2022-03-17T12:39:00.000+0100</LastUpdate></Header><DocTemplate><IconName>rpt-dataexport.png</IconName><EntityType>37</EntityType><DocTemplateId>99716D07-EB42-4577-AE1A-312B0485B01D</DocTemplateId><DocTemplateName>Transaction items export</DocTemplateName><DocTemplateCode>DOC166</DocTemplateCode><CategoryId>56E73AC4-0538-494A-B661-345BBBDE739D</CategoryId><DocEnabled>true</DocEnabled><ExecRequireLogin>true</ExecRequireLogin><DocTemplateType>5</DocTemplateType><DocEditorType>6</DocEditorType><SystemCode>TrnItemsExp</SystemCode><DocContexts/><SaleForApproval>false</SaleForApproval><SaleOpen>false</SaleOpen><SalePaid>false</SalePaid><SaleCompleted>false</SaleCompleted><IndividualPAH>false</IndividualPAH><LogCount>0</LogCount><DataSourceSelection>false</DataSourceSelection><DataSourceId/><MaxDateRangeDays/><MediaEncoderPluginId/><ProductDocumentTagIDs/><MediaRfidOptionType/><ParamList><Param><DocParamId>CB46964E-1DC1-9AF6-036E-017F451E711B</DocParamId><DocTemplateId>99716D07-EB42-4577-AE1A-312B0485B01D</DocTemplateId><DocParamType>4</DocParamType><DocParamName>DateFrom</DocParamName><DocParamCaption>@Common.FromDate</DocParamCaption><DocParamDefault>[@CurrentDate]</DocParamDefault><Mandatory>false</Mandatory></Param><Param><DocParamId>DB4D01AE-6E4E-38AA-036F-017F451E711C</DocParamId><DocTemplateId>99716D07-EB42-4577-AE1A-312B0485B01D</DocTemplateId><DocParamType>4</DocParamType><DocParamName>DateTo</DocParamName><DocParamCaption>@Common.ToDate</DocParamCaption><DocParamDefault>[@CurrentDate]</DocParamDefault><Mandatory>false</Mandatory></Param><Param><DocParamId>AC38E735-1448-2157-0370-017F451E711C</DocParamId><DocTemplateId>99716D07-EB42-4577-AE1A-312B0485B01D</DocTemplateId><DocParamType>1001</DocParamType><DocParamName>LocationId</DocParamName><DocParamCaption>@Account.Location</DocParamCaption><DocParamDefault>[@CurrentLocationId]</DocParamDefault><Mandatory>false</Mandatory></Param><Param><DocParamId>E492953B-AAEC-8D80-0371-017F451E711D</DocParamId><DocTemplateId>99716D07-EB42-4577-AE1A-312B0485B01D</DocTemplateId><DocParamType>1002</DocParamType><DocParamName>OpAreaId</DocParamName><DocParamCaption>@Account.OpArea</DocParamCaption><DocParamDefault>[@CurrentOpAreaId]</DocParamDefault><Mandatory>false</Mandatory></Param><Param><DocParamId>7F9CE441-E3A4-59D2-0372-017F451E711E</DocParamId><DocTemplateId>99716D07-EB42-4577-AE1A-312B0485B01D</DocTemplateId><DocParamType>1050</DocParamType><DocParamName>Z_EntityChangeId</DocParamName><DocParamCaption>EntityChangeId</DocParamCaption><DocParamDefault/><Mandatory>false</Mandatory></Param></ParamList><DataSourceList><DataSource><Name>Default</Name><Code>9PSPP50UWJF1MW2</Code><SQL unescaped="true"><![CDATA[declare @DateFrom date;
+declare @DateTo date;
+
+set @DateFrom=:@DateFrom;
+set @DateTo=:@DateTo;
+
+select
+  'T' as [Type (T/I)],
+  convert(varchar, Trn.TransactionFiscalDate, 103) as [Date],
+  SubString(convert(varchar, Trn.TransactionDateTime, 8), 1, 5) as [Time],
+  null as [Sale Item ID],
+  Trn.TransactionId as [Transaction ID],
+  dbo.fnEntityDesc(20,Trn.TransactionId) as [TDSSN],
+  Sal.SaleCode as [Sale Code (PNR)],
+  Loc.AccountCode as [Location Code],
+  Loc.DisplayName as [Location Name],
+  OpA.AccountCode as [Operating Area Code],
+  OpA.DisplayName as [Operating Area Name],
+  Wks.WorkstationCode as [WorkstationCode],
+  Wks.WorkstationName as [WorkstationName],
+  UsrLogin.UserName as [Account Username],
+  UsrEmail.UserName as [Account Username (email)],
+  Usr.DisplayName as [User Account Name],
+  Trn.TransactionSerial as [Transaction Serial],
+  Trn.TransactionType as [Transaction Type Code],
+  dbo.fnLookupItemDesc(3,Trn.TransactionType) as [Transaction Type Label], 
+  Trn.Approved as [Approved],
+  Trn.Paid as [Paid],
+  Trn.Encoded as [Encoded],
+  Trn.Printed as [Printed],
+  Trn.Validated as [Validated],
+  '' as [Product Code],
+  '' as [Product Name],
+  0 as [Quantity],
+  0 as [Unit Tax],
+  0 as [Unit Amount],
+  0 as [Unit Attribute Amount],
+  0 as [Total Tax],
+  0 as [Total Amount],
+  Trn.PaidTax as [Paid Tax],
+  Trn.PaidAmount as [Paid Amount],
+  '' as [Print Group],
+  '' as [Attribute Items],
+  '' as [Tags],
+  Stuff(( 
+    select '|' + Coalesce(Plg.PluginName, Drv.DriverName) + '=' + Cast(Pay.PaymentAmount as varchar(max))
+    from
+      tbPayment Pay inner join
+      tbPlugin Plg on Plg.PluginId=Pay.PluginId inner join
+      tbDriver Drv on Drv.DriverId=Plg.DriverId
+    where
+      Pay.TransactionId=Trn.TransactionId and
+      Pay.PaymentStatus=2 --Approved
+    FOR XML PATH('')
+  ), 1, 1, '') + '|' as [Payments],
+  Sal.SaleCode + '=1|' as [REF-PNR],
+  Trn.TransactionSequence as EntityChangeId
+from
+  tbTransaction Trn inner join
+  tbSale Sal on Sal.SaleId=Trn.SaleId inner join
+  tbWorkstation Wks on Wks.WorkstationId=Trn.WorkstationId left join
+  tbAccount Loc on Loc.AccountId=Wks.LocationAccountId left join
+  tbAccount OpA on OpA.AccountId=Wks.OpAreaAccountId left join
+  tbAccount Usr on Usr.AccountId=Trn.UserAccountId left join
+  tbLoginAlias UsrLogin on UsrLogin.AccountId=Usr.AccountId and UsrLogin.LoginAliasType=0 left join
+  tbLoginAlias UsrEmail on UsrEmail.AccountId=Usr.AccountId and UsrEmail.LoginAliasType=1 
+where
+  Trn.TransactionFiscalDate>=@DateFrom and  
+  Trn.TransactionFiscalDate<=@DateTo and
+  (:@OpAreaId is null or Wks.OpAreaAccountId=:@OpAreaId) and
+  (:@LocationId is null or Wks.LocationAccountId=:@LocationId) and
+  (:@Z_EntityChangeId is null or Trn.TransactionSequence>:@Z_EntityChangeId)
+
+union
+
+select
+  'I' as [Type (T/I)],
+  convert(varchar, Trn.TransactionFiscalDate, 103) as [Date],
+  SubString(convert(varchar, Trn.TransactionDateTime, 8), 1, 5) as [Time],
+  SI.SaleItemId as [SaleItem ID],
+  Trn.TransactionId as [Transaction ID],
+  dbo.fnEntityDesc(20,Trn.TransactionId) as [TDSSN],
+  Sal.SaleCode as [Sale Code (PNR)],
+  Loc.AccountCode as [Location Code],
+  Loc.DisplayName as [Location Name],
+  OpA.AccountCode as [Operating Area Code],
+  OpA.DisplayName as [Operating Area Name],
+  Wks.WorkstationCode as [Workstation Code],
+  Wks.WorkstationName as [Workstation Name],
+  UsrLogin.UserName as [Account Username],
+  UsrEmail.UserName as [Account Username (email)],
+  Usr.DisplayName as [User Account Name],
+  Trn.TransactionSerial as [Transaction Serial],
+  Trn.TransactionType as [Transaction Type Code],
+  dbo.fnLookupItemDesc(3,Trn.TransactionType) as [Transaction Type Label], 
+  Trn.Approved as [Approved],
+  Trn.Paid as [Paid],
+  Trn.Encoded as [Encoded],
+  Trn.Printed as [Printed],
+  Trn.Validated as [Validated],
+  Prd.ProductCode as [Product Code],
+  Prd.ProductName as [Product Name],
+  TI.QtyPaid as [Quantity],
+  SI.UnitTax as [Unit Tax],
+  SI.StatAmount as [Unit Amount],
+  (
+    select Coalesce(Sum(SI2AI.OptionalPrice), 0)
+    from tbSaleItem2AttributeItem SI2AI
+    where 
+      SI2AI.SaleItemId=SI.SaleItemId and
+      SI2AI.Optional<>0
+  ) as [Unit Attribute Amount],
+  (SI.UnitTax * TI.QtyPaid) as [Total Tax],
+  (SI.StatAmount * TI.QtyPaid) as [Total Amount],
+  0 as [Paid Tax],
+  0 as [Paid Amount],
+  PG.TagName as [Print Group],
+  Stuff(( 
+    select '|' + AI.AttributeItemName + '=' + Cast(SI2AI.OptionalPrice as varchar(max))
+    from
+      tbSaleItem2AttributeItem SI2AI inner join
+      tbAttributeItem AI on AI.AttributeItemId=SI2AI.AttributeItemId inner join
+      tbAttribute A on A.AttributeId=AI.AttributeId
+    where SI2AI.SaleItemId=SI.SaleItemId
+    order by 
+      A.AttributeWeight,
+      AI.PriorityOrder
+    FOR XML PATH('')
+  ), 1, 1, '') + '|' as [Attribute Items],
+  Stuff(( 
+    select '|' + TagName
+    from
+      tbTagLink TL inner join
+      tbTag T on T.TagId=TL.TagId
+    where TL.EntityId=Prd.ProductId
+    order by T.TagName
+    FOR XML PATH('')
+  ), 1, 1, '') + '|' as [Tags],
+  Stuff(( 
+    select '|' + Coalesce(Plg.PluginName, Drv.DriverName) + '=' + Cast(Pay.PaymentAmount as varchar(max))
+    from
+      tbPayment Pay inner join
+      tbPlugin Plg on Plg.PluginId=Pay.PluginId inner join
+      tbDriver Drv on Drv.DriverId=Plg.DriverId
+    where
+      Pay.TransactionId=Trn.TransactionId and
+      Pay.PaymentStatus=2 --Approved
+    FOR XML PATH('')
+  ), 1, 1, '') + '|' as [Payments],
+  (case
+    when Trn.TransactionType in (22,47) then
+      Stuff(( 
+        select '|' + X.SaleCode + '=-' + Cast(X.Quantity as varchar(max)) 
+        from (
+          select
+            XSal.SaleCode,
+            Sum(XTck.GroupQuantity) as Quantity
+          from
+            tbEntityLink XTL inner join
+            tbTicket XTck on XTck.TicketId=XTL.DstEntityId inner join
+            tbTransaction XTrn on XTrn.TransactionId=XTck.TransactionId inner join
+            tbSale XSal on XSal.SaleId=XTrn.SaleId
+          where 
+            Trn.TransactionType in (22,47) and
+            XTL.SrcEntityId=Trn.TransactionId and
+            XTck.ProductId=SI.ProductId
+          group by
+            XSal.SaleCode
+        ) X
+        FOR XML PATH('')
+      ), 1, 1, '') + '|' 
+    else
+      Sal.SaleCode + '=' + Cast(TI.Quantity as varchar(max)) + '|'
+  end) as [REF-PNR],
+  Trn.TransactionSequence as EntityChangeId
+from
+  tbTransaction Trn inner join
+  tbSale Sal on Sal.SaleId=Trn.SaleId left join
+  tbWorkstation Wks on Wks.WorkstationId=Trn.WorkstationId left join
+  tbAccount Loc on Loc.AccountId=Wks.LocationAccountId left join
+  tbAccount OpA on OpA.AccountId=Wks.OpAreaAccountId left join
+  tbAccount Usr on Usr.AccountId=Trn.UserAccountId left join
+  tbTransactionItem TI on TI.TransactionId=Trn.TransactionId left join
+  tbSaleItem SI on SI.SaleItemId=TI.SaleItemId left join
+  tbProduct Prd on Prd.ProductId=SI.ProductId left join
+  tbTag PG on PG.TagId=Prd.PrintGroupTagId left join
+  tbLoginAlias UsrLogin on UsrLogin.AccountId=Usr.AccountId and UsrLogin.LoginAliasType=0 left join
+  tbLoginAlias UsrEmail on UsrEmail.AccountId=Usr.AccountId and UsrEmail.LoginAliasType=1
+where
+  Trn.TransactionFiscalDate>=@DateFrom and  
+  Trn.TransactionFiscalDate<=@DateTo and
+  (:@OpAreaId is null or Wks.OpAreaAccountId=:@OpAreaId) and
+  (:@LocationId is null or Wks.LocationAccountId=:@LocationId) and
+  (:@Z_EntityChangeId is null or Trn.TransactionSequence>:@Z_EntityChangeId)
+order by
+  Trn.TransactionSequence
+				]]></SQL></DataSource></DataSourceList><RightList><Right><IconName>station.png</IconName><UsrEntityType>3</UsrEntityType><UsrEntityId>A0000131-0000-0000-0000-000000000003</UsrEntityId><UsrEntityCode/><UsrEntityName>Every station</UsrEntityName><RightLevel>5</RightLevel></Right></RightList><RichDescList><RichDescItem><IconName>flag_USA.png</IconName><LangISO>en</LangISO><Description>&lt;h1&gt;Transaction Items Export Report&lt;/h1&gt;&#13;
+&#13;
+&lt;h2&gt;Abstract&lt;/h2&gt;&#13;
+&amp;ldquo;Transaction Items Export Report&amp;rdquo; will give you the Transactions log of the exported Items in a selected Location and Operating Area in a selected period at your choice.&#13;
+&#13;
+&lt;h2&gt;Generating the report&lt;/h2&gt;&#13;
+Parameter Input&lt;br /&gt;&#13;
+In generating the report, parameter input features intuitive interface.&lt;br /&gt;&#13;
+Built-in wizards will help you quickly and easily create at your choice profile for your site by&lt;br /&gt;&#13;
+&amp;nbsp;&#13;
+&lt;ul&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;From date &amp;ndash; To Date&lt;/em&gt;] &amp;ndash; Period to be analysed, easy-to-select.&#13;
+&#13;
+	&lt;ul&gt;&#13;
+		&lt;li&gt;Note: The dates if not specified are to be considered &amp;ldquo;Fiscal Date&amp;rdquo;&lt;/li&gt;&#13;
+	&lt;/ul&gt;&#13;
+	&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Location&lt;/em&gt;] &amp;ndash; Site Location Name, easy-to-select. Selecting&amp;nbsp;&lt;em&gt;-empty-&lt;/em&gt;,&amp;nbsp;default is all the locations&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Operating Area&lt;/em&gt;] &amp;ndash; Site Operating Area name, easy-to-select. Selecting&amp;nbsp;&lt;em&gt;-empty-&lt;/em&gt;,&amp;nbsp;default is all the Operating Areas&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Entity Change ID&lt;/em&gt;] - Last Tracked Entity ID&lt;/li&gt;&#13;
+&lt;/ul&gt;&#13;
+Output File Extension&lt;br /&gt;&#13;
+&amp;ldquo;Transaction Items Export Report&amp;rdquo; generates reports in XLSX or CSV or PDF formats. Selection is required before running the report.&#13;
+&lt;ul&gt;&#13;
+	&lt;li&gt;XLSX&#13;
+	&lt;ul&gt;&#13;
+		&lt;li&gt;Report generates an EXCEL (latest version) file&lt;/li&gt;&#13;
+	&lt;/ul&gt;&#13;
+	&lt;/li&gt;&#13;
+	&lt;li&gt;CSV&#13;
+	&lt;ul&gt;&#13;
+		&lt;li&gt;its generation requires:&#13;
+		&lt;ul&gt;&#13;
+			&lt;li&gt;&lt;em&gt;Field delimiter&lt;/em&gt;: Separator to be put between fields. Usually a &amp;quot;comma&amp;quot;. When null, default is taken from user configuration.&lt;/li&gt;&#13;
+			&lt;li&gt;&lt;em&gt;Quote character&lt;/em&gt;: Character used to surround fields&lt;/li&gt;&#13;
+			&lt;li&gt;&lt;em&gt;Include header line&lt;/em&gt;&amp;nbsp;to tick the box. Default is YES.&lt;/li&gt;&#13;
+		&lt;/ul&gt;&#13;
+		&lt;/li&gt;&#13;
+	&lt;/ul&gt;&#13;
+	&lt;/li&gt;&#13;
+	&lt;li&gt;PDF&#13;
+	&lt;ul&gt;&#13;
+		&lt;li&gt;Report generates a PDF (latest version) file&lt;/li&gt;&#13;
+	&lt;/ul&gt;&#13;
+	&lt;/li&gt;&#13;
+&lt;/ul&gt;&#13;
+&#13;
+&lt;h2&gt;Header&lt;/h2&gt;&#13;
+Report parameters:&#13;
+&#13;
+&lt;ul&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Execution date/time&lt;/em&gt;] -Report Execution Time. Date and Hours format as per configuration [Location, Operating Area, Workstation]&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;From date &amp;ndash; To Date&lt;/em&gt;] &amp;ndash; Selected Period&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Location&lt;/em&gt;] &amp;ndash; Site Location Name. If blank then the report includes all the locations.&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Attribute Code&lt;/em&gt;] &amp;ndash;Attribute Code.&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Entity Changed&lt;/em&gt;] &amp;ndash; Entity&lt;/li&gt;&#13;
+&lt;/ul&gt;&#13;
+&#13;
+&lt;h2&gt;Contents (by Columns)&lt;/h2&gt;&#13;
+The program produces easy-to-read reports that include text information.&#13;
+&#13;
+&lt;ul&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Type (T/i)&lt;/em&gt;] &amp;ndash; Transaction Type (value &amp;quot;T&amp;quot; or &amp;quot;I&amp;quot;)&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Transaction&amp;nbsp;Date&lt;/em&gt;] &amp;ndash; Transaction Fiscal Date. Display format as per configuration [Location, Operating Area, Workstation] - Please note &amp;quot;&lt;em&gt;Transaction Fiscal Date&lt;/em&gt;&amp;quot; could be different from &amp;quot;&lt;em&gt;Transaction Sale Date&lt;/em&gt;&amp;quot;&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Transaction ime&lt;/em&gt;] &amp;ndash; Transaction Time. Display format as per configuration [Location, Operating Area, Workstation]&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Sale Item ID&lt;/em&gt;] &amp;ndash; Sale Item ID&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Transaction ID&lt;/em&gt;] &amp;ndash; Transaction ID&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;TDSSN&lt;/em&gt;] &amp;ndash; Unique Transaction Serial Number, format &amp;ldquo;T:licence_number.workstation_number.YYDDMM.dailycounter&amp;rdquo;&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Sale Code (&lt;/em&gt;&lt;em&gt;PNR)&lt;/em&gt;] - Reservation Number/PNR&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Location Code&lt;/em&gt;] &amp;ndash; Site Location Code&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Location Name&lt;/em&gt;] &amp;ndash; Site Location Name&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Operating Area Code&lt;/em&gt;] &amp;ndash; Site Operating Area Code&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Operating Area Name&lt;/em&gt;] &amp;ndash; Site Operating Area Name&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Workstation Code&lt;/em&gt;] &amp;ndash; Workstation Code&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Workstation Name&lt;/em&gt;] &amp;ndash; Workstation Name&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Account&amp;nbsp;&lt;/em&gt;&lt;em&gt;Username&lt;/em&gt;] &amp;ndash; Account Username&lt;em&gt;.&lt;/em&gt;&amp;nbsp;Display format: &amp;ldquo;Last Name, First Name&amp;rdquo;.&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Account Username (email)&lt;/em&gt;] &amp;ndash; Account Login Mail Address&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;User&lt;/em&gt;] - Account Name&lt;em&gt;.&lt;/em&gt;&amp;nbsp;Display format: &amp;ldquo;Last Name, First Name&amp;rdquo;.&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Transaction Serial&lt;/em&gt;] - Daily Transaction Serial Number. Please note counter is reset every day&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Transaction Type Code&lt;/em&gt;] - Transaction Type Code #1 .. 100 (see LOOKUP TABLES &amp;gt;&amp;gt; Transaction Type)&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Transaction Type Label&lt;/em&gt;] - Transaction Type Description (see LOOKUP TABLES &amp;gt;&amp;gt; Transaction Type)&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Approved&lt;/em&gt;] - Transaction Approval Status. Display Format: &amp;ldquo;0 = FALSE&amp;rdquo; or &amp;ldquo;1 = TRUE&amp;rdquo;&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Paid&lt;/em&gt;] - Transaction Payment Status. Display Format: &amp;ldquo;0 = FALSE&amp;rdquo; or &amp;ldquo;1 = TRUE&amp;rdquo;&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Encoded&lt;/em&gt;] - Transaction Encoding Status. Display Format: &amp;ldquo;0 = FALSE&amp;rdquo; or &amp;ldquo;1 = TRUE&amp;rdquo;&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Printed&lt;/em&gt;] - Transaction Printing Status. Display Format: &amp;ldquo;0 = FALSE&amp;rdquo; or &amp;ldquo;1 = TRUE&amp;rdquo;&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Validated&lt;/em&gt;] - Transaction Validation Status. Display Format: &amp;ldquo;0 = FALSE&amp;rdquo; or &amp;ldquo;1 = TRUE&amp;rdquo;&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Product Code&lt;/em&gt;] &amp;ndash; Product Code&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Product Name&lt;/em&gt;] &amp;ndash; Product Name&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Quantity&lt;/em&gt;] &amp;ndash; Quantity in unit #&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Unit Tax&lt;/em&gt;] - Tax per single item, in local currency&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Unit Amount&lt;/em&gt;] - Price per unit, in local currency&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Unit Attribute Amount&lt;/em&gt;] &amp;ndash; Price per single Attribute, in local currency&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Total Tax&lt;/em&gt;] &amp;ndash; Total Amount of Tax per Transaction, in local currency&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Total Due Amount&lt;/em&gt;] - Total Due Amount per Transaction, in local currency&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Paid Tax&lt;/em&gt;] &amp;ndash; Total Amount of Paid Tax per Transaction, in local currency&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Paid Amount&lt;/em&gt;] &amp;ndash; Total Paid Amount per Transaction, in local currency&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Print Group&lt;/em&gt;] Print Group&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Attribute Items&lt;/em&gt;] - Attribute Items. Display format: &amp;ldquo;attribute_item_name=value_in_local_currency | attribute_item_name=value_in_local_currency |&amp;rdquo;&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Tags&lt;/em&gt;] &amp;ndash; TAG Name. Display format: &amp;ldquo;tag_name | tag_name | &amp;ldquo;&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Payments&lt;/em&gt;] - Payment Type and Values. Display format: &amp;ldquo;Type of payment=Value X | Type of payment=Value Y | Type of payment = Value Z|&amp;rdquo; - format &amp;ldquo;Type_Of_Payment=value_in_local_currency&amp;rdquo;&lt;/li&gt;&#13;
+	&lt;li&gt;&lt;strong&gt;[&lt;em&gt;REF-PNR&lt;/em&gt;] &amp;ndash; REF-PNR. Display format &amp;ldquo;PNR = #&amp;rdquo;&lt;/strong&gt;&lt;/li&gt;&#13;
+	&lt;li&gt;[&lt;em&gt;Entity Change Id&lt;/em&gt;] - Last Tracked Entity ID&lt;/li&gt;&#13;
+&lt;/ul&gt;&#13;
+</Description></RichDescItem></RichDescList></DocTemplate></DOEnt_DocTemplate>

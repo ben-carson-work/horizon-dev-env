@@ -1,0 +1,99 @@
+{
+  "SectionCode": "other",
+  "SectionName": "Other",
+  "ParamGroupList": [
+    {
+      "InternalUse": "true",
+      "Caption": "Debug mode",
+      "ParamList": [
+        {
+          "ParamName": "VGS-DebugMode",
+          "ParamValue": "true"
+        }
+      ],
+      "AlertBox": {
+        "Type": "warning",
+        "Text": [
+          "Provide extra-logging.\\",
+          "To be used only by SnApp developers.",
+          "",
+          "**Please note that this parameter's documentation is visible only by users with VGS-Support right**, as it should be internal use only."
+        ]
+      }
+    },
+    {
+      "Caption": "Start services",
+      "ParamList": [
+        {
+          "ParamName": "false"
+        }
+      ],
+      "AlertBox": {
+        "Type": "warning",
+        "Text": [
+          "It prevents SnApp services from being started at system startup.\\",
+          "Services can still be manually started."
+        ]
+      }
+    },
+    {
+      "Caption": "Active contexts",
+      "ParamList": [
+        {
+          "ParamName": "VGS-ActiveContexts",
+          "ParamValue": "BKO,CC"
+        }
+      ],
+      "AlertBox": {
+        "Type": "info",
+        "Text": [
+          "Limit some SnApp endpoints.\\",
+          "Useful when having different tomcats dedicated to different services (like one for BKO only and one for B2B only).",
+          "",
+          "The value is a comma-separated list of context.\\",
+          "Possible values are:",
+          "- **BKO**: backoffice",
+          "- **B2B**: B2B portal",
+          "- **B2C**: B2C functionalities",
+          "- **CLC**: Call Center portal",
+          "- **WPG**: Web Payment Gateway (online credit card payment callbacks)",
+          "- **MOB**: Mobile application"
+        ]
+      }
+    },
+    {
+      "Caption": "HealthCheck Cache",
+      "ParamList": [
+        {
+          "ParamName": "VGS-HealthCheckCacheMS",
+          "ParamValue": "5000"
+        }
+      ],
+      "AlertBox": {
+        "Type": "info",
+        "Text": [
+          "Overrides default HealthCheck cache duration in MS (default is 1000ms).",
+          "",
+          "In order to prevent abuses of the endpoint **/health-check** that could take down the system, the health status of the system if not checked on each call."
+        ]
+      }
+    },
+    {
+      "Caption": "Store URL",
+      "ParamList": [
+        {
+          "ParamName": "VGS-StoreUrl",
+          "ParamValue": "https://store.vgs.com"
+        }
+      ],
+      "AlertBox": {
+        "Type": "info",
+        "Text": [
+          "Overrides default URL used by SnApp to talk to VGS store.",
+          "",
+          "VGS store needs to be contacted by SnApp to download software updates and license information."
+        ]
+      }
+    }
+  ]
+}

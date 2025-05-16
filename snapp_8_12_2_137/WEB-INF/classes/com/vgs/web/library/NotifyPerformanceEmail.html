@@ -1,0 +1,49 @@
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+
+<body>
+  <div style="font-size:14px">
+  <!--  
+	  <table style="width:100%; border-bottom:1px solid #cecece; margin-bottom:20px">
+	    <tr>
+	      <td><img src="[@NotifyPerformanceEmail.UserProfilePictureHTML]" style="width:30px; height:30px"/></td>
+	      <td width="100%">
+	        <a href="[@NotifyPerformanceEmail.UserAccountURL]" style="text-decoration:none;font-weight:bold">[@NotifyPerformanceEmail.UserAccountName]</a>
+	        triggered an alert
+	      </td>
+	    </tr>
+	  </table>
+  -->
+	  
+	  <div style="padding-left:40px">
+      <table style="width:100%; margin-bottom:20px"> 
+        <tr>
+          <td nowrap style="color:#707070">Date/time</td>
+          <td nowrap>&nbsp;&nbsp;&nbsp;</td>
+          <td width="100%">[@NotifyPerformanceEmail.NotifyDateTime {format:longdatetime}]</td>
+        </tr>
+      </table>
+    
+      References:
+      <table style="width:100%"> 
+        [@liststart{ds:NotifyPerformanceEmail.EntityRefList}]      
+        <tr>
+          <td rowspan="2"><img src="[@NotifyPerformanceEmail.EntityRefList.EntityProfilePictureHTML]" style="width:30px; height:30px"/></td>
+          <td rowspan="2">&nbsp;</td>
+          <td width="100%" valign="bottom"><a href="[@NotifyPerformanceEmail.EntityRefList.EntityHTML]" style="text-decoration:none">[@NotifyPerformanceEmail.EntityRefList.EntityName]</a></td>
+        </tr>
+        <tr>
+          <td valign="top" style="color:#999">[@NotifyPerformanceEmail.EntityRefList.EntityTypeDesc]</td>
+        </tr>
+        [@listend]
+      </table>
+	  </div>
+
+    <div style="border-top:1px solid #cecece; padding-top:10px; margin-top:50px; font-size:12px; color:#999">
+      This message was sent by Horizon (ver. [@NotifyPerformanceEmail.SoftwareVersion]) &mdash; &copy; 2023 accesso Technology Group, plc
+    </div>
+  </div>
+</body>
+</html>

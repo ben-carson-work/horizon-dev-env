@@ -1,0 +1,27 @@
+.input-upload-drop .drag-over-hint,
+.input-upload-drop .input-upload-drop-spinner  {
+  display: none;
+  border: 3px dashed var(--base-blue-color);
+  background-color: rgba(0,0,0,0.1);
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.input-upload-drop .input-upload-drop-spinner  {
+	font-size: 30px;
+}
+
+.input-upload-drop.drag-over *,
+.input-upload-drop.drop-spinner * {
+  display: none;
+}
+
+.input-upload-drop.drag-over .drag-over-hint,
+.input-upload-drop.drop-spinner .input-upload-drop-spinner,
+.input-upload-drop.drop-spinner .input-upload-drop-spinner * {
+  display: block;
+}
+

@@ -1,0 +1,79 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+  /*
+    table { border: 1px #cecece solid;
+            border-spacing: 0px; }
+    td, th { padding: 6px; }
+    thead tr { background-color: #cecece; }
+    tbody tr:nth-child(even) td { background-color: #f7f7f7; }
+  */
+  </style>
+</head>
+
+<body>
+  <div style="font-size:14px">
+    <table style="width:100%; border-bottom:1px solid #cecece; margin-bottom:10px">
+      <tr>
+        <td rowspan="2"><img src="[@NotifyTaskEmail.TaskProfilePictureHTML]" style="width:50px; height:50px"/></td>
+        <td rowspan="2">&nbsp;</td>
+        <td width="100%" valign="bottom" style="font-size:20px"><a href="[@NotifyTaskEmail.TaskURL]" style="text-decoration:none">[@NotifyTaskEmail.TaskName]</a></td>
+      </tr>
+      <tr>
+        <td valign="top" style="color:#999">Task</td>
+      </tr>
+    </table>
+
+	  <div style="padding-left:40px">
+      <table style="width:100%"> 
+        <tr>
+          <td nowrap style="color:#707070">Status</td>
+          <td nowrap>&nbsp;&nbsp;&nbsp;</td>
+          <td width="100%"><div style="padding:2px 5px; background:#fddbdb; margin-right:2px; border-radius:2px; display:inline-block">[@NotifyTaskEmail.JobStatusDescription]</div></td>
+        </tr>
+        <tr>
+          <td nowrap style="color:#707070">Started</td>
+          <td nowrap>&nbsp;&nbsp;&nbsp;</td>
+          <td width="100%">[@NotifyTaskEmail.StartDateTime {format:LongDateTime}]</td>
+        </tr>
+        <tr>
+          <td nowrap style="color:#707070">Finished</td>
+          <td nowrap>&nbsp;&nbsp;&nbsp;</td>
+          <td width="100%">[@NotifyTaskEmail.FinishDateTime {format:LongDateTime}]</td>
+        </tr>
+        <tr>
+          <td nowrap style="color:#707070">Succeeded</td>
+          <td nowrap>&nbsp;&nbsp;&nbsp;</td>
+          <td width="100%">[@NotifyTaskEmail.SucceededCount]</td>
+        </tr>
+        <tr>
+          <td nowrap style="color:#707070">Warning</td>
+          <td nowrap>&nbsp;&nbsp;&nbsp;</td>
+          <td width="100%">[@NotifyTaskEmail.WarningCount]</td>
+        </tr>
+        <tr>
+          <td nowrap style="color:#707070">Failed</td>
+          <td nowrap>&nbsp;&nbsp;&nbsp;</td>
+          <td width="100%">[@NotifyTaskEmail.FailedCount]</td>
+        </tr>
+
+        <tr>
+          <td nowrap style="color:#707070">Logs</td>
+          <td nowrap>&nbsp;&nbsp;&nbsp;</td>
+          <td width="100%"><a href="[@NotifyTaskEmail.JobURL]">Click here</a></td>
+        </tr>
+        <tr>
+          <td nowrap style="color:#707070">Trace</td>
+          <td nowrap>&nbsp;&nbsp;&nbsp;</td>
+          <td width="100%"><pre>[@NotifyTaskEmail.JobLog]</pre></td>
+        </tr>
+      </table>
+	  </div>
+
+    <div style="border-top:1px solid #cecece; padding-top:10px; margin-top:50px; font-size:12px; color:#999">
+      This message was sent by Horizon (ver. [@NotifyTaskEmail.SoftwareVersion]) &mdash; &copy; 2023 accesso Technology Group, plc
+    </div>
+  </div>
+</body>
+</html>

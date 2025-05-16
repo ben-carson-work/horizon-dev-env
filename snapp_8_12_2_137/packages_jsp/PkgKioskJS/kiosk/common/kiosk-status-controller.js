@@ -1,0 +1,10 @@
+class KioskStatusController {
+  
+  activate() {
+    
+  }
+  
+  deactivate() {
+    
+  }
+}

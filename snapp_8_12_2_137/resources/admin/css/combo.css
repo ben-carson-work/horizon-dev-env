@@ -1,0 +1,246 @@
+.v-combo {
+  position: relative;
+  font-size: 13px;
+  cursor: default;
+}
+
+.v-combo-icon {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 28px;
+  height: 28px;
+  background-repeat: no-repeat;
+  border-radius: 2px;
+}
+
+.v-combo-icon.foricon {
+  background-position: center center;
+  background-size: 24px;
+}
+
+.v-combo-icon.forpic {
+  background-size: cover;
+}
+
+.v-combo-name {
+  position: absolute;
+  top: 2px;
+  left: 36px;
+  right: 32px;
+  line-height: 28px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.v-combo-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 32px;
+  bottom: 0;
+  background-image: url('resources_url/admin/images/drop-down.gif');
+  background-repeat: no-repeat;
+  background-position: center center;
+  cursor: pointer;
+}
+
+.v-combo.selected .v-combo-btn {
+  background-image: url('imagecache?name=bkoact-no-black.png&size=16');
+  opacity: 0.25;
+}
+.v-combo.selected .v-combo-btn:hover {
+  opacity: 0.75;
+}
+
+#v-combo-content {
+  width: 200px;
+  height: 250px;
+  z-index: 1100;
+  border: 1px #999999 solid;
+  background: white;
+  position: absolute;
+}
+
+.v-combo-txt {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 27px;
+  box-sizing: border-box;
+  padding: 4px !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  border-bottom: 1px #999999 solid !important;
+  outline: none;
+}
+
+.v-combo-itemlist {
+  position: absolute;
+  top: 27px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.v-combo-item {
+  position: relative;
+  height: 36px;
+  border-bottom: 1px #d3d3d3 solid;
+  cursor: pointer;
+}
+
+.v-combo-item:hover {
+  background-color: #ebf3fa;
+}
+
+.v-combo-item.selected {
+  background-color: #deedfe;
+}
+
+.v-combo-item-icon {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 32px;
+  height: 32px;
+  background-repeat: no-repeat;
+}
+
+.v-combo-item-icon.foricon {
+  background-position: center center;
+}
+
+.v-combo-item-icon.forpic {
+  background-size: cover;
+}
+
+.v-combo-item-name,
+.v-combo-item-code {
+  padding-top: 2px;
+  margin-left: 36px;
+  line-height: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.v-combo-item-name {
+  font-weight: bold;
+}
+
+.v-combo-item-code {
+  color: #888888;
+}
+
+.v-combo-item-btn {
+  display: none;
+  float: right;
+  width: 36px;
+  height: 36px;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.v-combo-check {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  color: rgba(0,0,0,0.1);
+  font-size: 20px;
+  padding: 8px; 
+  cursor: pointer;
+}
+
+.v-lkdialog.show-checkbox .v-combo-check {
+  display: block;
+}
+
+.v-combo-check .fa::before {
+  content: "\f0c8"; /*fa-square*/
+}
+
+.v-lkdialog .checked .v-combo-check .fa::before {
+  content: "\f14a"; /*fa-check-square*/
+  color: var(--base-blue-color) ;
+}
+
+.v-combo-checkall {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;  
+  padding: 5px;
+  margin-right: 20px;
+} 
+
+.v-combo-checkall .v-combo-check {
+  padding: 5px;
+}
+
+
+.v-combo-item:hover .v-combo-item-btn {
+  display: block;
+  opacity: 0.6;
+}
+
+.v-combo-item:hover .v-combo-item-btn:hover {
+  display: block;
+  opacity: 1;
+}
+
+
+.v-combobtn {
+  cursor: pointer;
+}
+.v-combobtn:not(.form-control) {
+  background-color: white;
+  border: 1px solid #dfdfdf;
+  border-radius: 3px;
+  color: black;
+}
+.v-combobtn.disabled {
+  background-color: #fafafa;
+  cursor: default;
+  color: rgba(0,0,0,0.8);
+}
+.v-combo-btn:not(.form-control) .v-combobtn-caption {
+  padding-left: 8px;
+  line-height: 26px;
+}
+.v-combobtn-caption {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.v-combobtn-btn {
+  display: none;
+  width: 26px;
+  height: 26px;
+  float: right;
+  border-left: 1px solid #dfdfdf;
+  background-repeat: no-repeat;
+  background-position: center center;
+  opacity: 0.6;
+}
+.v-combobtn.form-control .v-combobtn-btn {
+  width: 32px;
+  height: 32px;
+  margin: -6px -12px;
+  border-color: #ccc;
+}
+.v-combobtn-btn:hover {
+  opacity: 1;
+}
+.v-combobtn-btn-clear {
+  background-image: url(imagecache?name=bko-combo-clear.png&size=12);
+}
+.v-combobtn:not(.disabled):not(.empty):hover .v-combobtn-btn-clear {
+  display: block;
+}

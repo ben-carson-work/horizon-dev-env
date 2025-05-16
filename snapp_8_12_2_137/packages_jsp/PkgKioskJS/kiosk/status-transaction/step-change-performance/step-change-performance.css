@@ -1,0 +1,103 @@
+:root {
+  --step-change-mt: 24rem;
+}
+
+#step-change-performance {
+	padding-top: 40vh;
+}
+
+#step-change-performance #change-performance-container #change-performance-item-list:not(.active) {
+  display: none;
+}
+
+#step-change-performance #change-performance-container {
+/*   margin-top: var(--step-change-mt); */
+}
+
+/* #step-change-performance .kiosk-spinner { */
+/*   margin-top: var(--step-change-mt); */
+/* } */
+
+#step-change-performance #change-performance-item-list {
+/*   margin-top: var(--step-change-mt); */
+  overflow: auto;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+#step-change-performance .event-body-performances {
+/*   margin-top: var(--step-change-mt); */
+  overflow: auto;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+#step-change-performance .change-performance-item {
+	display: flex;
+	align-items: stretch;
+	justify-content: center;
+	column-gap: 0.5rem;
+	margin-bottom: 2rem;
+	flex-grow: 1;
+}
+
+#step-change-performance .change-performance-item .hint-msg{
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+#step-change-performance .change-performance-body {
+/* 	background-color: var(--vgs-blue); */
+  border: 2px solid #0008;
+  border-radius: 1rem;
+  padding: 1rem;
+/*   flex-basis: 50%; */
+	width: 50vw;
+	min-width: 25rem;
+  text-align: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+}
+
+#step-change-performance .change-performance-body.original-performance {
+}
+
+#step-change-performance .change-performance-body.target-performance.changed {
+/*   background-color: #a6ec9a; */
+/*   font-weight: inherit; */
+}
+
+#step-change-performance .change-performance-body .icon-container {
+  margin-left: 0.5rem;
+  font-size: 2.5rem;
+}
+
+#step-change-performance .change-performance-body .text-container {
+  flex-grow: 1;
+}
+
+#step-change-performance .change-performance-body.target-performance .icon-container {
+  margin-left: 0.5rem;
+  font-size: 2rem;
+}
+
+#step-change-performance .change-performance-body.target-performance .text-container {
+  flex-grow: 1;
+}
+
+#step-change-performance .arrow {
+	font-size: 2rem;
+	display: flex;
+	align-items: center;
+}
+#step-change-performance .arrow.hidden {
+	display: none;
+}

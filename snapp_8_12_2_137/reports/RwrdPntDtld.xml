@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DOEnt_DocTemplate>
+	<Header>
+		<EntityType>37</EntityType>
+		<EntityId>571FD8B0-5789-5E41-0333-01692FE8C903</EntityId>
+		<LastUpdate>2023-10-20T10:17:00.000+0200</LastUpdate>
+	</Header>
+	<DocTemplate>
+		<IconName>rpt-dataexport.png</IconName>
+		<EntityType>37</EntityType>
+		<DocTemplateId>571FD8B0-5789-5E41-0333-01692FE8C903</DocTemplateId>
+		<DocTemplateName>Reward point detailed</DocTemplateName>
+		<DocTemplateCode>K2M8SHSEDS0PY7H</DocTemplateCode>
+		<CategoryId>06A43409-24CA-32A6-0194-015AB7D0B14E</CategoryId>
+		<DocEnabled>true</DocEnabled>
+		<ExecRequireLogin>true</ExecRequireLogin>
+		<DocTemplateType>5</DocTemplateType>
+		<DocEditorType>6</DocEditorType>
+		<SystemCode>RwrdPntDtld</SystemCode>
+		<DocContexts/>
+		<SaleForApproval>false</SaleForApproval>
+		<SaleOpen>false</SaleOpen>
+		<SalePaid>false</SalePaid>
+		<SaleCompleted>false</SaleCompleted>
+		<IndividualPAH>false</IndividualPAH>
+		<DataExportOutputFormat/>
+		<CsvFieldSeparator/>
+		<CsvQuoteCharacter/>
+		<CsvIncludeHeaderLine/>
+		<LogCount>2</LogCount>
+		<DataSourceSelection>false</DataSourceSelection>
+		<DataSourceId/>
+		<MaxDateRangeDays/>
+		<MediaEncoderPluginId/>
+		<ProductDocumentTagIDs/>
+		<AttachDocTemplateIDs/>
+		<MediaRfidOptionType/>
+		<ParamList>
+			<Param>
+				<DocParamId>B62579E8-B26B-AD24-05BA-018B1DC4BF2B</DocParamId>
+				<DocTemplateId>571FD8B0-5789-5E41-0333-01692FE8C903</DocTemplateId>
+				<DocParamType>1007</DocParamType>
+				<DocParamName>Account</DocParamName>
+				<DocParamCaption>@Account.Account</DocParamCaption>
+				<DocParamDefault/>
+				<Mandatory>false</Mandatory>
+			</Param>
+			<Param>
+				<DocParamId>8F286451-4A20-E92B-05BB-018B1DC4BF2B</DocParamId>
+				<DocTemplateId>571FD8B0-5789-5E41-0333-01692FE8C903</DocTemplateId>
+				<DocParamType>4</DocParamType>
+				<DocParamName>DateFrom</DocParamName>
+				<DocParamCaption>@Common.FromDate</DocParamCaption>
+				<DocParamDefault>[@CurrentDate]</DocParamDefault>
+				<Mandatory>false</Mandatory>
+			</Param>
+			<Param>
+				<DocParamId>C18BB868-63F1-3B10-05BC-018B1DC4BF2C</DocParamId>
+				<DocTemplateId>571FD8B0-5789-5E41-0333-01692FE8C903</DocTemplateId>
+				<DocParamType>4</DocParamType>
+				<DocParamName>DateTo</DocParamName>
+				<DocParamCaption>@Common.ToDate</DocParamCaption>
+				<DocParamDefault>[@CurrentDate]</DocParamDefault>
+				<Mandatory>false</Mandatory>
+			</Param>
+		</ParamList>
+		<DataSourceList>
+			<DataSource>
+				<Name>Default</Name>
+				<Code>95AXXC0C3BD402B</Code>
+				<SQL unescaped="true"><![CDATA[select
+  TRN.TransactionFiscalDate as [Transaction Fiscal Date],
+  TRN.TransactionId as [Transaction ID],
+  dbo.fnEntityDesc(20,TRN.TransactionId) as [TDSSN],
+  TRN.TransactionType as [Transaction Type Code],
+  dbo.fnLookupItemDesc(3,TRN.TransactionType) as [Transaction Type Label], 
+  TU.UsageDateTime as [Access Date],
+  EV.EventName as [Event Name],
+  PERF.PerformanceId as [Performance ID],
+  ACCAR.DisplayName as [Access Area],
+  APT.WorkstationName as [Access Point],
+  LOC.AccountCode as [Location Code],
+  LOC.DisplayName as [Location Name],
+  OPA.AccountCode as [Operating Area Code],
+  OPA.DisplayName as [Operating Area Name],
+  WKS.WorkstationCode as [Workstation Code],
+  WKS.WorkstationName as [Workstation Name],
+  USR.AccountCode as [Transaction User Account Code],
+  USR.DisplayName as [Transaction User Account Name],
+  Coalesce(PACC.DisplayName, 'Anonymous account') as [Account Name],
+  (Stuff((
+    select (', ' + cast(M.MediaId as varchar(max)))
+    from
+      tbMedia M
+    where
+      M.TicketMediaMatchId=PSL.PortfolioId
+    for XML PATH('')), 1, 2, '')) as [Media IDs],
+  (Stuff((
+    select (', ' + cast(MC.MediaCode as varchar(max)))
+    from
+      tbMedia M left join 
+      tbMediaCode MC on MC.MediaId=M.MediaId
+    where
+      M.TicketMediaMatchId=PSL.PortfolioId
+    for XML PATH('')), 1, 2, '')) as [Media Codes],
+  MMP.MembershipPointCode as [Membership Point Code],
+  MMP.MembershipPointName as [Membership Point Name],
+  PSL.LogAmount as [Total Paid Amount]
+from
+  tbPortfolioSlotLog PSL left join
+  tbTransaction TRN on TRN.TransactionId=PSL.EntityId and PSL.EntityType=20 left join
+  tbMembershipPoint MMP on MMP.MembershipPointId=PSL.MembershipPointId left join
+  tbTicketMediaMatch TMM on TMM.TicketMediaMatchId=PSL.PortfolioId left join
+  tbTicketUsage TU on TU.TicketUsageId=PSL.EntityId left join
+  tbPerformance PERF on PERF.PerformanceId=TU.PerformanceId left join
+  tbEvent EV on EV.EventId=PERF.EventId left outer join
+  tbAccount PACC on PACC.AccountId=TMM.AccountId left join
+  tbWorkstation WKS on WKS.WorkstationId=TRN.WorkstationId left join
+  tbWorkstation APT on APT.WorkstationId=TU.AptWorkstationId left join
+  tbAccount ACCAR on ACCAR.AccountId=TU.AccessAreaAccountId left join
+  tbAccount LOC on LOC.AccountId=WKS.LocationAccountId left join
+  tbAccount OPA on OPA.AccountId=WKS.OpAreaAccountId left join
+  tbAccount USR on USR.AccountId=TRN.UserAccountId
+where
+  PSL.LogFiscalDate>=:@DateFrom and  
+  PSL.LogFiscalDate<=:@DateTo and
+  MMP.MembershipPointCode<>'#WALLET' and
+  (:@Account is null or PACC.AccountId=:@Account)
+        ]]></SQL>
+			</DataSource>
+		</DataSourceList>
+		<RightList>
+			<Right>
+				<IconName>station.png</IconName>
+				<UsrEntityType>3</UsrEntityType>
+				<UsrEntityId>ACD59ABD-B0FE-DF2C-0108-015AB7D0B016</UsrEntityId>
+				<UsrEntityCode>BKOFFICE</UsrEntityCode>
+				<UsrEntityName>Back Office</UsrEntityName>
+				<RightLevel>5</RightLevel>
+			</Right>
+			<Right>
+				<IconName>account_prs.png</IconName>
+				<UsrEntityType>15</UsrEntityType>
+				<UsrEntityId>E1FC2E69-410D-6AB4-003C-0179C2BB4E51</UsrEntityId>
+				<UsrEntityCode>SYSUSR1000</UsrEntityCode>
+				<UsrEntityName>System</UsrEntityName>
+				<RightLevel>5</RightLevel>
+			</Right>
+		</RightList>
+		<RichDescList>
+			<RichDescItem>
+				<IconName>flag_USA.png</IconName>
+				<LangISO>en</LangISO>
+				<Description>&lt;h1&gt;Reward point detailed Report&lt;/h1&gt;&lt;h2&gt;Abstract&lt;/h2&gt;“Reward point detailed” generates a report of the log of the Customer Reservations by Performance Date for a selected Product in a selected Location in a selected period at your choice.&lt;h2&gt;Generating the report&lt;/h2&gt; Parameter Input&lt;br&gt;While generating the report, input parameters menu presents an intuitive interface.&lt;br&gt;Built-in wizards will help you quickly and easily create at your choice profile for your site by&lt;br&gt;&lt;br&gt;&lt;ul&gt;&lt;li&gt;[&lt;em&gt;Account&lt;/em&gt;] - Account Name (format "&lt;em&gt;Last Name&lt;/em&gt;", "&lt;em&gt;First Name&lt;/em&gt;")&lt;/li&gt;&lt;li&gt;[&lt;em&gt;From date – To Date&lt;/em&gt;] – Period to be analysed, easy-to-select.&lt;ul&gt;&lt;li&gt;Note: The dates if not specified are to be considered “Fiscal Date”&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt; Output File Extension&lt;br&gt;Built-in wizards will help you easily and quickly generate at your choice reports in XLSX or CSV or PDF formats. Format selection is required before running the report.&lt;ul&gt;&lt;li&gt;XLSX&lt;ul&gt;&lt;li&gt;Report generates an EXCEL (latest version) file&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;CSV&lt;ul&gt;&lt;li&gt;its generation requires:&lt;ul&gt;&lt;li&gt;&lt;em&gt;Field delimiter&lt;/em&gt;: Separator to be put between fields. Usually a "comma". When null, default is taken from user configuration.&lt;/li&gt;&lt;li&gt;&lt;em&gt;Quote character&lt;/em&gt;: Character used to surround fields&lt;/li&gt;&lt;li&gt;&lt;em&gt;Include header line&lt;/em&gt;&amp;nbsp;to tick the box. Default is YES.&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;PDF&lt;ul&gt;&lt;li&gt;Report generates a PDF (latest version) file&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Header&lt;/h2&gt; Report parameters:&lt;ul&gt;&lt;li&gt;[&lt;em&gt;Execution date/time&lt;/em&gt;] -Report Execution Time. Date and Hours format as per configuration [Location, Operating Area, Workstation]&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Account&lt;/em&gt;] - Account Name (format "&lt;em&gt;Last Name&lt;/em&gt;", "&lt;em&gt;First Name&lt;/em&gt;")&lt;/li&gt;&lt;li&gt;[&lt;em&gt;From date – To Date&lt;/em&gt;] – Selected Period&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Contents (by Columns)&lt;/h2&gt; The program produces easy-to-read reports that include text information.&lt;ul&gt;&lt;li&gt;[&lt;em&gt;Transaction Fiscal Date&lt;/em&gt;] -&amp;nbsp;Transaction Fiscal Date. Display format as per configuration [Location, Operating Area, Workstation]&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Transaction ID]&lt;/em&gt; -&amp;nbsp;Transaction ID&lt;/li&gt;&lt;li&gt;[&lt;em&gt;TDSSN]&lt;/em&gt; -&amp;nbsp;Unique Transaction Serial Number, format “T:licence_number.workstation_number.YYDDMM.daily_serial_number”&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Transaction Type Code&lt;/em&gt;] -&amp;nbsp;Transaction Type Code # 1 .. 100 (see LOOKUP TABLES &amp;gt;&amp;gt; Transaction Type, Table Code:3)&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Transaction Type Label&lt;/em&gt;] - Transaction Type Name&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Access Date&lt;/em&gt;] - Access date&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Event&lt;/em&gt;] - Event name&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Performance ID&lt;/em&gt;] - Performance ID&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Access Area&lt;/em&gt;] - Access Area&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Access&amp;nbsp;Point&lt;/em&gt;] - Access Point&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Location Code&lt;/em&gt;] - Site Location Code&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Location Name&lt;/em&gt;] -&amp;nbsp;Site Location Name&lt;/li&gt;&lt;li&gt;[Operating Area Code] - Operating Area Code&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Operating Area Name&lt;/em&gt;] - Operating Area Name&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Workstation Code&lt;/em&gt;] - Workstation Code&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Workstation Name] - Workstation Name&lt;/em&gt;&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Transaction User Account Code&lt;/em&gt;] - Transaction User Account Code&lt;/li&gt;&lt;li&gt;[Transaction User Name] - Transaction User Account Name&lt;/li&gt;&lt;li&gt;[Account Name] - Account Name&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Media IDs]&lt;/em&gt; - Media IDs&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Media Codes&lt;/em&gt;] - Media Codes&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Membership Point Code&lt;/em&gt;] - Membership Point Code&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Membership Point Name&lt;/em&gt;] - Membership Point Name&lt;/li&gt;&lt;li&gt;[&lt;em&gt;Total Paid&amp;nbsp;Amount&lt;/em&gt;]&amp;nbsp;-&amp;nbsp;Total Paid Amount in local currency&lt;/li&gt;&lt;/ul&gt;</Description>
+			</RichDescItem>
+		</RichDescList>
+	</DocTemplate>
+</DOEnt_DocTemplate>

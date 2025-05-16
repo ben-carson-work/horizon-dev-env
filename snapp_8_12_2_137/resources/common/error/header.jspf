@@ -1,0 +1,53 @@
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="com.vgs.snapp.web.common.library.*"%>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>${param.title}</title>
+  <style>
+    body {
+      background-color: var(--body-bg-color);
+      font-family: sans-serif;
+      font-size: 12px;
+    }
+    #center-box {
+      font-size: 15px;
+      width: 600px; 
+      margin: auto; 
+      margin-top: 100px; 
+      padding: 30px;
+      background: white;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .title {
+      font-size: 2em;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+    .message {
+      font-size: 1.2em; 
+      padding: 10px;
+      color: #333333;
+      line-height: 30px;
+    }
+  
+    #vgs-footer {
+      position: fixed;
+      left: 0px;
+      right: 0px;
+      bottom: 0px;
+      border-top: 1px rgba(0,0,0,0.08) solid; 
+      color: #999896;
+      line-height: 36px;
+      text-align: center;
+      background-color: #e6e4e1;
+      background-image: url("<v:image-link name="horizon-color-med.png" size="40"/>");
+      background-repeat: no-repeat;
+      background-position: 7px 2px;
+    }
+  </style>
+</head>
+<body>
+<div id="center-box">

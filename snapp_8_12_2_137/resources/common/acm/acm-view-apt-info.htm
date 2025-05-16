@@ -1,0 +1,59 @@
+<div class="apt-view" data-view="info">
+  <div class="apt-left-container">
+    <div class="apt-info-product-container"></div>
+    <div class="apt-info-usage-list"></div>
+  </div>
+  <div class="apt-right-container">
+    <div class="apt-tool apt-tool-close" data-iconalias="times"></div>
+    <div class="apt-tool apt-tool-ticket" data-iconalias="ticket-alt"></div>
+    <div class="apt-tool apt-tool-media" data-iconalias="credit-card"></div>
+  </div>
+  
+  <div id="view-info-templates" class="templates">
+    <div class="apt-info-product">
+      <div class="acm-property-section">
+        <div class="acm-property-section-body">
+          <div class="acm-property">
+            <div class="acm-property-label acm-property-formatasvalue" data-bind="ticket.TicketCode"></div>
+            <div class="acm-property-value" data-bind="ticket.TicketStatusDesc"></div>
+          </div>    
+          <div class="acm-property">
+            <div class="acm-property-value">[<span data-bind="ticket.ProductCode"></span>] <span data-bind="ticket.ProductName"></span></div>
+          </div>
+        </div>    
+      <div class="acm-property-section">
+      </div>    
+        <div class="acm-property-section-body">
+          <div class="acm-property">
+            <div class="acm-property-label acm-property-formatasvalue" data-bind="ticket.TransactionCode"></div>
+            <div class="acm-property-value" data-bind="ticket.EncodeDateTime" data-format="ShortDateTime"></div>
+          </div>    
+          <div class="acm-property">
+            <div class="acm-property-label"><v:itl key="@Common.Workstation"/></div>
+            <div class="acm-property-value">[<span data-bind="transaction.WorkstationCode"></span>] <span data-bind="transaction.WorkstationName"></span></div>
+          </div>    
+          <div class="acm-property">
+            <div class="acm-property-label"><v:itl key="@Sale.PNR"/></div>
+            <div class="acm-property-value" data-bind="ticket.SaleCode"></div>
+          </div>    
+          <div class="acm-property">
+            <div class="acm-property-label"><v:itl key="@SaleChannel.SaleChannel"/></div>
+            <div class="acm-property-value" data-bind="transaction.SaleChannelName" data-nullvalue="-"></div>
+          </div>    
+        </div>    
+      </div>    
+    </div>
+    
+    <div class="apt-info-usage">
+      <div class="acm-list-icon apt-usage-icon"><div class="acm-iconvert"></div><img/></div>
+      <div class="apt-usage-line acm-list-title">
+        <div class="apt-usage-field" data-bind="usage.UsageDateTime" data-format="ShortDateTime"></div>
+        <div class="apt-usage-field" data-bind="usage.AptLocationName"></div>
+      </div>
+      <div class="apt-usage-line acm-list-subtitle">
+        <div class="apt-usage-field" data-bind="usage.ValidateResultDesc"></div>
+        <div class="apt-usage-field" data-bind="usage.EventName"></div>
+      </div>
+    </div>
+  </div>
+</div>

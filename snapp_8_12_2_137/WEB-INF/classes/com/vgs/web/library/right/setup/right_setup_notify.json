@@ -1,0 +1,21 @@
+{
+  "Title": "@Common.Notifications",
+  "IconAlias": "envelope",
+  "IconColor": "blue",
+  "SectionList": [
+    {
+      "Title": "@Common.Email",
+      "Rights": [
+        "EmailSupportHardware",
+        "EmailSupportSoftware",
+        "EmailSupportOperational",
+        "EmailSupportSecurity"
+      ]
+    },
+    {
+      "Rights": [
+        "SendDebugNotifications"
+      ]
+    }
+  ]
+}

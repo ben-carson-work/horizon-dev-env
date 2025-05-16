@@ -1,0 +1,42 @@
+#view-medialookup .tab-header-title {
+  margin-right: 20rem;
+}
+
+#view-medialookup .account-section {
+  margin-bottom: 3rem;
+  background-color: var(--content-bg-color);
+}
+
+#view-medialookup .account-pic {
+  background-color: var(--body-bg-color);
+  float: left;
+  height: 50rem;
+  width: 50rem;
+  background-size: cover;
+}
+
+#view-medialookup .account-detail {
+  margin-left: 50rem;
+  padding: 1vw;
+}
+
+#view-medialookup .account-caption {
+  font-weight: bold;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.5);
+  font-size: 0.8em;
+  padding-top: 2rem;
+}
+
+#view-medialookup .account-caption,
+#view-medialookup .account-value {
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#view-medialookup .account-name {
+  font-size: 1.2em;
+  font-weight: bold;
+}
