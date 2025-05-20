@@ -1,9 +1,0 @@
-.apt-view[data-view='free'] .apt-left-container {
-  background: #3e90c7;
-  color: white;
-  font-size: 3rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  text-align: center;
-}

@@ -1,3 +1,23 @@
+# Ensure IntelliJ, macOS, build, jar, and war files are ignored
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+build/
+dist/
+target/
+*.jar
+*.war
+SNP-WIP/
+
 # Java and Maven
 target/
 *.class

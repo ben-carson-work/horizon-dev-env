@@ -1,7 +1,0 @@
-
-.apt-view[data-view='settings'] .function-list .apt-tool {
-  display: block;
-  border: 0 solid var(--apt-border-color);
-  border-bottom-width: 1px;
-  float: none;
-}

@@ -1,7 +1,0 @@
-.apt-view[data-view='special-product'] .apt-line {
-  border-bottom: 1px solid var(--apt-border-color);
-  text-align: left;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  cursor: pointer;
-}

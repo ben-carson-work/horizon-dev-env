@@ -1,6 +1,0 @@
-<%@ taglib uri="vgs-tags" prefix="v" %>
-
-<v:alert-box type="info">
-  <a href="<v:config key="site_url"/>/plugins/pkg-motf/doc-openapi.yaml" target="_new" download>OpenAPI documentation</a>
-  <div style="font-style:italic">Load the file above into <a href="https://editor.swagger.io/" target="_new">https://editor.swagger.io/</a></div>
-</v:alert-box>

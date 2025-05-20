@@ -1,1 +1,0 @@
-<div class="kiosk-spinner show-loading"><i class="fa fa-circle-notch fa-spin"></i></div>
