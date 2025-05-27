@@ -2,7 +2,7 @@ services:
   sqlserver:
     platform: linux/amd64
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sqldemo
+    container_name: snapp-mssql
     ports:
       - "1433:1433"
     environment:
@@ -19,7 +19,7 @@ services:
   tomcat:
     platform: linux/amd64
     image: tomcat:9.0-jdk8-temurin
-    container_name: tomcatdemo
+    container_name: snapp-tomcat
     environment:
       CATALINA_OPTS: "-Xms4g -Xmx6g -Xloggc:gc.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC"
       DBPASSWORD: "P@ssw0rd"

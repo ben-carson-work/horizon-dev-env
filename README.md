@@ -1,8 +1,9 @@
-# Horizon SnApp Installation
+# Horizon BKO Installation for MacOS
+using containers for an ARM platform
 
 This project sets up a local development environment for the Horizon SnApp application. It uses Docker to run:
 
-- **MS SQL Server 2019**
+- **MS SQL Server 2022**
 - **Apache Tomcat 9** with Java 8
 
 ## Prerequisites
@@ -11,18 +12,19 @@ This project sets up a local development environment for the Horizon SnApp appli
 
 ## Project Structure
 
-- `dockerfile`: Builds the MS SQL Server container.
-- `Dockerfile.tomcat`: Builds the Tomcat container.
-- `docker-compose.yml`: Orchestrates the containers.
-- `snapp_8_12_2_137.war`: The application WAR file.
+- `docker-compose.yml`: compose file obtained from Stefano
+- `dockerfile.mssql`: (OLD) Builds the MS SQL Server container.
+- `Dockerfile.tomcat`: (OLD) Builds the Tomcat container.
+- `docker-compose.yml.OLD.yml`: (OLD) Orchestrates the containers.
 - `SNP-WIP.xml`: Configuration file for the application.
-- `powershell/`: Contains setup scripts for Windows environments.
+
 
 ## Setup Instructions
 
 1. Clone this repository.
 2. Ensure Docker is running on your system.
-3. Place the latest version of the WAR file in the project root (replace `snapp_8_12_2_137.war` if needed).
+3. Place the latest version of the WAR file in the project root.
+4. ??? How do I deploy the war to tomcat ???
 
 ## Running the Containers
 
@@ -46,28 +48,27 @@ docker-compose down
 
 ## Accessing the Application
 
-- The application will be available at: [http://localhost:8080/snapp](http://localhost:8080/snapp)
+- The application will be available at: [http://localhost:8080/SNP-WIP/admin](http://localhost:8080/SNP-WIP/admin)
 - The database can be accessed at `localhost:1433` using the following credentials:
   - **Username:** `sa`
   - **Password:** `P@ssw0rd`
 
 ## monitoring tomcat container logs
 ### For real-time application-specific logs
-`docker exec tomcatdemo tail -f /usr/local/tomcat/logs/localhost.2025-05-15.log`
+`docker exec snapp-tomcat tail -f /usr/local/tomcat/logs/localhost.2025-05-15.log`
 ### For last 50 lines of log
-`docker exec tomcatdemo tail -n 50 /usr/local/tomcat/logs/localhost.2025-05-15.log`
+`docker exec snapp-tomcat tail -n 50 /usr/local/tomcat/logs/localhost.2025-05-15.log`
 
 ### For access logs
-`docker exec tomcatdemo tail -f /usr/local/tomcat/logs/localhost_access_log.2025-05-15.txt`
+`docker exec snapp-tomcat tail -f /usr/local/tomcat/logs/localhost_access_log.2025-05-15.txt`
 
 ### For Tomcat main logs
-`docker exec tomcatdemo tail -f /usr/local/tomcat/logs/catalina.2025-05-15.log`
+`docker exec snapp-tomcat tail -f /usr/local/tomcat/logs/catalina.2025-05-15.log`
 
 ## Notes
 
 - The `SNP-WIP.xml` file is automatically mounted into the Tomcat container at `/usr/local/tomcat/conf/Catalina/localhost/SNP-WIP.xml`.
 - The database name is set to `SNP_WIP`.
-- Ensure the `snapp_8_12_2_137.war` file is up-to-date before starting the containers.
 
 ## Troubleshooting
 
@@ -76,4 +77,4 @@ docker-compose down
   ```bash
   docker logs horizon-mssql
   docker logs horizon-tomcat
-  ```# Horizon Dev Env for ARM
+  ```
