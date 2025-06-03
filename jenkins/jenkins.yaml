@@ -1,0 +1,39 @@
+jenkins:
+  systemMessage: "Welcome to Jenkins for SnApp Development"
+  numExecutors: 2
+  
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: "admin"
+          password: "admin123"
+
+unclassified:
+  location:
+    url: "http://localhost:8081/"
+    adminAddress: "admin@example.com"
+
+tool:
+  git:
+    installations:
+      - name: "Default"
+        home: "/usr/bin/git"
+  
+  maven:
+    installations:
+      - name: "Maven-3.9"
+        properties:
+          - installSource:
+              installers:
+                - maven:
+                    id: "3.9.9"
+  
+  jdk:
+    installations:
+      - name: "OpenJDK-21"
+        home: "/opt/java/openjdk"

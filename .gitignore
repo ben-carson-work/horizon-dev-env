@@ -140,3 +140,34 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# Jenkins - Keep job definitions but ignore runtime data
+jenkins/jobs/*/builds/
+jenkins/jobs/*/workspace/
+jenkins/jobs/*/nextBuildNumber
+jenkins/jobs/*/lastStable
+jenkins/jobs/*/lastSuccessful
+jenkins/jobs/*/lastFailure
+jenkins/jobs/*/lastUnstable
+jenkins/jobs/*/modules/
+jenkins/jobs/*/*.xml
+jenkins/jobs/*/promotions/
+
+# Jenkins - Ignore backup files and temporary data
+jenkins/jobs/**/*.bak
+jenkins/jobs/**/*.tmp
+jenkins/jobs/**/*.log
+
+# Jenkins - Keep .groovy job definitions (these should be committed)
+!jenkins/jobs/*.groovy
+!jenkins/jobs/init-jobs.groovy
+!jenkins/jobs/snapp-pipeline.groovy
+
+# Jenkins home directory runtime files (if they end up in your repo)
+jenkins/logs/
+jenkins/workspace/
+jenkins/plugins/
+jenkins/updates/
+jenkins/userContent/
+jenkins/secrets/
+jenkins/nodes/
+

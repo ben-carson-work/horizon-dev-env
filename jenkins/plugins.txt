@@ -1,0 +1,19 @@
+# Essential Jenkins plugins for SnApp CI/CD
+configuration-as-code
+credentials
+credentials-binding
+git
+github
+github-branch-source
+workflow-aggregator
+pipeline-stage-view
+junit
+timestamper
+build-timeout
+ws-cleanup
+job-dsl
+maven-plugin
+pipeline-maven
+docker-workflow
+blueocean
+jdk-tool
