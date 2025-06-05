@@ -18,8 +18,8 @@ This project sets up a complete development environment for the Horizon SnApp ap
 - `docker-compose.yml`: Orchestrates all containers
 - `SNP-WIP.xml`: Tomcat application configuration
 - `SNP-WIP.war`: Pre-built application (for local deployment)
-- `Jenkinsfile`: CI/CD pipeline definition
-- `jenkins/`: Jenkins configuration and setup files
+- `Jenkinsfile`: Example Jenkinsfile (may not be the primary CI/CD mechanism for the local setup described here; Jenkins jobs are managed by JCasC and Job DSL scripts in the `jenkins/` directory)
+- `jenkins/`: Jenkins configuration and setup files, including Job DSL scripts for pipeline creation.
 
 ## Quick Start
 
@@ -37,43 +37,40 @@ This will start:
 ### 2. Access Jenkins and Run Pipeline
 1. Open Jenkins at: http://localhost:8081
 2. Login with: `admin` / `admin123`
-3. You'll see two pipeline jobs automatically created:
-   - **SnApp-GitHub-Pipeline**: Builds from GitHub source
-   - **SnApp-Local-Pipeline**: Deploys local WAR file
+3. You'll see the **SnApp-Local-Pipeline** job automatically created. This job is defined in `jenkins/jobs/snapp-pipeline.groovy` and loaded by Jenkins Configuration as Code (JCasC).
+   *(Note: The mention of "SnApp-GitHub-Pipeline" might be from a previous setup or an example `Jenkinsfile`. The primary focus of the automated setup described is the `SnApp-Local-Pipeline` created via JCasC and Job DSL.)*
 
 ### 3. Deploy SnApp
-**Option A - Build from GitHub (Recommended):**
-1. Click "SnApp-GitHub-Pipeline"
-2. Click "Build Now"
-3. Pipeline will: checkout → build → test → deploy
+**Deploy Local WAR (Primary method for this setup):**
+1. Ensure `SNP-WIP.war` is in the project root directory.
+2. In Jenkins, click "SnApp-Local-Pipeline".
+3. Click "Build Now".
 
-**Option B - Deploy Local WAR:**
-1. Ensure `SNP-WIP.war` is in the project root
-2. Click "SnApp-Local-Pipeline"
-3. Click "Build Now"
+**Option B - Build from GitHub (If a `Jenkinsfile` and corresponding job are configured):**
+If you have a `Jenkinsfile` in your SnApp source code repository and a Jenkins pipeline job configured to use it (e.g., a Multibranch Pipeline or a Pipeline job pointing to SCM):
+1. Ensure that job is configured in Jenkins.
+2. Trigger that job to: checkout → build → test → deploy.
+*(This setup guide primarily focuses on the JCasC-created `SnApp-Local-Pipeline`)*
 
 ### 4. Access the Application
 After successful deployment: http://localhost:8080/SNP-WIP
 
-## CI/CD Pipeline Features
+## CI/CD Pipeline Features (for `SnApp-Local-Pipeline`)
 
-### GitHub Integration
-- **Automatic builds** from the main branch
-- **Webhook support** for instant builds on code changes
-- **Polling backup** every 5 minutes
-- **Source code checkout** and compilation
+### Local Deployment Focus
+- **Automated Job Creation**: `SnApp-Local-Pipeline` is created automatically on Jenkins startup via JCasC and Job DSL.
+- **Manual Trigger**: Designed for manual triggering to deploy the `SNP-WIP.war` from the local workspace.
+- **Deployment Process**: Copies the local WAR to the Tomcat container.
 
-### Build Process
-- **Auto-detects** Maven or Gradle projects
-- **Compiles** Java source code
-- **Runs unit tests** (optional)
-- **Packages** WAR file for deployment
+*(Features like GitHub integration, automatic builds from main branch, webhook support, etc., would typically be part of a separate pipeline job configured to use SCM, like a `Jenkinsfile` in the SnApp repository, which is distinct from the `SnApp-Local-Pipeline` described here.)*
 
-### Deployment
-- **Automated deployment** to local Tomcat
-- **Health checks** and verification
-- **Smoke testing** after deployment
-- **Rollback support** (removes old versions)
+## Build Process (as performed by `SnApp-Local-Pipeline`)
+- **Pre-built WAR**: Assumes `SNP-WIP.war` is already built and present in the root directory.
+- **No Compilation**: This pipeline does not compile Java source code; it deploys an existing artifact.
+
+## Deployment (by `SnApp-Local-Pipeline`)
+- **Automated deployment** of the local `SNP-WIP.war` to the `snapp-tomcat` container.
+- **Health checks** and verification (as defined in the pipeline script).
 
 ## Container Details
 
@@ -92,7 +89,8 @@ After successful deployment: http://localhost:8080/SNP-WIP
 ### Jenkins (`snapp-jenkins`)
 - **Image**: Custom (based on jenkins/jenkins:lts)
 - **Port**: 8081
-- **Features**: Docker-in-Docker, Maven, Job DSL
+- **Features**: Docker-in-Docker, Maven, Job DSL, Configuration as Code (JCasC)
+- **Job Automation**: `SnApp-Local-Pipeline` is auto-created via JCasC processing `jenkins/jobs/snapp-pipeline.groovy`.
 - **Volume**: Persistent storage for jobs and configs
 
 ## Stopping the Containers

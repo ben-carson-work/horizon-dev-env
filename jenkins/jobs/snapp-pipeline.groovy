@@ -1,56 +1,7 @@
 // SnApp Pipeline Job DSL Script
 // This creates the Jenkins pipeline job automatically
 
-pipelineJob('SnApp-GitHub-Pipeline') {
-    displayName('SnApp GitHub CI/CD Pipeline')
-    description('Automated CI/CD pipeline for SnApp - Builds from GitHub and deploys to Tomcat')
-    
-    // Keep build history
-    logRotator {
-        daysToKeep(7)
-        numToKeep(10)
-    }
-    
-    // GitHub project configuration
-    properties {
-        githubProjectUrl('https://github.com/accesso-Horizon/SnApp')
-    }
-    
-    // Pipeline definition
-    definition {
-        cpsScm {
-            scm {
-                git {
-                    remote {
-                        url('https://github.com/accesso-Horizon/SnApp.git')
-                    }
-                    branch('*/main')
-                    extensions {
-                        cleanBeforeCheckout()
-                    }
-                }
-            }
-            scriptPath('Jenkinsfile')
-        }
-    }
-    
-    // Build triggers
-    triggers {
-        // Poll SCM every 5 minutes for changes
-        scm('H/5 * * * *')
-        
-        // GitHub webhook trigger (when configured)
-        githubPush()
-    }
-    
-    // Parameters for manual builds
-    parameters {
-        booleanParam('SKIP_TESTS', false, 'Skip unit tests during build')
-        choiceParam('BRANCH', ['main', 'develop', 'feature/*'], 'Branch to build')
-    }
-}
-
-// Create a secondary job for local WAR deployment (backward compatibility)
+// Local WAR deployment pipeline for SnApp
 pipelineJob('SnApp-Local-Pipeline') {
     displayName('SnApp Local WAR Deployment')
     description('Deploy pre-built SNP-WIP.war from local workspace to Tomcat')

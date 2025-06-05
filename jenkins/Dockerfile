@@ -30,11 +30,11 @@ RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/plugins.txt
 # Copy initial configuration
 COPY jenkins.yaml /usr/share/jenkins/ref/jenkins.yaml
 
-# Copy Job DSL scripts
-COPY jobs/ /usr/share/jenkins/ref/jobs/
+# Copy Job DSL scripts to accessible location (NOT init.groovy.d)
+COPY --chown=jenkins:jenkins jobs/ /usr/share/jenkins/ref/jobs-dsl/
 
 # Set Jenkins Configuration as Code plugin location
 ENV CASC_JENKINS_CONFIG=/usr/share/jenkins/ref/jenkins.yaml
 
-# Initialize jobs on startup
-COPY --chown=jenkins:jenkins jobs/init-jobs.groovy /usr/share/jenkins/ref/init.groovy.d/
+# Set Java options
+ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false -Dhudson.model.DirectoryBrowserSupport.CSP= -Dpermissive-script-security.enabled=true -Djob-dsl.noSecurity=true"

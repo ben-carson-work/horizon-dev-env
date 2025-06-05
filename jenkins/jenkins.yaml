@@ -37,3 +37,6 @@ tool:
     installations:
       - name: "OpenJDK-21"
         home: "/opt/java/openjdk"
+
+jobs:
+  - file: /usr/share/jenkins/ref/jobs-dsl/snapp-pipeline.groovy
