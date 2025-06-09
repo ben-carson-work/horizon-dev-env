@@ -171,3 +171,10 @@ jenkins/userContent/
 jenkins/secrets/
 jenkins/nodes/
 
+# SSH Keys - SECURITY: All SSH files are user-generated and should not be committed
+# The setup-github-ssh.sh script recreates these for each user
+jenkins/ssh/*
+# Keep only the directory structure and README
+!jenkins/ssh/
+!jenkins/ssh/README.md
+

@@ -11,6 +11,9 @@ services:
       MSSQL_PID: "Developer"
     volumes:
       - sqlvol:/var/opt/mssql
+      - ./sql-scripts/init-database.sql:/docker-entrypoint-initdb.d/init-database.sql:ro
+      - ./sql-scripts/entrypoint.sh:/usr/local/bin/entrypoint.sh:ro
+    entrypoint: ["/usr/local/bin/entrypoint.sh"]
     networks:
       - vgsdemonet
     restart: unless-stopped
@@ -47,6 +50,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./jenkins/jobs:/var/jenkins_home/jobs
       - .:/workspace
+      - ./jenkins/ssh:/root/.ssh:ro
     user: root
     environment:
       - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
