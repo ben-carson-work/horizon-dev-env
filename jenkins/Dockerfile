@@ -17,8 +17,13 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install -y docker-ce-cli
 
-# Install Maven (for Java builds)
-RUN apt-get install -y maven
+# Install Maven and Git (for Java builds and Git operations)
+RUN apt-get install -y maven git openssh-client
+
+# Create SSH directory and set proper permissions
+RUN mkdir -p /var/jenkins_home/.ssh && \
+    chown jenkins:jenkins /var/jenkins_home/.ssh && \
+    chmod 700 /var/jenkins_home/.ssh
 
 # Switch back to jenkins user
 USER jenkins

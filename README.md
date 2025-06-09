@@ -12,6 +12,7 @@ This project sets up a complete development environment for the Horizon SnApp ap
 - Docker and Docker Compose installed on your system
 - Git (for source code management)
 - Access to the SnApp GitHub repository: https://github.com/accesso-Horizon/SnApp
+- Access to the automation testing repository: https://github.com/accesso/horizon-automation
 
 ## Project Structure
 
@@ -52,7 +53,46 @@ If you have a `Jenkinsfile` in your SnApp source code repository and a Jenkins p
 2. Trigger that job to: checkout → build → test → deploy.
 *(This setup guide primarily focuses on the JCasC-created `SnApp-Local-Pipeline`)*
 
-### 4. Access the Application
+### 4. Configure GitHub SSH Access (First-Time Setup Only)
+
+**⚠️ Required for Automated Testing Pipeline**
+
+The Jenkins pipeline includes automated testing that requires access to the private `horizon-automation` repository. This is a **one-time setup per machine/environment**.
+
+#### When SSH Setup is Required:
+- ✅ **First-time setup** (new installation)
+- ✅ **New machine/environment** (different developer's machine)
+- ✅ **Fresh Docker volumes** (if `jenkins_home` volume is deleted)
+- ❌ **NOT required for every build** (SSH keys persist in Jenkins volume)
+
+#### Setup Steps:
+```bash
+# 1. Generate SSH keys for Jenkins
+./setup-github-ssh.sh
+
+# 2. Copy the displayed public key to your clipboard
+
+# 3. Add to GitHub:
+#    • Go to GitHub → Settings → SSH and GPG keys
+#    • Click "New SSH key"
+#    • Paste the public key
+#    • Title: "Jenkins SnApp Local"
+
+# 4. Rebuild Jenkins to include SSH keys
+docker-compose down
+docker-compose build jenkins
+docker-compose up -d
+
+# 5. Test SSH connection (optional)
+docker exec -it snapp-jenkins ssh -T git@github.com
+```
+
+#### Skip SSH Setup (Alternative):
+If you want to skip automated testing temporarily, you can comment out the "Smoke Test" stage in `jenkins/jobs/snapp-pipeline.groovy`.
+
+**✨ Note:** SSH keys are automatically mounted to the correct location - no manual configuration needed!
+
+### 5. Access the Application
 After successful deployment: http://localhost:8080/SNP-WIP
 
 ## CI/CD Pipeline Features (for `SnApp-Local-Pipeline`)
@@ -122,8 +162,32 @@ docker-compose down
 
 ## Notes
 
-- The `SNP-WIP.xml` file is automatically mounted into the Tomcat container at `/usr/local/tomcat/conf/Catalina/localhost/SNP-WIP.xml`.
-- The database name is set to `SNP_WIP`.
+- The `SNP-WIP.xml` file is copied to the Tomcat container during Jenkins deployment at `/usr/local/tomcat/conf/Catalina/localhost/SNP-WIP.xml`.
+- The database name is set to `SNP_WIP` and is **automatically created** when the SQL Server container starts.
+- Database initialization is handled by custom scripts in the `sql-scripts/` directory.
+
+## Database Initialization
+
+The SQL Server container now includes automatic database creation functionality:
+
+### Files Created
+- `sql-scripts/init-database.sql`: SQL script that creates the SNP_WIP database
+- `sql-scripts/entrypoint.sh`: Custom entrypoint script that initializes the database on container startup
+- `test-database.sh`: Test script to verify database creation
+
+### How It Works
+1. When the SQL Server container starts, it uses the custom entrypoint script
+2. The script waits for SQL Server to be ready
+3. It then executes the initialization SQL script to create the SNP_WIP database
+4. The database is ready for the application to connect
+
+### Testing Database Creation
+To verify the database was created successfully:
+```bash
+./test-database.sh
+```
+
+This will check if the SNP_WIP database exists and list all available databases.
 
 ## Advanced Features
 
@@ -157,6 +221,34 @@ docker exec snapp-jenkins docker ps
 docker exec snapp-jenkins ls -la /workspace
 ```
 
+**SSH/GitHub Access Issues:**
+```bash
+# Test SSH connection to GitHub
+docker exec -it snapp-jenkins ssh -T git@github.com
+
+# Check if SSH keys exist in container
+docker exec snapp-jenkins ls -la /root/.ssh/
+
+# Verify SSH key permissions
+docker exec snapp-jenkins ls -la /root/.ssh/id_rsa
+
+# Test Git clone manually
+docker exec -it snapp-jenkins git clone git@github.com:accesso/horizon-automation.git /tmp/test-clone
+
+# Check SSH configuration
+docker exec snapp-jenkins cat /root/.ssh/config
+```
+
+**Smoke Test Stage Failures:**
+```bash
+# Regenerate SSH keys if needed
+./setup-github-ssh.sh
+docker-compose build jenkins && docker-compose up -d jenkins
+
+# Or skip automation tests temporarily (comment out Smoke Test stage)
+# Edit jenkins/jobs/snapp-pipeline.groovy and comment out lines 139-195
+```
+
 **Build Failures:**
 ```bash
 # Check if GitHub repository is accessible
@@ -180,7 +272,7 @@ docker exec snapp-tomcat ls -la /usr/local/tomcat/webapps/
 **SQL Server Connection Issues:**
 ```bash
 # Test SQL Server connectivity
-docker exec snapp-mssql /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "P@ssw0rd" -Q "SELECT @@VERSION"
+docker exec snapp-mssql /opt/mssql-tools18/bin/sqlcmd -S localhost -U SA -P "P@ssw0rd" -C -Q "SELECT @@VERSION"
 
 # Check SQL Server logs
 docker logs snapp-mssql

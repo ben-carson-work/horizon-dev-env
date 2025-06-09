@@ -23,7 +23,9 @@ pipeline {
         PROJECT_NAME = 'SnApp'
         BUILD_NUMBER = "${env.BUILD_NUMBER}"
         TOMCAT_CONTAINER = 'snapp-tomcat'
-        WAR_NAME = 'SNP-WIP.war'
+        ARTIFACT_NAME = 'SNP-WIP'
+        WAR_NAME = "${ARTIFACT_NAME}.war"
+        XML_NAME = "${ARTIFACT_NAME}.xml"
         WORKSPACE_PATH = '/workspace'
     }
     
@@ -104,11 +106,17 @@ pipeline {
                         docker exec ${TOMCAT_CONTAINER} rm -rf /usr/local/tomcat/webapps/SNP-WIP 2>/dev/null || true
                         
                         echo "Copying new WAR file..."
-                        docker cp deployment/${WAR_NAME} ${TOMCAT_CONTAINER}:/usr/local/tomcat/webapps/
+                        docker cp ${WAR_NAME} ${TOMCAT_CONTAINER}:/usr/local/tomcat/webapps/
                         
                         echo "Verifying WAR file copy..."
                         docker exec ${TOMCAT_CONTAINER} ls -la /usr/local/tomcat/webapps/${WAR_NAME}
                         
+                        echo "Copying connection XML file..."
+                        docker cp ${XML_NAME} ${TOMCAT_CONTAINER}:/usr/local/tomcat/conf/Catalina/localhost/
+
+                        echo "Verifying XML file copy..."
+                        docker exec ${TOMCAT_CONTAINER} ls -la /usr/local/tomcat/conf/Catalina/localhost/${XML_NAME}
+
                         echo "Waiting for deployment..."
                         sleep 15
                         
@@ -130,24 +138,66 @@ pipeline {
         
         stage('Smoke Test') {
             steps {
-                echo 'Running basic smoke test...'
+                echo 'Running automated tests from horizon-automation Git repository...'
                 script {
                     sh \'\'\'
-                        echo "=== Running Smoke Test ==="
-                        sleep 5
+                        echo "=== Running Docker-based Smoke Test ==="
                         
-                        for i in {1..6}; do
-                            echo "Testing application (attempt $i/6)..."
-                            if curl -f -s http://localhost:8080/SNP-WIP/ > /dev/null; then
-                                echo "✓ Application is responding!"
-                                curl -s -o /dev/null -w "HTTP Status: %{http_code}\\\\n" http://localhost:8080/SNP-WIP/
-                                break
-                            else
-                                echo "Application not yet available, waiting..."
-                                docker exec ${TOMCAT_CONTAINER} tail -5 /usr/local/tomcat/logs/catalina.out || true
-                                sleep 10
-                            fi
-                        done
+                        # Define automation project details
+                        AUTOMATION_REPO="git@github.com:accesso/horizon-automation.git"
+                        AUTOMATION_PATH="./horizon-automation"
+                        
+                        # Clean up any existing automation directory
+                        rm -rf "$AUTOMATION_PATH"
+                        
+                        echo "Cloning horizon-automation repository..."
+                        git clone "$AUTOMATION_REPO" "$AUTOMATION_PATH"
+                        
+                        # Check if clone was successful
+                        if [ ! -d "$AUTOMATION_PATH" ]; then
+                            echo "ERROR: Failed to clone horizon-automation repository"
+                            echo "Current directory: $(pwd)"
+                            echo "Available directories:"
+                            ls -la ./
+                            exit 1
+                        fi
+                        
+                        echo "Successfully cloned automation repository"
+                        cd "$AUTOMATION_PATH"
+                        echo "Building test Docker image..."
+                        
+                        # Build the Docker image with a specific tag
+                        docker build -t horizon-automation-tests:${BUILD_NUMBER} .
+                        
+                        # Check if build was successful
+                        if [ $? -ne 0 ]; then
+                            echo "ERROR: Failed to build the Docker image"
+                            exit 1
+                        fi
+                        
+                        echo "Running automated tests against deployed application..."
+                        
+                        # Let the automation framework use its own .env.dev configuration
+                        # Just pass ENV=dev so it loads the correct environment file from horizon-automation repo
+                        docker run --rm \
+                            -e ENV=dev \
+                            horizon-automation-tests:${BUILD_NUMBER}
+                        
+                        # Capture the exit code
+                        TEST_RESULT=$?
+                        
+                        # Clean up the image and repository
+                        docker rmi horizon-automation-tests:${BUILD_NUMBER} || true
+                        cd ..
+                        rm -rf "$AUTOMATION_PATH"
+                        
+                        # Return test result
+                        if [ $TEST_RESULT -eq 0 ]; then
+                            echo "✅ Automated tests passed successfully!"
+                        else
+                            echo "❌ Automated tests failed with exit code: $TEST_RESULT"
+                            exit $TEST_RESULT
+                        fi
                     \'\'\'
                 }
             }
