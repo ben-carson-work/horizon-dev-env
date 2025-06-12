@@ -9,4 +9,6 @@ BEGIN
     PRINT 'Database SNP_WIP already exists.';
 END
 
+-- Use the SNP_WIP database
+USE [SNP_WIP];
 PRINT 'Database initialization completed.';

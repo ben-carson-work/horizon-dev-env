@@ -64,6 +64,7 @@ pipeline {
                             ./restore-backup-db.sh "\${BACKUP_FILE}" "\${SQL_CONTAINER}" "\${SA_PASSWORD}"
                         else
                             echo "restore-backup-db.sh not found, skipping database restoration"
+                            echo "WARNING: Application may fail without proper database setup"
                         fi
                     """
                 }
@@ -80,11 +81,6 @@ pipeline {
                         
                         if [ -f "deploy-artifacts/\${WAR_NAME}" ]; then
                             echo "Found existing WAR file: deploy-artifacts/\${WAR_NAME}"
-                            ls -la deploy-artifacts/\${WAR_NAME}
-                            mkdir -p deployment
-                            cp deploy-artifacts/\${WAR_NAME} deployment/
-                            echo "WAR file prepared for deployment"
-                            ls -la deployment/
                         else
                             echo "ERROR: deploy-artifacts/\${WAR_NAME} not found!"
                             echo "Available files in deploy-artifacts/:"
@@ -128,6 +124,36 @@ pipeline {
             }
         }
         
+        stage('Tomcat to SQL Server Connectivity Test') {
+            steps {
+                echo 'Testing if Tomcat can reach the database...'
+                script {
+                    sh """
+                        echo "=== Tomcat to SQL Server Connectivity Test ==="
+                        
+                        # Test if Tomcat container can connect to the named database
+                        echo "Testing connection from Tomcat to database SNP-WIP..."
+                        
+                        if docker exec \${TOMCAT_CONTAINER} timeout 10 bash -c "echo > /dev/tcp/\${SQL_CONTAINER}/1433" 2>/dev/null; then
+                            echo "✓ Tomcat can reach SQL Server container"
+                            
+                            # Test actual database connection
+                            echo "Testing database 'SNP-WIP' accessibility..."
+                            if docker exec \${SQL_CONTAINER} /opt/mssql-tools18/bin/sqlcmd -S \${SQL_CONTAINER} -U SA -P "\${SA_PASSWORD}" -C -d "SNP-WIP" -Q "SELECT DB_NAME() AS [DatabaseName];" 2>/dev/null; then
+                                echo "✅ SUCCESS: Tomcat can successfully reach database 'SNP-WIP'"
+                            else
+                                echo "❌ FAILED: Cannot connect to database 'SNP-WIP'"
+                                exit 1
+                            fi
+                        else
+                            echo "❌ FAILED: Tomcat cannot reach SQL Server container"
+                            exit 1
+                        fi
+                    """
+                }
+            }
+        }
+        
         stage('Deploy to Tomcat') {
             steps {
                 echo 'Deploying WAR file to Tomcat container...'
@@ -136,17 +162,17 @@ pipeline {
                         echo "=== Deploying to Tomcat ==="
                         cd \${WORKSPACE_PATH}
                         
-                        if [ ! -f "deployment/\${WAR_NAME}" ]; then
+                        if [ ! -f "deploy-artifacts/\${WAR_NAME}" ]; then
                             echo "ERROR: Deployment package not found!"
                             exit 1
                         fi
                         
                         echo "Removing old application..."
                         docker exec \${TOMCAT_CONTAINER} rm -f /usr/local/tomcat/webapps/\${WAR_NAME} 2>/dev/null || true
-                        docker exec \${TOMCAT_CONTAINER} rm -rf /usr/local/tomcat/webapps/SNP-WIP 2>/dev/null || true
-                        
+                        docker exec \${TOMCAT_CONTAINER} rm -rf /usr/local/tomcat/webapps/\${ARTIFACT_NAME} 2>/dev/null || true
+
                         echo "Copying new WAR file..."
-                        docker cp deployment/\${WAR_NAME} \${TOMCAT_CONTAINER}:/usr/local/tomcat/webapps/
+                        docker cp deploy-artifacts/\${WAR_NAME} \${TOMCAT_CONTAINER}:/usr/local/tomcat/webapps/
                         
                         echo "Verifying WAR file copy..."
                         if ! docker exec \${TOMCAT_CONTAINER} ls -la /usr/local/tomcat/webapps/\${WAR_NAME}; then
@@ -164,15 +190,15 @@ pipeline {
                             exit 1
                         fi
                         echo "✓ XML file copy verified successfully"
-
+                        
                         echo "Waiting for deployment..."
                         sleep 15
                         
                         echo "Verifying deployment..."
                         for i in {1..12}; do
-                            if docker exec \${TOMCAT_CONTAINER} ls /usr/local/tomcat/webapps/SNP-WIP 2>/dev/null; then
+                            if docker exec \${TOMCAT_CONTAINER} ls /usr/local/tomcat/webapps/\${ARTIFACT_NAME} 2>/dev/null; then
                                 echo "✓ Application deployed successfully!"
-                                docker exec \${TOMCAT_CONTAINER} ls -la /usr/local/tomcat/webapps/SNP-WIP
+                                docker exec \${TOMCAT_CONTAINER} ls -la /usr/local/tomcat/webapps/\${ARTIFACT_NAME}
                                 break
                             else
                                 echo "Waiting for application to deploy... (\\\$i/12)"
@@ -264,7 +290,7 @@ pipeline {
                 sh """
                     echo "=== Final Status ==="
                     echo "Jenkins: http://localhost:8081"
-                    echo "SnApp Application: http://localhost:8080/SNP-WIP"
+                    echo "SnApp Application: http://localhost:8080/\\\$ARTIFACT_NAME"
                     echo "Container Status:"
                     docker ps | grep snapp || true
                 """

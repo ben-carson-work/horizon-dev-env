@@ -71,32 +71,21 @@ DB_LOGICAL_NAMES=$(docker exec -i "$CONTAINER_NAME" /opt/mssql-tools18/bin/sqlcm
 echo "Logical file names found:"
 echo "$DB_LOGICAL_NAMES"
 
-# For WideWorldImporters backup, use the known structure
-# For other backups, this might need to be adjusted
-if [[ "$BACKUP_FILENAME" == *"wwi"* ]] || [[ "$BACKUP_FILENAME" == *"WideWorldImporters"* ]]; then
-    DB_NAME="WideWorldImporters"
-    RESTORE_QUERY="RESTORE DATABASE $DB_NAME FROM DISK = '$BACKUP_DIR/$BACKUP_FILENAME' WITH REPLACE,
-    MOVE 'WWI_Primary' TO '/var/opt/mssql/data/WideWorldImporters.mdf',
-    MOVE 'WWI_UserData' TO '/var/opt/mssql/data/WideWorldImporters_userdata.ndf',
-    MOVE 'WWI_Log' TO '/var/opt/mssql/data/WideWorldImporters.ldf',
-    MOVE 'WWI_InMemory_Data_1' TO '/var/opt/mssql/data/WideWorldImporters_InMemory_Data_1'"
-else
-    # Generic restore - use SNP-WIP as the target database name
-    DB_NAME="SNP-WIP"
-    echo "Restoring backup as database '$DB_NAME'"
-    
-    # Extract logical file names from the backup
-    LOGICAL_FILES=($(echo "$DB_LOGICAL_NAMES" | tr '\n' ' '))
-    DATA_FILE="${LOGICAL_FILES[0]}"
-    LOG_FILE="${LOGICAL_FILES[1]}"
-    
-    echo "Moving logical files: $DATA_FILE -> $DB_NAME.mdf, $LOG_FILE -> ${DB_NAME}_log.ldf"
-    
-    # Use proper Linux paths for the container and move logical files dynamically
-    RESTORE_QUERY="RESTORE DATABASE [$DB_NAME] FROM DISK = '$BACKUP_DIR/$BACKUP_FILENAME' WITH REPLACE,
-    MOVE '$DATA_FILE' TO '/var/opt/mssql/data/$DB_NAME.mdf',
-    MOVE '$LOG_FILE' TO '/var/opt/mssql/data/$DB_NAME_log.ldf'"
-fi
+# Generic restore - use SNP-WIP as the target database name
+DB_NAME="SNP-WIP"
+echo "Restoring backup as database '$DB_NAME'"
+
+# Extract logical file names from the backup
+LOGICAL_FILES=($(echo "$DB_LOGICAL_NAMES" | tr '\n' ' '))
+DATA_FILE="${LOGICAL_FILES[0]}"
+LOG_FILE="${LOGICAL_FILES[1]}"
+
+echo "Moving logical files: $DATA_FILE -> $DB_NAME.mdf, $LOG_FILE -> ${DB_NAME}_log.ldf"
+
+# Use proper Linux paths for the container and move logical files dynamically
+RESTORE_QUERY="RESTORE DATABASE [$DB_NAME] FROM DISK = '$BACKUP_DIR/$BACKUP_FILENAME' WITH REPLACE,
+MOVE '$DATA_FILE' TO '/var/opt/mssql/data/$DB_NAME.mdf',
+MOVE '$LOG_FILE' TO '/var/opt/mssql/data/$DB_NAME_log.ldf'"
 
 # Restore the database
 echo "Restoring database '$DB_NAME'..."
