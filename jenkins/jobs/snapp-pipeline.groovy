@@ -4,12 +4,13 @@
 // Local WAR deployment pipeline for SnApp
 pipelineJob('SnApp-Local-Pipeline') {
     displayName('SnApp Local WAR Deployment')
-    description('Deploy pre-built SNP-WIP.war from local workspace to Tomcat with optional database restoration')
+    description('Deploy WAR from local workspace to Tomcat with optional database restoration')
     
     // Pipeline parameters
     parameters {
         stringParam('BACKUP_FILE', 'deploy-artifacts/B2B-baseline.bak', 'Database backup file to restore (optional)')
-        booleanParam('SKIP_DB_RESTORE', false, 'Skip database restoration step')
+        booleanParam('SKIP_DB_RESTORE', true, 'Skip database restoration step')
+        booleanParam('SKIP_UI_TESTS', false, 'Skip UI testing step in smoke test stage')
     }
     
     // Keep build history
@@ -148,13 +149,21 @@ pipeline {
                         docker cp deployment/\${WAR_NAME} \${TOMCAT_CONTAINER}:/usr/local/tomcat/webapps/
                         
                         echo "Verifying WAR file copy..."
-                        docker exec \${TOMCAT_CONTAINER} ls -la /usr/local/tomcat/webapps/\${WAR_NAME}
+                        if ! docker exec \${TOMCAT_CONTAINER} ls -la /usr/local/tomcat/webapps/\${WAR_NAME}; then
+                            echo "ERROR: WAR file verification failed - file not found in Tomcat webapps!"
+                            exit 1
+                        fi
+                        echo "✓ WAR file copy verified successfully"
                         
                         echo "Copying connection XML file..."
                         docker cp deploy-artifacts/\${XML_NAME} \${TOMCAT_CONTAINER}:/usr/local/tomcat/conf/Catalina/localhost/
 
                         echo "Verifying XML file copy..."
-                        docker exec \${TOMCAT_CONTAINER} ls -la /usr/local/tomcat/conf/Catalina/localhost/\${XML_NAME}
+                        if ! docker exec \${TOMCAT_CONTAINER} ls -la /usr/local/tomcat/conf/Catalina/localhost/\${XML_NAME}; then
+                            echo "ERROR: XML file verification failed - file not found in Tomcat conf directory!"
+                            exit 1
+                        fi
+                        echo "✓ XML file copy verified successfully"
 
                         echo "Waiting for deployment..."
                         sleep 15
@@ -176,6 +185,11 @@ pipeline {
         }
         
         stage('Smoke Test') {
+            when {
+                not {
+                    equals expected: true, actual: params.SKIP_UI_TESTS
+                }
+            }
             steps {
                 echo 'Running automated tests from horizon-automation Git repository...'
                 script {
