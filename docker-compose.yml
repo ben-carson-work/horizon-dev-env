@@ -24,7 +24,7 @@ services:
     image: tomcat:9.0-jdk8-temurin
     container_name: snapp-tomcat
     environment:
-      CATALINA_OPTS: "-Xms4g -Xmx6g -Xloggc:gc.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC"
+      CATALINA_OPTS: "-Xms4g -Xmx8g -Xloggc:gc.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC"
       DBPASSWORD: "P@ssw0rd"
     ports:
       - "8080:8080"
