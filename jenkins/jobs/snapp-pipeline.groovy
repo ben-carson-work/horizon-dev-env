@@ -1,3 +1,10 @@
+// filepath: ./jenkins/jobs/snapp-pipeline.groovy
+// AI Metadata: This file defines the primary CI/CD pipeline for the SnApp project.
+// - Purpose: Automates build, test, deployment, and smoke testing for SnApp using Jenkins.
+// - Dependencies: Requires configuration files in the deploy-artifacts folder and supporting scripts in the project root.
+// - Integration: Used by Jenkins Job DSL seed job to create/update the pipeline job.
+// - Maintainers: DevOps team, see AI_GUIDELINES.md for update instructions.
+
 // SnApp Pipeline Job DSL Script
 // This creates the Jenkins pipeline job automatically
 
