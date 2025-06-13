@@ -13,7 +13,8 @@ SA_PASSWORD="${3:-P@ssw0rd}"
 BACKUP_DIR="/var/opt/mssql/backup"
 
 # Validation
-if [ -z "$1" ]; then
+if [ -z "$BACKUP_FILE" ]; then
+    echo "Error: Backup file is not specified or default value is invalid."
     echo "Usage: $0 <backup-file> [container-name] [sa-password]"
     echo "Example: $0 deploy-artifacts/B2B-baseline.bak snapp-mssql P@ssw0rd"
     exit 1
