@@ -21,6 +21,10 @@ docker-compose up -d
 - **Credentials**: `admin` / `admin123`
 - **Blue Ocean**: http://localhost:8081/blue (modern UI)
 
+> **Before running the pipeline jobs:**
+> - Ensure you have a `B2B-baseline.bak` (or other `.bak` database backup file) in the `deploy-artifacts/` folder.
+> - Ensure you have a `SNP-WIP.war` file in the `deploy-artifacts/` folder.
+
 ### 3. Pipeline Jobs Setup
 
 The `SnApp-Local-Pipeline` job is automatically created when Jenkins starts. This is achieved through Jenkins Configuration as Code (JCasC) and Job DSL.
