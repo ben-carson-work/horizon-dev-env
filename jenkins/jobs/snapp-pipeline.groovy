@@ -63,7 +63,7 @@ pipeline {
                         # Check if restore script exists
                         if [ -f "restore-backup-db.sh" ]; then
                             # Convert Windows line endings to Unix line endings
-                            sed -i 's/\r$//' restore-backup-db.sh
+                            tr -d '\\r' < restore-backup-db.sh > restore-backup-db.sh.tmp && mv restore-backup-db.sh.tmp restore-backup-db.sh
                             chmod +x restore-backup-db.sh
                             
                             echo "Running database restoration..."
