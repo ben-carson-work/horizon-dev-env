@@ -1,3 +1,9 @@
+<!-- AI Metadata: This file documents the Jenkins configuration, usage, and integration for the SnApp project.
+- Purpose: Provides setup, usage, and troubleshooting instructions for Jenkins in this environment.
+- Dependencies: Relies on files in jenkins/jobs/, jenkins/ssh/, and project root scripts.
+- Integration: Used by developers and CI/CD agents to configure and operate Jenkins pipelines and jobs.
+- Maintainers: DevOps team, see AI_GUIDELINES.md for update instructions. -->
+
 # Jenkins CI/CD for SnApp Project
 
 This directory contains the Jenkins configuration for automated deployment of the SnApp Java application to your local Tomcat container.
@@ -14,6 +20,10 @@ docker-compose up -d
 - **URL**: http://localhost:8081
 - **Credentials**: `admin` / `admin123`
 - **Blue Ocean**: http://localhost:8081/blue (modern UI)
+
+> **Before running the pipeline jobs:**
+> - Ensure you have a `B2B-baseline.bak` (or other `.bak` database backup file) in the `deploy-artifacts/` folder.
+> - Ensure you have a `SNP-WIP.war` file in the `deploy-artifacts/` folder.
 
 ### 3. Pipeline Jobs Setup
 

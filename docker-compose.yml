@@ -11,9 +11,6 @@ services:
       MSSQL_PID: "Developer"
     volumes:
       - sqlvol:/var/opt/mssql
-      - ./sql-scripts/init-database.sql:/docker-entrypoint-initdb.d/init-database.sql:ro
-      - ./sql-scripts/entrypoint.sh:/usr/local/bin/entrypoint.sh:ro
-    entrypoint: ["/usr/local/bin/entrypoint.sh"]
     networks:
       - vgsdemonet
     restart: unless-stopped
@@ -24,7 +21,7 @@ services:
     image: tomcat:9.0-jdk8-temurin
     container_name: snapp-tomcat
     environment:
-      CATALINA_OPTS: "-Xms4g -Xmx6g -Xloggc:gc.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC"
+      CATALINA_OPTS: "-Xms4g -Xmx8g -Xloggc:gc.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC"
       DBPASSWORD: "P@ssw0rd"
     ports:
       - "8080:8080"
