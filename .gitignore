@@ -143,6 +143,8 @@ Temporary Items
 # Jenkins - Keep job definitions but ignore runtime data
 jenkins/jobs/*/builds/
 jenkins/jobs/*/workspace/
+jenkins/jobs/*/workspace@*/
+jenkins/jobs/*/workspace@tmp/
 jenkins/jobs/*/nextBuildNumber
 jenkins/jobs/*/lastStable
 jenkins/jobs/*/lastSuccessful
@@ -151,11 +153,20 @@ jenkins/jobs/*/lastUnstable
 jenkins/jobs/*/modules/
 jenkins/jobs/*/*.xml
 jenkins/jobs/*/promotions/
+jenkins/jobs/*/config.xml
 
 # Jenkins - Ignore backup files and temporary data
 jenkins/jobs/**/*.bak
 jenkins/jobs/**/*.tmp
 jenkins/jobs/**/*.log
+
+# Jenkins - Ignore all workspace variations and temporary directories
+jenkins/jobs/**/workspace/
+jenkins/jobs/**/workspace@*/
+jenkins/jobs/**/workspace@tmp/
+jenkins/jobs/**/*@tmp/
+jenkins/jobs/**/*@tmp*/
+jenkins/jobs/**/durable-*/
 
 # Jenkins - Keep .groovy job definitions (these should be committed)
 !jenkins/jobs/*.groovy
