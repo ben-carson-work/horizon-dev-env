@@ -47,6 +47,31 @@ pipeline {
     }
     
     stages {
+        stage('Fix Line Endings') {
+            steps {
+                echo 'Converting Windows line endings to Unix for all bash scripts...'
+                script {
+                    sh """
+                        echo "=== Cross-Platform Line Ending Fix ==="
+                        cd \${WORKSPACE}
+                        
+                        # Find all .sh files and convert CRLF to LF
+                        echo "Finding all bash script files..."
+                        find . -name "*.sh" -type f | while read -r script_file; do
+                            echo "Processing: \\\$script_file"
+                            # Use tr to remove carriage returns, avoiding regex escaping issues
+                            tr -d '\\r' < "\\\$script_file" > "\\\$script_file.tmp" && mv "\\\$script_file.tmp" "\\\$script_file"
+                            chmod +x "\\\$script_file"
+                            echo "✓ Fixed line endings and made executable: \\\$script_file"
+                        done
+                        
+                        echo "=== Line Ending Conversion Complete ==="
+                        echo "All bash scripts now have Unix line endings and are executable"
+                    """
+                }
+            }
+        }
+        
         stage('Database Setup') {
             when {
                 not {
@@ -62,10 +87,6 @@ pipeline {
                         
                         # Check if restore script exists
                         if [ -f "restore-backup-db.sh" ]; then
-                            # Convert Windows line endings to Unix line endings
-                            tr -d '\\r' < restore-backup-db.sh > restore-backup-db.sh.tmp && mv restore-backup-db.sh.tmp restore-backup-db.sh
-                            chmod +x restore-backup-db.sh
-                            
                             echo "Running database restoration..."
                             echo "- Backup file: \${BACKUP_FILE}"
                             echo "- Container: \${SQL_CONTAINER}"
