@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  tomcat-app:
+    image: tomcat:9.0-jdk8-temurin
+    container_name: tomcat-app-linode
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./app-deploy/SNP-WIP.war:/usr/local/tomcat/webapps/SNP-WIP.war
+      - ./app-deploy/SNP-WIP.xml:/usr/local/tomcat/conf/Catalina/localhost/SNP-WIP.xml
+    mem_limit: 4g
+    mem_reservation: 2g
+    restart: unless-stopped
+    networks:
+      - snapp-network # Connect to the custom network
+
+networks:
+  snapp-network:
+    driver: bridge
+    # If docker-compose.mssql.yml defines and creates this network,
+    # you can mark it as external here to use the existing one:
+    # external: true
+    # However, for simplicity if this compose file is run first or independently
+    # for app deployment, defining it here ensures it exists.
+    # If both yml files define it, the second one to run will use the existing one.

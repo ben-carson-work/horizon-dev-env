@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  mssql-server:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql-server-linode
+    environment:
+      ACCEPT_EULA: 'Y'
+      SA_PASSWORD: 'YourStrongPassword123!' # IMPORTANT: Change this to a strong password!
+      # MSSQL_PID: 'Developer' # Uncomment and set to 'Express', 'Standard', or 'Enterprise' if needed. Developer is free.
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./mssql-data:/var/opt/mssql
+      - ./mssql-backup:/var/opt/mssql/backup
+    restart: unless-stopped
+    networks:
+      - snapp-network # Connect to the custom network
+
+networks:
+  snapp-network:
+    driver: bridge
+    # If this network is created by docker-compose.app.yml first,
+    # this definition will attach to the existing one.
+    # If this compose file is run first, it will create the network.
